@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-function RegistrationView(props){
+function RegistrationView(){
     const [username, setUsername] = useState('');
     const [password, setPassword] =useState('');
     const [email, setEmail] = useState('');
@@ -9,11 +9,9 @@ function RegistrationView(props){
 
     const handleSubmit=(e)=>{
         e.preventDefault();
-        console.log(username, password);
-        /* Send a request to the server for authentication */
-        /* then call props.onLoggedIn(username) */
-        props.OnLoggedIn(username);
+        console.log(username, password, email, birthday);
     }
+
     return(
         <form>
             <label>
@@ -37,9 +35,5 @@ function RegistrationView(props){
     );
 
 }
-
-// LoginView.propTypes = {
-//     onLoggedIn: PropTypes.func.isRequired
-//   };
 
 export default RegistrationView
