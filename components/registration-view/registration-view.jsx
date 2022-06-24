@@ -1,15 +1,18 @@
 import React, { useState } from 'react';
 
-function LoginView(props){
+function RegistrationView(props){
     const [username, setUsername] = useState('');
     const [password, setPassword] =useState('');
+    const [email, setEmail] = useState('');
+    const [birthday, setBirthday] = useState('');
+
 
     const handleSubmit=(e)=>{
         e.preventDefault();
         console.log(username, password);
         /* Send a request to the server for authentication */
         /* then call props.onLoggedIn(username) */
-        props.onLoggedIn(username);
+        props.OnLoggedIn(username);
     }
     return(
         <form>
@@ -21,8 +24,15 @@ function LoginView(props){
                 Password:
                 <input type="password" value={password} onChange={e=>setPassword(e.target.value)} />
             </label><br></br>
-            <button type='submit' onClick={handleSubmit} >Submit</button><br></br>
-            <button type='button'>Click here to register</button>
+            <label>
+                Email:
+                <input type="email" value={email} onChange={e=>setEmail(e.target.value)} />
+            </label><br></br>
+            <label>
+                Birthday:
+                <input type="date" value={birthday} onChange={e=>setBirthday(e.target.value)} />
+            </label><br></br>
+            <button type='submit' onClick={handleSubmit} >Submit</button>
         </form>
     );
 
@@ -32,4 +42,4 @@ function LoginView(props){
 //     onLoggedIn: PropTypes.func.isRequired
 //   };
 
-export default LoginView
+export default RegistrationView

@@ -3,6 +3,7 @@ import axios from 'axios';
 import MovieCard from '../movie-card/movie-card';
 import MovieView from '../movie-view/movie-view';
 import LoginView from '../login-view/login-view';
+import RegistrationView from '../registration-view/registration-view';
 
 
  
@@ -13,7 +14,7 @@ class MainView extends React.Component {
     this.state = {
       movies: [],
       seletedMovie:null,
-      user:null
+      user:null 
     }
   }
 
@@ -30,6 +31,7 @@ class MainView extends React.Component {
     this.setState({user})
   }
 
+  
   render() {
   const { movies, selectedMovie, user } = this.state;
   if (!user) return < LoginView onLoggedIn={user => this.onLoggedIn(user)}/> 
