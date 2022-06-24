@@ -25543,7 +25543,7 @@ MovieCard.propTypes = {
             Name: _propTypesDefault.default.string.isRequired,
             Bio: _propTypesDefault.default.string.isRequired,
             Birth: _propTypesDefault.default.string.isRequired,
-            Death: propTypes.string
+            Death: _propTypesDefault.default.string
         }),
         ImageURL: _propTypesDefault.default.string.isRequired,
         Featured: _propTypesDefault.default.bool
@@ -26421,7 +26421,7 @@ class MovieView extends _reactDefault.default.Component {
         }));
     }
 }
-MovieCard.propTypes = {
+MovieView.propTypes = {
     movie: _propTypesDefault.default.shape({
         Title: _propTypesDefault.default.string.isRequired,
         Description: _propTypesDefault.default.string.isRequired,
@@ -26433,7 +26433,7 @@ MovieCard.propTypes = {
             Name: _propTypesDefault.default.string.isRequired,
             Bio: _propTypesDefault.default.string.isRequired,
             Birth: _propTypesDefault.default.string.isRequired,
-            Death: propTypes.string
+            Death: _propTypesDefault.default.string
         }),
         ImageURL: _propTypesDefault.default.string.isRequired,
         Featured: _propTypesDefault.default.bool

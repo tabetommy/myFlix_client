@@ -24,12 +24,12 @@ MovieCard.propTypes = {
 		Name:PropTypes.string.isRequired,
 		Bio:PropTypes.string.isRequired,
 		Birth:PropTypes.string.isRequired,
-		Death:propTypes.string
+		Death:PropTypes.string
 	  }),
 	  ImageURL: PropTypes.string.isRequired,
 	  Featured: PropTypes.bool
 	}).isRequired,
 	onMovieClick: PropTypes.func.isRequired
   };
-  
+
 export default MovieCard;
