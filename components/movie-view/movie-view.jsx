@@ -39,7 +39,7 @@ MovieView.propTypes = {
 		Birth:PropTypes.string.isRequired,
 		Death:PropTypes.string
 	  }),
-	  ImageURL: PropTypes.string.isRequired,
+	  ImageURL: PropTypes.string,
 	  Featured: PropTypes.bool
 	}).isRequired,
 	onBackClick: PropTypes.func.isRequired
