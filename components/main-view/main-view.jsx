@@ -39,7 +39,7 @@ class MainView extends React.Component {
   const { movies, selectedMovie, user } = this.state;
   if (!user) return <Row className="main-view justify-content-md-center">
             <Col md={8}>
-                < LoginView onLoggedIn={user => this.onLoggedIn(user)}/>
+                <LoginView onLoggedIn={user => this.onLoggedIn(user)}/>
             </Col>
       </Row> 
    
