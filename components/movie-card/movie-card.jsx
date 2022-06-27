@@ -1,16 +1,18 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-// import Button from 'react-bootstrap/Button';
-// import Card from 'react-bootstrap/Card';
+import ListGroup from 'react-bootstrap/ListGroup';
+
 
 class MovieCard extends React.Component {
 
 	render() {
 		const { movie, onMovieClick } = this.props;
 		return (
-			<div className="movie-card" onClick={() => { onMovieClick(movie); }}>
+			<ListGroup>
+				<ListGroup.Item className="movie-card" onClick={() => { onMovieClick(movie); }}>
 				{movie.Title}
-			</div>
+				</ListGroup.Item>
+			</ListGroup>			
 		)
 	}
 }
