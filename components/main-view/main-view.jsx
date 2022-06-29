@@ -2,6 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
+import { BrowserRouter as Router, Route } from "react-router-dom";
 import MovieCard from '../movie-card/movie-card';
 import MovieView from '../movie-view/movie-view';
 import LoginView from '../login-view/login-view';
@@ -16,7 +17,6 @@ class MainView extends React.Component {
     super();
     this.state = {
       movies: [],
-      seletedMovie:null,
       user:null 
     }
   }
@@ -36,30 +36,33 @@ class MainView extends React.Component {
 
   
   render() {
-  const { movies, selectedMovie, user } = this.state;
+  const { movies, user } = this.state;
+  console.log(movies)
   if (!user) return <Row className="main-view justify-content-md-center">
             <Col md={8}>
                 <LoginView onLoggedIn={user => this.onLoggedIn(user)}/>
             </Col>
       </Row> 
-   
-  if (selectedMovie) return <Row className="justify-content-md-center">
-        <Col md={8}>
-            <MovieView movie={selectedMovie} 
-            onBackClick={newSelectedMovie => { this.setSelectedMovie(newSelectedMovie); }} />
-        </Col>
-    </Row> 
-
   if (movies.length === 0) return <div className="main-view" />;
 
   return (
-    <Row className="main-view justify-content-md-center">
-        <Col md={8}>
-            {movies.map(movie => <MovieCard key={movie._id} movie={movie} 
-                onMovieClick={(movie) => { this.setSelectedMovie(movie) }} />)}
-        </Col>
-    </Row> 
-  );
+    <Router>
+        <Row className="main-view justify-content-md-center">
+          <Route exact path="/" render={() => {
+            return movies.map(m => (
+              <Col sm={4} md={3} key={m._id}>
+                <MovieCard movie={m} />
+              </Col>
+            ))
+          }} />
+          <Route path="/movies/:movieId" render={({ match }) => {
+            return <Col md={8}>
+              <MovieView movie={movies.find(m => m._id === match.params.movieId)} />
+            </Col>
+          }} />
+        </Row>
+      </Router>
+  )
   }
 }
 

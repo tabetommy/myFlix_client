@@ -1,18 +1,19 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import ListGroup from 'react-bootstrap/ListGroup';
+import Card from 'react-bootstrap/Card';
+import './movie-card.scss';
+
 
 
 class MovieCard extends React.Component {
 
 	render() {
-		const { movie, onMovieClick } = this.props;
+		const { movie } = this.props;
 		return (
-			<ListGroup>
-				<ListGroup.Item className="movie-card" onClick={() => { onMovieClick(movie); }}>
-				{movie.Title}
-				</ListGroup.Item>
-			</ListGroup>			
+			<Card className="movie-card">
+				<Card.Img className="movie-poster img-fluid" src={movie.ImagePath} />
+				<Card.Title>{movie.Title}</Card.Title>
+			</Card>
 		)
 	}
 }
@@ -33,7 +34,6 @@ MovieCard.propTypes = {
 		ImageURL: PropTypes.string,
 		Featured: PropTypes.bool
 	}).isRequired,
-	onMovieClick: PropTypes.func.isRequired
 };
 
 export default MovieCard;

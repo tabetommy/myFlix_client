@@ -27,7 +27,7 @@ function LoginView(props){
                 <Form.Control type="password" vaue={password} onChange={e=>setPassword(e.target.value)} />
             </Form.Group>
             <Button variant="primary" type='submit' onClick={handleSubmit}>Submit</Button><br></br>
-            <Button variant="danger" type='button'>Click here to register</Button>
+            <Button  type='button' className='btn'>Click here to register</Button>
         </Form>
     );
 
