@@ -2,6 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Card from 'react-bootstrap/Card';
 import './movie-card.scss';
+import Button from 'react-bootstrap/Button';
+import { Link } from "react-router-dom";
 
 
 
@@ -12,7 +14,12 @@ class MovieCard extends React.Component {
 		return (
 			<Card className="movie-card">
 				<Card.Img className="movie-poster img-fluid" src={movie.ImagePath} />
-				<Card.Title>{movie.Title}</Card.Title>
+				<Card.Body>
+					<Card.Title>{movie.Title}</Card.Title>
+					<Link to={`/movies/${movie._id}`}>
+						<Button variant="link">Open</Button>
+					</Link>
+				</Card.Body>
 			</Card>
 		)
 	}
