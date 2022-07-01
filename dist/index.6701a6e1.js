@@ -25429,6 +25429,11 @@ var _loginView = require("../login-view/login-view");
 var _loginViewDefault = parcelHelpers.interopDefault(_loginView);
 var _registrationView = require("../registration-view/registration-view");
 var _registrationViewDefault = parcelHelpers.interopDefault(_registrationView);
+var _directorView = require("../director-view/director-view");
+var _directorViewDefault = parcelHelpers.interopDefault(_directorView);
+var _genreView = require("../genre-view/genre-view");
+var _genreViewDefault = parcelHelpers.interopDefault(_genreView);
+// 629dded9e5a3e962554aab5b genre={movies.find(m => m.Genre.Name === match.params.name).Genre}
 class MainView extends _reactDefault.default.Component {
     constructor(){
         super();
@@ -25461,14 +25466,14 @@ class MainView extends _reactDefault.default.Component {
             className: "main-view justify-content-md-center",
             __source: {
                 fileName: "components/main-view/main-view.jsx",
-                lineNumber: 41
+                lineNumber: 44
             },
             __self: this,
             children: /*#__PURE__*/ _jsxRuntime.jsx(_colDefault.default, {
                 md: 8,
                 __source: {
                     fileName: "components/main-view/main-view.jsx",
-                    lineNumber: 42
+                    lineNumber: 45
                 },
                 __self: this,
                 children: /*#__PURE__*/ _jsxRuntime.jsx(_loginViewDefault.default, {
@@ -25476,7 +25481,7 @@ class MainView extends _reactDefault.default.Component {
                     ,
                     __source: {
                         fileName: "components/main-view/main-view.jsx",
-                        lineNumber: 43
+                        lineNumber: 46
                     },
                     __self: this
                 })
@@ -25486,21 +25491,21 @@ class MainView extends _reactDefault.default.Component {
             className: "main-view",
             __source: {
                 fileName: "components/main-view/main-view.jsx",
-                lineNumber: 46
+                lineNumber: 49
             },
             __self: this
         }));
         return(/*#__PURE__*/ _jsxRuntime.jsx(_reactRouterDom.BrowserRouter, {
             __source: {
                 fileName: "components/main-view/main-view.jsx",
-                lineNumber: 49
+                lineNumber: 53
             },
             __self: this,
             children: /*#__PURE__*/ _jsxRuntime.jsxs(_rowDefault.default, {
                 className: "main-view justify-content-md-center",
                 __source: {
                     fileName: "components/main-view/main-view.jsx",
-                    lineNumber: 50
+                    lineNumber: 54
                 },
                 __self: this,
                 children: [
@@ -25519,7 +25524,7 @@ class MainView extends _reactDefault.default.Component {
                         },
                         __source: {
                             fileName: "components/main-view/main-view.jsx",
-                            lineNumber: 51
+                            lineNumber: 55
                         },
                         __self: this
                     }),
@@ -25536,7 +25541,47 @@ class MainView extends _reactDefault.default.Component {
                         },
                         __source: {
                             fileName: "components/main-view/main-view.jsx",
-                            lineNumber: 58
+                            lineNumber: 62
+                        },
+                        __self: this
+                    }),
+                    /*#__PURE__*/ _jsxRuntime.jsx(_reactRouterDom.Route, {
+                        path: "/director/:name",
+                        render: ({ match  })=>{
+                            if (movies.length === 0) return(/*#__PURE__*/ _jsxRuntime.jsx("div", {
+                                className: "main-view"
+                            }));
+                            return(/*#__PURE__*/ _jsxRuntime.jsx(_colDefault.default, {
+                                md: 8,
+                                children: /*#__PURE__*/ _jsxRuntime.jsx(_directorViewDefault.default, {
+                                    director: movies.find((m)=>m.Director.Name === match.params.name
+                                    ).Director
+                                })
+                            }));
+                        },
+                        __source: {
+                            fileName: "components/main-view/main-view.jsx",
+                            lineNumber: 67
+                        },
+                        __self: this
+                    }),
+                    /*#__PURE__*/ _jsxRuntime.jsx(_reactRouterDom.Route, {
+                        path: "/genre/:name",
+                        render: ({ match  })=>{
+                            if (movies.length === 0) return(/*#__PURE__*/ _jsxRuntime.jsx("div", {
+                                className: "main-view"
+                            }));
+                            return(/*#__PURE__*/ _jsxRuntime.jsx(_colDefault.default, {
+                                md: 8,
+                                children: /*#__PURE__*/ _jsxRuntime.jsx(_genreViewDefault.default, {
+                                    genre: movies.find((m)=>m.Genre.Name === match.params.name
+                                    ).Genre
+                                })
+                            }));
+                        },
+                        __source: {
+                            fileName: "components/main-view/main-view.jsx",
+                            lineNumber: 73
                         },
                         __self: this
                     })
@@ -25552,7 +25597,7 @@ exports.default = MainView;
   window.$RefreshReg$ = prevRefreshReg;
   window.$RefreshSig$ = prevRefreshSig;
 }
-},{"react/jsx-runtime":"8xIwr","react":"6TuXu","../movie-card/movie-card":"3CKIB","../movie-view/movie-view":"gEkDH","@parcel/transformer-js/src/esmodule-helpers.js":"hyqYD","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"kdVec","axios":"iYoWk","../login-view/login-view":"gyKYS","../registration-view/registration-view":"lqWox","react-bootstrap/Row":"c0x1x","react-bootstrap/Col":"fbam0","react-router-dom":"cpyQW"}],"3CKIB":[function(require,module,exports) {
+},{"react/jsx-runtime":"8xIwr","react":"6TuXu","../movie-card/movie-card":"3CKIB","../movie-view/movie-view":"gEkDH","@parcel/transformer-js/src/esmodule-helpers.js":"hyqYD","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"kdVec","axios":"iYoWk","../login-view/login-view":"gyKYS","../registration-view/registration-view":"lqWox","react-bootstrap/Row":"c0x1x","react-bootstrap/Col":"fbam0","react-router-dom":"cpyQW","../director-view/director-view":"1rJhh","../genre-view/genre-view":"7fRD1"}],"3CKIB":[function(require,module,exports) {
 var $parcel$ReactRefreshHelpers$76dd = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
 var prevRefreshReg = window.$RefreshReg$;
 var prevRefreshSig = window.$RefreshSig$;
@@ -33358,7 +33403,142 @@ function hoistNonReactStatics(targetComponent, sourceComponent, blacklist) {
 }
 module.exports = hoistNonReactStatics;
 
-},{"react-is":"5wFcP"}],"2PRIq":[function(require,module,exports) {
+},{"react-is":"5wFcP"}],"1rJhh":[function(require,module,exports) {
+var $parcel$ReactRefreshHelpers$8e78 = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
+var prevRefreshReg = window.$RefreshReg$;
+var prevRefreshSig = window.$RefreshSig$;
+$parcel$ReactRefreshHelpers$8e78.prelude(module);
+
+try {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+var _jsxRuntime = require("react/jsx-runtime");
+var _react = require("react");
+var _reactDefault = parcelHelpers.interopDefault(_react);
+var _propTypes = require("prop-types");
+var _propTypesDefault = parcelHelpers.interopDefault(_propTypes);
+class DirectorView extends _reactDefault.default.Component {
+    render() {
+        const { director  } = this.props;
+        return(/*#__PURE__*/ _jsxRuntime.jsxs("div", {
+            __source: {
+                fileName: "components/director-view/director-view.jsx",
+                lineNumber: 8
+            },
+            __self: this,
+            children: [
+                /*#__PURE__*/ _jsxRuntime.jsx("h1", {
+                    __source: {
+                        fileName: "components/director-view/director-view.jsx",
+                        lineNumber: 9
+                    },
+                    __self: this,
+                    children: director.Name
+                }),
+                /*#__PURE__*/ _jsxRuntime.jsxs("p", {
+                    __source: {
+                        fileName: "components/director-view/director-view.jsx",
+                        lineNumber: 10
+                    },
+                    __self: this,
+                    children: [
+                        "Born in ",
+                        director.Birth
+                    ]
+                }),
+                /*#__PURE__*/ _jsxRuntime.jsx("h3", {
+                    __source: {
+                        fileName: "components/director-view/director-view.jsx",
+                        lineNumber: 11
+                    },
+                    __self: this,
+                    children: "Biography"
+                }),
+                /*#__PURE__*/ _jsxRuntime.jsx("p", {
+                    __source: {
+                        fileName: "components/director-view/director-view.jsx",
+                        lineNumber: 12
+                    },
+                    __self: this,
+                    children: director.Bio
+                })
+            ]
+        }));
+    }
+}
+DirectorView.propTypes = {
+    director: _propTypesDefault.default.shape({
+        Name: _propTypesDefault.default.string.isRequired,
+        Bio: _propTypesDefault.default.string.isRequired,
+        Birth: _propTypesDefault.default.string.isRequired,
+        Death: _propTypesDefault.default.string
+    }).isRequired
+};
+exports.default = DirectorView;
+
+  $parcel$ReactRefreshHelpers$8e78.postlude(module);
+} finally {
+  window.$RefreshReg$ = prevRefreshReg;
+  window.$RefreshSig$ = prevRefreshSig;
+}
+},{"react/jsx-runtime":"8xIwr","react":"6TuXu","@parcel/transformer-js/src/esmodule-helpers.js":"hyqYD","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"kdVec","prop-types":"1tgq3"}],"7fRD1":[function(require,module,exports) {
+var $parcel$ReactRefreshHelpers$bcae = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
+var prevRefreshReg = window.$RefreshReg$;
+var prevRefreshSig = window.$RefreshSig$;
+$parcel$ReactRefreshHelpers$bcae.prelude(module);
+
+try {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+var _jsxRuntime = require("react/jsx-runtime");
+var _react = require("react");
+var _reactDefault = parcelHelpers.interopDefault(_react);
+var _propTypes = require("prop-types");
+var _propTypesDefault = parcelHelpers.interopDefault(_propTypes);
+class GenreView extends _reactDefault.default.Component {
+    render() {
+        const { genre  } = this.props;
+        return(/*#__PURE__*/ _jsxRuntime.jsxs("div", {
+            __source: {
+                fileName: "components/genre-view/genre-view.jsx",
+                lineNumber: 8
+            },
+            __self: this,
+            children: [
+                /*#__PURE__*/ _jsxRuntime.jsx("h1", {
+                    __source: {
+                        fileName: "components/genre-view/genre-view.jsx",
+                        lineNumber: 9
+                    },
+                    __self: this,
+                    children: genre.Name
+                }),
+                /*#__PURE__*/ _jsxRuntime.jsx("p", {
+                    __source: {
+                        fileName: "components/genre-view/genre-view.jsx",
+                        lineNumber: 10
+                    },
+                    __self: this,
+                    children: genre.Description
+                })
+            ]
+        }));
+    }
+}
+GenreView.propTypes = {
+    genre: _propTypesDefault.default.shape({
+        Name: _propTypesDefault.default.string.isRequired,
+        Description: _propTypesDefault.default.string.isRequired
+    }).isRequired
+};
+exports.default = GenreView;
+
+  $parcel$ReactRefreshHelpers$bcae.postlude(module);
+} finally {
+  window.$RefreshReg$ = prevRefreshReg;
+  window.$RefreshSig$ = prevRefreshSig;
+}
+},{"react/jsx-runtime":"8xIwr","react":"6TuXu","@parcel/transformer-js/src/esmodule-helpers.js":"hyqYD","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"kdVec","prop-types":"1tgq3"}],"2PRIq":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 var _classnames = require("classnames");
