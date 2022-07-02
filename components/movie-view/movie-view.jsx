@@ -15,7 +15,7 @@ class MovieView extends React.Component{
 					<Card.Title>{movie.Title}</Card.Title>
 					<Card.Text>{movie.Description}</Card.Text>
 				</Card.Body>  
-		        <Button variant="primary" onClick={() => { onBackClick(null); }}>Back</Button>
+		        <Button variant="primary" onClick={() => onBackClick() }>Back</Button>
 				<Link to={`/director/${movie.Director.Name}`}>
 					<Button variant="primary">Director</Button>
 				</Link>
