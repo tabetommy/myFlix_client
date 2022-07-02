@@ -9,6 +9,7 @@ import LoginView from '../login-view/login-view';
 import RegistrationView from '../registration-view/registration-view';
 import DirectorView from '../director-view/director-view';
 import GenreView from '../genre-view/genre-view';
+import Button from 'react-bootstrap/Button';
 // 629dded9e5a3e962554aab5b genre={movies.find(m => m.Genre.Name === match.params.name).Genre}
 
 
@@ -25,22 +26,46 @@ class MainView extends React.Component {
   }
 
   componentDidMount(){
-    axios.get('https://cataflix.herokuapp.com/movies')
-    .then(resp=>this.setState({movies:resp.data}))
-    .catch(err=>console.log(err))
+    let accessToken=  localStorage.getItem('token');
+    if (accessToken !==null){
+      this.setState({user:localStorage.getItem('user')})
+    }
+    this.getMovies(accessToken)
   }
   setSelectedMovie(newSelectedmovie){
     this.setState({selectedMovie:newSelectedmovie})
   }
 
-  onLoggedIn(user){
-    this.setState({user})
+  getMovies(token){
+    axios.get('https://cataflix.herokuapp.com/movies',{
+      headers:{Authorization: `Bearer ${token}`}
+    })
+    .then(resp=>{
+      this.setState({movies:resp.data})
+    })
+    .catch(err=>console.log(err))
+  }
+
+  onLoggedIn(authData){
+    console.log(authData);
+    this.setState({user:authData.user.Username});
+    localStorage.setItem('token', authData.token);
+    localStorage.setItem('user', authData.user.Username);
+    this.getMovies(authData.token)
+  }
+
+  onLoggedOut(){
+    localStorage.removeItem('token');
+    localStorage.removeItem('user');
+    this.setState({user:null})
   }
 
   
   render() {
   const { movies, user } = this.state;
   return (
+    <div>
+     <Button onClick={()=>this.onLoggedOut()} >Logout</Button>
      <Router>
         <Row className="main-view justify-content-md-center">
           <Route exact path="/" render={() => {
@@ -58,6 +83,10 @@ class MainView extends React.Component {
             if(user) return <Redirect to="/" />
          return <Col md={8}><RegistrationView /></Col>}} />
           <Route path="/movies/:movieId" render={({ match,history }) => {
+            if (!user) return <Col md={8}>
+                <LoginView onLoggedIn={user => this.onLoggedIn(user)}/>
+            </Col> 
+            if (movies.length === 0) return <div className="main-view" />;
             return <Col md={8}>
               <MovieView 
               movie={movies.find(m => m._id === match.params.movieId)} 
@@ -66,6 +95,9 @@ class MainView extends React.Component {
             </Col>
           }} />
           <Route path="/director/:name" render={({ match,history }) => {
+            if (!user) return <Col md={8}>
+                <LoginView onLoggedIn={user => this.onLoggedIn(user)}/>
+            </Col> 
             if (movies.length === 0) return <div className="main-view" />;
             return <Col md={8}>
               <DirectorView 
@@ -75,6 +107,9 @@ class MainView extends React.Component {
             </Col>
           }} />
           <Route path="/genre/:name" render={({ match,history })=>{
+             if (!user) return <Col md={8}>
+                <LoginView onLoggedIn={user => this.onLoggedIn(user)}/>
+            </Col> 
             if (movies.length === 0) return <div className="main-view" />;
             return <Col md={8}>
               <GenreView genre={movies.find(m=>m.Genre.Name === match.params.name).Genre} 
@@ -83,7 +118,8 @@ class MainView extends React.Component {
             </Col>
           }} />
         </Row>
-      </Router> 
+      </Router>
+    </div> 
   )
   }
 }
