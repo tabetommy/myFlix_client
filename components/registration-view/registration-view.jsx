@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import axios from 'axios';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 
@@ -9,9 +10,20 @@ function RegistrationView(){
     const [birthday, setBirthday] = useState('');
 
 
-    const handleSubmit=(e)=>{
+    const handleRegistration=(e)=>{
         e.preventDefault();
-        console.log(username, password, email, birthday);
+        axios.post('https://cataflix.herokuapp.com/users',{
+            Username: username,
+            Password: password,
+            Email: email,
+            Birthday: birthday
+          })
+          .then(resp=>{
+            const data=resp.data;
+            console.log(data);
+            window.open('/', '_self'); // the second argument '_self' is necessary so that the page will open in the current tab
+          })
+          .catch(e=>console.log("Encountered error during registration"))
     }
 
     return(
@@ -32,7 +44,7 @@ function RegistrationView(){
                 <Form.Label>Birthday:</Form.Label>
                 <Form.Control type="email" vaue={birthday} onChange={e=>setBirthday(e.target.value)} />
             </Form.Group>
-            <Button type='submit' onClick={handleSubmit} >Submit</Button>
+            <Button type='submit' onClick={handleRegistration} >Register</Button>
         </Form>
     );
 

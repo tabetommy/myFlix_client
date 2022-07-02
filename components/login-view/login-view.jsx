@@ -3,6 +3,7 @@ import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import PropTypes from 'prop-types';
 import './login-view.scss';
+import { Link } from "react-router-dom";
 
 
 function LoginView(props){
@@ -27,7 +28,9 @@ function LoginView(props){
                 <Form.Control type="password" vaue={password} onChange={e=>setPassword(e.target.value)} />
             </Form.Group>
             <Button variant="primary" type='submit' onClick={handleSubmit}>Submit</Button><br></br>
-            <Button  type='button' className='btn'>Click here to register</Button>
+            <Link to={`/register`} >
+                <Button  type='button' variant="danger" className='btn'>Register</Button>
+            </Link> 
         </Form>
     );
 

@@ -2,7 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-import { BrowserRouter as Router, Route } from "react-router-dom";
+import { BrowserRouter as Router, Route, Redirect } from "react-router-dom";
 import MovieCard from '../movie-card/movie-card';
 import MovieView from '../movie-view/movie-view';
 import LoginView from '../login-view/login-view';
@@ -40,25 +40,23 @@ class MainView extends React.Component {
   
   render() {
   const { movies, user } = this.state;
-  console.log(movies)
-  if (!user) return <Row className="main-view justify-content-md-center">
-            <Col md={8}>
-                <LoginView onLoggedIn={user => this.onLoggedIn(user)}/>
-            </Col>
-      </Row> 
-  if (movies.length === 0) return <div className="main-view" />;
-
   return (
-    
      <Router>
         <Row className="main-view justify-content-md-center">
           <Route exact path="/" render={() => {
+              if (!user) return <Col md={8}>
+                      <LoginView onLoggedIn={user => this.onLoggedIn(user)}/>
+                  </Col> 
+              if (movies.length === 0) return <div className="main-view" />;
             return movies.map(m => (
               <Col sm={4} md={3} key={m._id}>
                 <MovieCard movie={m} />
               </Col>
             ))
           }} />
+          <Route path="/register" render={()=> {
+            if(user) return <Redirect to="/" />
+         return <Col md={8}><RegistrationView /></Col>}} />
           <Route path="/movies/:movieId" render={({ match,history }) => {
             return <Col md={8}>
               <MovieView 
