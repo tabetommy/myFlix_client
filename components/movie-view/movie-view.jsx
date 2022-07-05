@@ -15,12 +15,12 @@ class MovieView extends React.Component{
 					<Card.Title>{movie.Title}</Card.Title>
 					<Card.Text>{movie.Description}</Card.Text>
 				</Card.Body>  
-		        <Button variant="primary" onClick={() => onBackClick() }>Back</Button>
+		        <Button variant="dark" onClick={() => onBackClick() }>Back</Button>
 				<Link to={`/director/${movie.Director.Name}`}>
 					<Button variant="primary">Director</Button>
 				</Link>
 				<Link to={`/genre/${movie.Genre.Name}`}>
-					<Button variant="link">Genre</Button>
+					<Button variant="dark">Genre</Button>
 				</Link>
 	      	</Card>
 			)

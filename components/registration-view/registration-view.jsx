@@ -42,7 +42,7 @@ function RegistrationView(){
             </Form.Group>
             <Form.Group>
                 <Form.Label>Birthday:</Form.Label>
-                <Form.Control type="email" vaue={birthday} onChange={e=>setBirthday(e.target.value)} />
+                <Form.Control type="date" vaue={birthday} onChange={e=>setBirthday(e.target.value)} />
             </Form.Group>
             <Button type='submit' onClick={handleRegistration} >Register</Button>
         </Form>

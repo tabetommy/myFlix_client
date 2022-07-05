@@ -2,15 +2,18 @@ import React from 'react';
 import axios from 'axios';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-import { BrowserRouter as Router, Route, Redirect } from "react-router-dom";
+import Button from 'react-bootstrap/Button';
+import { BrowserRouter as Router, Route, Redirect,Link } from "react-router-dom";
 import MovieCard from '../movie-card/movie-card';
 import MovieView from '../movie-view/movie-view';
 import LoginView from '../login-view/login-view';
 import RegistrationView from '../registration-view/registration-view';
 import DirectorView from '../director-view/director-view';
 import GenreView from '../genre-view/genre-view';
-import Button from 'react-bootstrap/Button';
-// 629dded9e5a3e962554aab5b genre={movies.find(m => m.Genre.Name === match.params.name).Genre}
+import ProfileView from '../profile-view/profile-view';
+
+
+
 
 
 
@@ -21,7 +24,8 @@ class MainView extends React.Component {
     super();
     this.state = {
       movies: [],
-      user:null 
+      user:null,
+      showButton:true
     }
   }
 
@@ -32,6 +36,7 @@ class MainView extends React.Component {
     }
     this.getMovies(accessToken)
   }
+
   setSelectedMovie(newSelectedmovie){
     this.setState({selectedMovie:newSelectedmovie})
   }
@@ -47,8 +52,10 @@ class MainView extends React.Component {
   }
 
   onLoggedIn(authData){
-    console.log(authData);
-    this.setState({user:authData.user.Username});
+    this.setState({
+      user:authData.user.Username,
+      // showButton: !showbutton
+    });
     localStorage.setItem('token', authData.token);
     localStorage.setItem('user', authData.user.Username);
     this.getMovies(authData.token)
@@ -57,7 +64,12 @@ class MainView extends React.Component {
   onLoggedOut(){
     localStorage.removeItem('token');
     localStorage.removeItem('user');
-    this.setState({user:null})
+    this.setState({
+      user:null,
+      // showButton:!showbutton
+    });
+   
+
   }
 
   
@@ -67,6 +79,9 @@ class MainView extends React.Component {
     <div>
      <Button onClick={()=>this.onLoggedOut()} >Logout</Button>
      <Router>
+        <Link to={`/users/${user}`}>
+            <Button variant='secondary'>{user}</Button>
+        </Link>
         <Row className="main-view justify-content-md-center">
           <Route exact path="/" render={() => {
               if (!user) return <Col md={8}>
@@ -116,6 +131,12 @@ class MainView extends React.Component {
               onBackClick={()=>history.goBack()}
               />
             </Col>
+          }} />
+          <Route path={`/users/${user}`} render={({history})=>{
+            if (!user) return <Redirect to="/" />
+            return <Col md={8}>
+            <ProfileView user={user} onBackClick={()=>history.goBack()}/>
+          </Col>
           }} />
         </Row>
       </Router>
