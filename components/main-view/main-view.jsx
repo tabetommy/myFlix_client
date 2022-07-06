@@ -11,6 +11,7 @@ import RegistrationView from '../registration-view/registration-view';
 import DirectorView from '../director-view/director-view';
 import GenreView from '../genre-view/genre-view';
 import ProfileView from '../profile-view/profile-view';
+import NavBar from '../nav-bar/nav-bar'
 
 
 
@@ -25,7 +26,6 @@ class MainView extends React.Component {
     this.state = {
       movies: [],
       user:null,
-      showButton:true
     }
   }
 
@@ -54,22 +54,10 @@ class MainView extends React.Component {
   onLoggedIn(authData){
     this.setState({
       user:authData.user.Username,
-      // showButton: !showbutton
     });
     localStorage.setItem('token', authData.token);
     localStorage.setItem('user', authData.user.Username);
     this.getMovies(authData.token)
-  }
-
-  onLoggedOut(){
-    localStorage.removeItem('token');
-    localStorage.removeItem('user');
-    this.setState({
-      user:null,
-      // showButton:!showbutton
-    });
-   
-
   }
 
   
@@ -77,11 +65,8 @@ class MainView extends React.Component {
   const { movies, user } = this.state;
   return (
     <div>
-     <Button onClick={()=>this.onLoggedOut()} >Logout</Button>
      <Router>
-        <Link to={`/users/${user}`}>
-            <Button variant='secondary'>{user}</Button>
-        </Link>
+        <NavBar user={user}/>
         <Row className="main-view justify-content-md-center">
           <Route exact path="/" render={() => {
               if (!user) return <Col md={8}>
