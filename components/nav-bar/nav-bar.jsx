@@ -1,8 +1,9 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
 import  {Navbar, Container,Nav, Button} from 'react-bootstrap'
 
-const NavBar=({user})=>{
+const NavBar=(props)=>{
+   const {user}= props
    const onLoggedOut=()=>{
         localStorage.clear();
         window.open('/','_self')
@@ -38,8 +39,8 @@ const NavBar=({user})=>{
 
 }
 
-NavBar.propTypes = {
-	user:PropTypes.string.isRequired
-};
+// NavBar.propTypes = {
+// 	user:PropTypes.string.isRequired
+// };
 
 export default NavBar

@@ -54,15 +54,15 @@ class ProfileView extends Component{
     
     render(){
         const {user, onBackClick}= this.props;
-        const {Email,Username}= this.state.userInfo;
+        const {Email,Username,Birthday}= this.state.userInfo;
         return(
             <div>
                 <h1>Your profile</h1> 
-                <h1>Username:{Username}</h1>
-                <h2>Email:{Email}</h2>
+                <h3>Username:{Username}</h3>
+                <h3>Email:{Email}</h3>
+                <h3>Birthday:{Birthday}</h3>
                 <Button onClick={this.toggleDiv} >Edit user account</Button><br></br>
                 {this.state.showView?<EditView user={user} />:null}
-                {/* <Button onClick={this.handleDelete} >Delete account</Button><br></br> */}
                 <Button variant="primary" onClick={this.handleShowModal}>Delete user account </Button><br></br>
                 <Modal show={this.state.showModal} onHide={this.handleCloseModal}>
                     <Modal.Header closeButton>

@@ -12,6 +12,7 @@ function RegistrationView(){
 
     const handleRegistration=(e)=>{
         e.preventDefault();
+        console.log('userdata:', username, birthday)
         axios.post('https://cataflix.herokuapp.com/users',{
             Username: username,
             Password: password,
@@ -19,9 +20,9 @@ function RegistrationView(){
             Birthday: birthday
           })
           .then(resp=>{
-            const data=resp.data;
+            const data=resp.data
             console.log(data);
-            window.open('/', '_self'); // the second argument '_self' is necessary so that the page will open in the current tab
+            window.open('/', '_self'); 
           })
           .catch(e=>console.log("Encountered error during registration"))
     }

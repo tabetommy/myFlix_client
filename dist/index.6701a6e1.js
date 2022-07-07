@@ -11917,6 +11917,7 @@ function RegistrationView() {
     const [birthday, setBirthday] = _react.useState('');
     const handleRegistration = (e)=>{
         e.preventDefault();
+        console.log('userdata:', username, birthday);
         _axiosDefault.default.post('https://cataflix.herokuapp.com/users', {
             Username: username,
             Password: password,
@@ -11925,28 +11926,28 @@ function RegistrationView() {
         }).then((resp)=>{
             const data = resp.data;
             console.log(data);
-            window.open('/', '_self'); // the second argument '_self' is necessary so that the page will open in the current tab
+            window.open('/', '_self');
         }).catch((e1)=>console.log("Encountered error during registration")
         );
     };
     return(/*#__PURE__*/ _jsxRuntime.jsxs(_formDefault.default, {
         __source: {
             fileName: "components/registration-view/registration-view.jsx",
-            lineNumber: 30
+            lineNumber: 31
         },
         __self: this,
         children: [
             /*#__PURE__*/ _jsxRuntime.jsxs(_formDefault.default.Group, {
                 __source: {
                     fileName: "components/registration-view/registration-view.jsx",
-                    lineNumber: 31
+                    lineNumber: 32
                 },
                 __self: this,
                 children: [
                     /*#__PURE__*/ _jsxRuntime.jsx(_formDefault.default.Label, {
                         __source: {
                             fileName: "components/registration-view/registration-view.jsx",
-                            lineNumber: 32
+                            lineNumber: 33
                         },
                         __self: this,
                         children: "Username:"
@@ -11958,7 +11959,7 @@ function RegistrationView() {
                         ,
                         __source: {
                             fileName: "components/registration-view/registration-view.jsx",
-                            lineNumber: 33
+                            lineNumber: 34
                         },
                         __self: this
                     })
@@ -11967,14 +11968,14 @@ function RegistrationView() {
             /*#__PURE__*/ _jsxRuntime.jsxs(_formDefault.default.Group, {
                 __source: {
                     fileName: "components/registration-view/registration-view.jsx",
-                    lineNumber: 35
+                    lineNumber: 36
                 },
                 __self: this,
                 children: [
                     /*#__PURE__*/ _jsxRuntime.jsx(_formDefault.default.Label, {
                         __source: {
                             fileName: "components/registration-view/registration-view.jsx",
-                            lineNumber: 36
+                            lineNumber: 37
                         },
                         __self: this,
                         children: "Password:"
@@ -11986,7 +11987,7 @@ function RegistrationView() {
                         ,
                         __source: {
                             fileName: "components/registration-view/registration-view.jsx",
-                            lineNumber: 37
+                            lineNumber: 38
                         },
                         __self: this
                     })
@@ -11995,14 +11996,14 @@ function RegistrationView() {
             /*#__PURE__*/ _jsxRuntime.jsxs(_formDefault.default.Group, {
                 __source: {
                     fileName: "components/registration-view/registration-view.jsx",
-                    lineNumber: 39
+                    lineNumber: 40
                 },
                 __self: this,
                 children: [
                     /*#__PURE__*/ _jsxRuntime.jsx(_formDefault.default.Label, {
                         __source: {
                             fileName: "components/registration-view/registration-view.jsx",
-                            lineNumber: 40
+                            lineNumber: 41
                         },
                         __self: this,
                         children: "Email:"
@@ -12014,7 +12015,7 @@ function RegistrationView() {
                         ,
                         __source: {
                             fileName: "components/registration-view/registration-view.jsx",
-                            lineNumber: 41
+                            lineNumber: 42
                         },
                         __self: this
                     })
@@ -12023,14 +12024,14 @@ function RegistrationView() {
             /*#__PURE__*/ _jsxRuntime.jsxs(_formDefault.default.Group, {
                 __source: {
                     fileName: "components/registration-view/registration-view.jsx",
-                    lineNumber: 43
+                    lineNumber: 44
                 },
                 __self: this,
                 children: [
                     /*#__PURE__*/ _jsxRuntime.jsx(_formDefault.default.Label, {
                         __source: {
                             fileName: "components/registration-view/registration-view.jsx",
-                            lineNumber: 44
+                            lineNumber: 45
                         },
                         __self: this,
                         children: "Birthday:"
@@ -12042,7 +12043,7 @@ function RegistrationView() {
                         ,
                         __source: {
                             fileName: "components/registration-view/registration-view.jsx",
-                            lineNumber: 45
+                            lineNumber: 46
                         },
                         __self: this
                     })
@@ -12053,7 +12054,7 @@ function RegistrationView() {
                 onClick: handleRegistration,
                 __source: {
                     fileName: "components/registration-view/registration-view.jsx",
-                    lineNumber: 47
+                    lineNumber: 48
                 },
                 __self: this,
                 children: "Register"
@@ -12341,7 +12342,7 @@ class ProfileView extends _react.Component {
     };
     render() {
         const { user , onBackClick  } = this.props;
-        const { Email , Username  } = this.state.userInfo;
+        const { Email , Username , Birthday  } = this.state.userInfo;
         return(/*#__PURE__*/ _jsxRuntime.jsxs("div", {
             __source: {
                 fileName: "components/profile-view/profile-view.jsx",
@@ -12357,7 +12358,7 @@ class ProfileView extends _react.Component {
                     __self: this,
                     children: "Your profile"
                 }),
-                /*#__PURE__*/ _jsxRuntime.jsxs("h1", {
+                /*#__PURE__*/ _jsxRuntime.jsxs("h3", {
                     __source: {
                         fileName: "components/profile-view/profile-view.jsx",
                         lineNumber: 61
@@ -12368,7 +12369,7 @@ class ProfileView extends _react.Component {
                         Username
                     ]
                 }),
-                /*#__PURE__*/ _jsxRuntime.jsxs("h2", {
+                /*#__PURE__*/ _jsxRuntime.jsxs("h3", {
                     __source: {
                         fileName: "components/profile-view/profile-view.jsx",
                         lineNumber: 62
@@ -12379,11 +12380,22 @@ class ProfileView extends _react.Component {
                         Email
                     ]
                 }),
+                /*#__PURE__*/ _jsxRuntime.jsxs("h3", {
+                    __source: {
+                        fileName: "components/profile-view/profile-view.jsx",
+                        lineNumber: 63
+                    },
+                    __self: this,
+                    children: [
+                        "Birthday:",
+                        Birthday
+                    ]
+                }),
                 /*#__PURE__*/ _jsxRuntime.jsx(_buttonDefault.default, {
                     onClick: this.toggleDiv,
                     __source: {
                         fileName: "components/profile-view/profile-view.jsx",
-                        lineNumber: 63
+                        lineNumber: 64
                     },
                     __self: this,
                     children: "Edit user account"
@@ -12391,7 +12403,7 @@ class ProfileView extends _react.Component {
                 /*#__PURE__*/ _jsxRuntime.jsx("br", {
                     __source: {
                         fileName: "components/profile-view/profile-view.jsx",
-                        lineNumber: 63
+                        lineNumber: 64
                     },
                     __self: this
                 }),
@@ -12399,7 +12411,7 @@ class ProfileView extends _react.Component {
                     user: user,
                     __source: {
                         fileName: "components/profile-view/profile-view.jsx",
-                        lineNumber: 64
+                        lineNumber: 65
                     },
                     __self: this
                 }) : null,
@@ -12526,6 +12538,7 @@ const EditView = (props)=>{
     const [username, setUsername] = _react.useState('');
     const [password, setPassword] = _react.useState('');
     const [email, setEmail] = _react.useState('');
+    const [birthday, setBirthday] = _react.useState('');
     const { user  } = props;
     const handleSubmit = (e)=>{
         e.preventDefault();
@@ -12533,7 +12546,8 @@ const EditView = (props)=>{
         _axiosDefault.default.put(`https://cataflix.herokuapp.com/users/${user}`, {
             Username: username,
             Password: password,
-            Email: email
+            Email: email,
+            Birthday: birthday
         }, {
             headers: {
                 Authorization: `Bearer ${accessToken}`
@@ -12547,21 +12561,21 @@ const EditView = (props)=>{
     return(/*#__PURE__*/ _jsxRuntime.jsxs(_formDefault.default, {
         __source: {
             fileName: "components/edit-user-data/edit-user-data.jsx",
-            lineNumber: 31
+            lineNumber: 33
         },
         __self: undefined,
         children: [
             /*#__PURE__*/ _jsxRuntime.jsxs(_formDefault.default.Group, {
                 __source: {
                     fileName: "components/edit-user-data/edit-user-data.jsx",
-                    lineNumber: 32
+                    lineNumber: 34
                 },
                 __self: undefined,
                 children: [
                     /*#__PURE__*/ _jsxRuntime.jsx(_formDefault.default.Label, {
                         __source: {
                             fileName: "components/edit-user-data/edit-user-data.jsx",
-                            lineNumber: 33
+                            lineNumber: 35
                         },
                         __self: undefined,
                         children: "New Username:"
@@ -12573,7 +12587,7 @@ const EditView = (props)=>{
                         ,
                         __source: {
                             fileName: "components/edit-user-data/edit-user-data.jsx",
-                            lineNumber: 34
+                            lineNumber: 36
                         },
                         __self: undefined
                     })
@@ -12582,14 +12596,14 @@ const EditView = (props)=>{
             /*#__PURE__*/ _jsxRuntime.jsxs(_formDefault.default.Group, {
                 __source: {
                     fileName: "components/edit-user-data/edit-user-data.jsx",
-                    lineNumber: 36
+                    lineNumber: 38
                 },
                 __self: undefined,
                 children: [
                     /*#__PURE__*/ _jsxRuntime.jsx(_formDefault.default.Label, {
                         __source: {
                             fileName: "components/edit-user-data/edit-user-data.jsx",
-                            lineNumber: 37
+                            lineNumber: 39
                         },
                         __self: undefined,
                         children: "New Password:"
@@ -12601,7 +12615,7 @@ const EditView = (props)=>{
                         ,
                         __source: {
                             fileName: "components/edit-user-data/edit-user-data.jsx",
-                            lineNumber: 38
+                            lineNumber: 40
                         },
                         __self: undefined
                     })
@@ -12610,14 +12624,14 @@ const EditView = (props)=>{
             /*#__PURE__*/ _jsxRuntime.jsxs(_formDefault.default.Group, {
                 __source: {
                     fileName: "components/edit-user-data/edit-user-data.jsx",
-                    lineNumber: 40
+                    lineNumber: 42
                 },
                 __self: undefined,
                 children: [
                     /*#__PURE__*/ _jsxRuntime.jsx(_formDefault.default.Label, {
                         __source: {
                             fileName: "components/edit-user-data/edit-user-data.jsx",
-                            lineNumber: 41
+                            lineNumber: 43
                         },
                         __self: undefined,
                         children: "New Email:"
@@ -12629,7 +12643,35 @@ const EditView = (props)=>{
                         ,
                         __source: {
                             fileName: "components/edit-user-data/edit-user-data.jsx",
-                            lineNumber: 42
+                            lineNumber: 44
+                        },
+                        __self: undefined
+                    })
+                ]
+            }),
+            /*#__PURE__*/ _jsxRuntime.jsxs(_formDefault.default.Group, {
+                __source: {
+                    fileName: "components/edit-user-data/edit-user-data.jsx",
+                    lineNumber: 46
+                },
+                __self: undefined,
+                children: [
+                    /*#__PURE__*/ _jsxRuntime.jsx(_formDefault.default.Label, {
+                        __source: {
+                            fileName: "components/edit-user-data/edit-user-data.jsx",
+                            lineNumber: 47
+                        },
+                        __self: undefined,
+                        children: "New Birthday:"
+                    }),
+                    /*#__PURE__*/ _jsxRuntime.jsx(_formDefault.default.Control, {
+                        type: "date",
+                        value: birthday,
+                        onChange: (e)=>setBirthday(e.target.value)
+                        ,
+                        __source: {
+                            fileName: "components/edit-user-data/edit-user-data.jsx",
+                            lineNumber: 48
                         },
                         __self: undefined
                     })
@@ -12641,7 +12683,7 @@ const EditView = (props)=>{
                 variant: "secondary",
                 __source: {
                     fileName: "components/edit-user-data/edit-user-data.jsx",
-                    lineNumber: 44
+                    lineNumber: 50
                 },
                 __self: undefined,
                 children: "Submit"
@@ -12649,7 +12691,7 @@ const EditView = (props)=>{
         ]
     }));
 };
-_s(EditView, "aynwAZdNgcDEmsoEpp+mcQSpBRo=");
+_s(EditView, "tdA1KK8yaZidqYo0wscqshHt/KE=");
 _c = EditView;
 EditView.propTypes = {
     user: _propTypesDefault.default.string.isRequired
@@ -36297,10 +36339,10 @@ parcelHelpers.defineInteropFlag(exports);
 var _jsxRuntime = require("react/jsx-runtime");
 var _react = require("react");
 var _reactDefault = parcelHelpers.interopDefault(_react);
-var _propTypes = require("prop-types");
-var _propTypesDefault = parcelHelpers.interopDefault(_propTypes);
+// import PropTypes from 'prop-types';
 var _reactBootstrap = require("react-bootstrap");
-const NavBar = ({ user  })=>{
+const NavBar = (props)=>{
+    const { user  } = props;
     const onLoggedOut = ()=>{
         localStorage.clear();
         window.open('/', '_self');
@@ -36315,13 +36357,13 @@ const NavBar = ({ user  })=>{
         variant: "dark",
         __source: {
             fileName: "components/nav-bar/nav-bar.jsx",
-            lineNumber: 22
+            lineNumber: 23
         },
         __self: undefined,
         children: /*#__PURE__*/ _jsxRuntime.jsxs(_reactBootstrap.Container, {
             __source: {
                 fileName: "components/nav-bar/nav-bar.jsx",
-                lineNumber: 23
+                lineNumber: 24
             },
             __self: undefined,
             children: [
@@ -36329,7 +36371,7 @@ const NavBar = ({ user  })=>{
                     href: "#home",
                     __source: {
                         fileName: "components/nav-bar/nav-bar.jsx",
-                        lineNumber: 24
+                        lineNumber: 25
                     },
                     __self: undefined,
                     children: "Logo"
@@ -36338,7 +36380,7 @@ const NavBar = ({ user  })=>{
                     "aria-controls": "responsive-navbar-nav",
                     __source: {
                         fileName: "components/nav-bar/nav-bar.jsx",
-                        lineNumber: 25
+                        lineNumber: 26
                     },
                     __self: undefined
                 }),
@@ -36346,14 +36388,14 @@ const NavBar = ({ user  })=>{
                     id: "responsive-navbar-nav",
                     __source: {
                         fileName: "components/nav-bar/nav-bar.jsx",
-                        lineNumber: 26
+                        lineNumber: 27
                     },
                     __self: undefined,
                     children: /*#__PURE__*/ _jsxRuntime.jsxs(_reactBootstrap.Nav, {
                         className: "me-auto",
                         __source: {
                             fileName: "components/nav-bar/nav-bar.jsx",
-                            lineNumber: 27
+                            lineNumber: 28
                         },
                         __self: undefined,
                         children: [
@@ -36361,7 +36403,7 @@ const NavBar = ({ user  })=>{
                                 href: "#home",
                                 __source: {
                                     fileName: "components/nav-bar/nav-bar.jsx",
-                                    lineNumber: 28
+                                    lineNumber: 29
                                 },
                                 __self: undefined,
                                 children: "Home"
@@ -36370,7 +36412,7 @@ const NavBar = ({ user  })=>{
                                 href: `users/${user}`,
                                 __source: {
                                     fileName: "components/nav-bar/nav-bar.jsx",
-                                    lineNumber: 29
+                                    lineNumber: 30
                                 },
                                 __self: undefined,
                                 children: user
@@ -36379,7 +36421,7 @@ const NavBar = ({ user  })=>{
                                 href: "/",
                                 __source: {
                                     fileName: "components/nav-bar/nav-bar.jsx",
-                                    lineNumber: 30
+                                    lineNumber: 31
                                 },
                                 __self: undefined,
                                 children: "signin"
@@ -36388,7 +36430,7 @@ const NavBar = ({ user  })=>{
                                 href: "/register",
                                 __source: {
                                     fileName: "components/nav-bar/nav-bar.jsx",
-                                    lineNumber: 31
+                                    lineNumber: 32
                                 },
                                 __self: undefined,
                                 children: "signup"
@@ -36399,7 +36441,7 @@ const NavBar = ({ user  })=>{
                                 ,
                                 __source: {
                                     fileName: "components/nav-bar/nav-bar.jsx",
-                                    lineNumber: 32
+                                    lineNumber: 33
                                 },
                                 __self: undefined,
                                 children: "Logout"
@@ -36412,9 +36454,6 @@ const NavBar = ({ user  })=>{
     }));
 };
 _c = NavBar;
-NavBar.propTypes = {
-    user: _propTypesDefault.default.string.isRequired
-};
 exports.default = NavBar;
 var _c;
 $RefreshReg$(_c, "NavBar");
@@ -36424,7 +36463,7 @@ $RefreshReg$(_c, "NavBar");
   window.$RefreshReg$ = prevRefreshReg;
   window.$RefreshSig$ = prevRefreshSig;
 }
-},{"react/jsx-runtime":"8xIwr","react":"6TuXu","@parcel/transformer-js/src/esmodule-helpers.js":"hyqYD","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"kdVec","react-bootstrap":"h2YVd","prop-types":"1tgq3"}],"h2YVd":[function(require,module,exports) {
+},{"react/jsx-runtime":"8xIwr","react":"6TuXu","@parcel/transformer-js/src/esmodule-helpers.js":"hyqYD","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"kdVec","react-bootstrap":"h2YVd"}],"h2YVd":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "Accordion", ()=>_accordionDefault.default

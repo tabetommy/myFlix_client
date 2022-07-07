@@ -9,6 +9,7 @@ const EditView=(props)=>{
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [email, setEmail] = useState('');
+    const [birthday, setBirthday] = useState('');
     
     
     const {user}=props
@@ -20,6 +21,7 @@ const EditView=(props)=>{
             Username:username,
             Password:password,
             Email:email,
+            Birthday:birthday
         },{  headers: { Authorization: `Bearer ${accessToken}`}})
         .then(resp=>{
             console.log(resp.data)
@@ -40,6 +42,10 @@ const EditView=(props)=>{
             <Form.Group>
                 <Form.Label>New Email:</Form.Label>
                 <Form.Control type="email" value={email} onChange={e=>setEmail(e.target.value)} />
+            </Form.Group>
+            <Form.Group>
+                <Form.Label>New Birthday:</Form.Label>
+                <Form.Control type="date" value={birthday} onChange={e=>setBirthday(e.target.value)} />
             </Form.Group>
             <Button type='submit' onClick={handleSubmit} variant='secondary' >Submit</Button>
         </Form>
