@@ -62,7 +62,7 @@ class ProfileView extends Component{
                 <h3>Email:{Email}</h3>
                 <h3>Birthday:{Birthday}</h3>
                 <Button onClick={this.toggleDiv} >Edit user account</Button><br></br>
-                {this.state.showView?<EditView user={user} />:null}
+                {this.state.showView?<EditView user={user} />:''}
                 <Button variant="primary" onClick={this.handleShowModal}>Delete user account </Button><br></br>
                 <Modal show={this.state.showModal} onHide={this.handleCloseModal}>
                     <Modal.Header closeButton>
