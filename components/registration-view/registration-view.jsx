@@ -12,7 +12,6 @@ function RegistrationView(){
 
     const handleRegistration=(e)=>{
         e.preventDefault();
-        console.log('userdata:', username, birthday)
         axios.post('https://cataflix.herokuapp.com/users',{
             Username: username,
             Password: password,
