@@ -77,7 +77,7 @@ class ProfileView extends Component{
                     </Button>
                     </Modal.Footer>
                 </Modal>
-                <Button onClick={onBackClick}>Back</Button>
+                <Button onClick={onBackClick}>Back to main view</Button>
             </div>
 
         )
