@@ -25622,17 +25622,10 @@ var _profileViewDefault = parcelHelpers.interopDefault(_profileView);
 var _navBar = require("../nav-bar/nav-bar");
 var _navBarDefault = parcelHelpers.interopDefault(_navBar);
 class MainView extends _reactDefault.default.Component {
-    constructor(){
-        super();
-        this.state = {
-            user: null
-        };
-    }
     componentDidMount() {
         let accessToken = localStorage.getItem('token');
-        if (accessToken !== null) this.setState({
-            user: localStorage.getItem('user')
-        });
+        if (accessToken !== null) // changed user
+        this.props.setUser(localStorage.getItem('user'));
         this.getMovies(accessToken);
     }
     getMovies(token) {
@@ -25640,32 +25633,30 @@ class MainView extends _reactDefault.default.Component {
             headers: {
                 Authorization: `Bearer ${token}`
             }
-        }).then((resp)=>{
+        }).then((response)=>{
             this.props.setMovies(response.data);
         }).catch((err)=>console.log(err)
         );
     }
     onLoggedIn(authData) {
-        this.setState({
-            user: authData.user.Username
-        });
+        // changed user state
+        this.props.setUser(authData.user.Username);
         localStorage.setItem('token', authData.token);
         localStorage.setItem('user', authData.user.Username);
         this.getMovies(authData.token);
     }
     render() {
-        const { user  } = this.state;
-        const { movies  } = this.props;
+        const { movies , user  } = this.props;
         return(/*#__PURE__*/ _jsxRuntime.jsx("div", {
             __source: {
                 fileName: "src/components/main-view/main-view.jsx",
-                lineNumber: 60
+                lineNumber: 53
             },
             __self: this,
             children: /*#__PURE__*/ _jsxRuntime.jsxs(_reactRouterDom.BrowserRouter, {
                 __source: {
                     fileName: "src/components/main-view/main-view.jsx",
-                    lineNumber: 61
+                    lineNumber: 54
                 },
                 __self: this,
                 children: [
@@ -25673,7 +25664,7 @@ class MainView extends _reactDefault.default.Component {
                         user: user,
                         __source: {
                             fileName: "src/components/main-view/main-view.jsx",
-                            lineNumber: 62
+                            lineNumber: 55
                         },
                         __self: this
                     }),
@@ -25681,7 +25672,7 @@ class MainView extends _reactDefault.default.Component {
                         className: "main-view justify-content-md-center",
                         __source: {
                             fileName: "src/components/main-view/main-view.jsx",
-                            lineNumber: 63
+                            lineNumber: 56
                         },
                         __self: this,
                         children: [
@@ -25704,7 +25695,7 @@ class MainView extends _reactDefault.default.Component {
                                 },
                                 __source: {
                                     fileName: "src/components/main-view/main-view.jsx",
-                                    lineNumber: 64
+                                    lineNumber: 57
                                 },
                                 __self: this
                             }),
@@ -25722,7 +25713,7 @@ class MainView extends _reactDefault.default.Component {
                                 },
                                 __source: {
                                     fileName: "src/components/main-view/main-view.jsx",
-                                    lineNumber: 71
+                                    lineNumber: 64
                                 },
                                 __self: this
                             }),
@@ -25749,7 +25740,7 @@ class MainView extends _reactDefault.default.Component {
                                 },
                                 __source: {
                                     fileName: "src/components/main-view/main-view.jsx",
-                                    lineNumber: 75
+                                    lineNumber: 68
                                 },
                                 __self: this
                             }),
@@ -25776,7 +25767,7 @@ class MainView extends _reactDefault.default.Component {
                                 },
                                 __source: {
                                     fileName: "src/components/main-view/main-view.jsx",
-                                    lineNumber: 87
+                                    lineNumber: 80
                                 },
                                 __self: this
                             }),
@@ -25803,7 +25794,7 @@ class MainView extends _reactDefault.default.Component {
                                 },
                                 __source: {
                                     fileName: "src/components/main-view/main-view.jsx",
-                                    lineNumber: 99
+                                    lineNumber: 92
                                 },
                                 __self: this
                             }),
@@ -25823,7 +25814,7 @@ class MainView extends _reactDefault.default.Component {
                                 },
                                 __source: {
                                     fileName: "src/components/main-view/main-view.jsx",
-                                    lineNumber: 110
+                                    lineNumber: 103
                                 },
                                 __self: this
                             })
@@ -25836,11 +25827,13 @@ class MainView extends _reactDefault.default.Component {
 }
 let mapStateToProps = (state)=>{
     return {
-        movies: state.movies
+        movies: state.movies,
+        user: state.user
     };
 };
 exports.default = _reactRedux.connect(mapStateToProps, {
-    setMovies: _actions.setMovies
+    setMovies: _actions.setMovies,
+    setUser: _actions.setUser
 })(MainView);
 
   $parcel$ReactRefreshHelpers$35bf.postlude(module);
@@ -32335,25 +32328,6 @@ class MovieView extends _reactDefault.default.Component {
         }));
     }
 }
-MovieView.propTypes = {
-    movie: _propTypesDefault.default.shape({
-        Title: _propTypesDefault.default.string.isRequired,
-        Description: _propTypesDefault.default.string.isRequired,
-        Genre: _propTypesDefault.default.shape({
-            Name: _propTypesDefault.default.string.isRequired,
-            Description: _propTypesDefault.default.string.isRequired
-        }),
-        Director: _propTypesDefault.default.shape({
-            Name: _propTypesDefault.default.string.isRequired,
-            Bio: _propTypesDefault.default.string.isRequired,
-            Birth: _propTypesDefault.default.string.isRequired,
-            Death: _propTypesDefault.default.string
-        }),
-        ImageURL: _propTypesDefault.default.string,
-        Featured: _propTypesDefault.default.bool
-    }).isRequired,
-    onBackClick: _propTypesDefault.default.func.isRequired
-};
 exports.default = MovieView;
 
   $parcel$ReactRefreshHelpers$3741.postlude(module);
@@ -32748,7 +32722,7 @@ function LoginView(props) {
                     }),
                     /*#__PURE__*/ _jsxRuntime.jsx(_formDefault.default.Control, {
                         type: "text",
-                        vaue: username,
+                        value: username,
                         onChange: (e)=>setUsername(e.target.value)
                         ,
                         __source: {
@@ -32784,7 +32758,7 @@ function LoginView(props) {
                     }),
                     /*#__PURE__*/ _jsxRuntime.jsx(_formDefault.default.Control, {
                         type: "password",
-                        vaue: password,
+                        value: password,
                         onChange: (e)=>setPassword(e.target.value)
                         ,
                         __source: {
@@ -46792,26 +46766,37 @@ var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "SET_MOVIES", ()=>SET_MOVIES
 );
-parcelHelpers.export(exports, "SET_FILTERS", ()=>SET_FILTERS
+parcelHelpers.export(exports, "SET_FILTER", ()=>SET_FILTER
+);
+parcelHelpers.export(exports, "SET_USER", ()=>SET_USER
 );
 parcelHelpers.export(exports, "setMovies", ()=>setMovies
 );
-parcelHelpers.export(exports, "setFilters", ()=>setFilters
+parcelHelpers.export(exports, "setFilter", ()=>setFilter
+);
+parcelHelpers.export(exports, "setUser", ()=>setUser
 );
 const SET_MOVIES = 'SET_MOVIES';
-const SET_FILTERS = 'SET_FILTERS';
-const setMovies = (value)=>{
+const SET_FILTER = 'SET_FILTER';
+const SET_USER = 'SET_USER';
+function setMovies(value) {
     return {
         type: SET_MOVIES,
         value
     };
-};
-const setFilters = (value)=>{
+}
+function setFilter(value) {
     return {
-        type: SET_FILTERS,
+        type: SET_FILTER,
         value
     };
-};
+}
+function setUser(value) {
+    return {
+        type: SET_USER,
+        value
+    };
+}
 
 },{"@parcel/transformer-js/src/esmodule-helpers.js":"hyqYD"}],"1kGQ5":[function(require,module,exports) {
 var $parcel$ReactRefreshHelpers$2519 = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
@@ -46827,10 +46812,13 @@ var _react = require("react");
 var _reactDefault = parcelHelpers.interopDefault(_react);
 var _col = require("react-bootstrap/Col");
 var _colDefault = parcelHelpers.interopDefault(_col);
+var _row = require("react-bootstrap/Row");
+var _rowDefault = parcelHelpers.interopDefault(_row);
 var _reactRedux = require("react-redux");
+var _visibilityFilterInput = require("../visibility-filter-input/visibility-filter-input");
+var _visibilityFilterInputDefault = parcelHelpers.interopDefault(_visibilityFilterInput);
 var _movieCard = require("../movie-card/movie-card");
 var _movieCardDefault = parcelHelpers.interopDefault(_movieCard);
-// import VisibilityFilterInput from '../visibility-filter-input/visibility-filter-input';
 const mapStateToProps = (state)=>{
     const { visibilityFilter  } = state;
     return {
@@ -46846,14 +46834,14 @@ function MoviesList(props) {
         className: "main-view",
         __source: {
             fileName: "src/components/movies-list/movies-list.jsx",
-            lineNumber: 18
+            lineNumber: 21
         },
         __self: this
     }));
-    return(/*#__PURE__*/ _jsxRuntime.jsxs("div", {
+    return(/*#__PURE__*/ _jsxRuntime.jsxs(_rowDefault.default, {
         __source: {
             fileName: "src/components/movies-list/movies-list.jsx",
-            lineNumber: 19
+            lineNumber: 23
         },
         __self: this,
         children: [
@@ -46864,14 +46852,14 @@ function MoviesList(props) {
                 },
                 __source: {
                     fileName: "src/components/movies-list/movies-list.jsx",
-                    lineNumber: 20
+                    lineNumber: 24
                 },
                 __self: this,
-                children: /*#__PURE__*/ _jsxRuntime.jsx(VisibilityFilterInput, {
+                children: /*#__PURE__*/ _jsxRuntime.jsx(_visibilityFilterInputDefault.default, {
                     visibilityFilter: visibilityFilter,
                     __source: {
                         fileName: "src/components/movies-list/movies-list.jsx",
-                        lineNumber: 21
+                        lineNumber: 25
                     },
                     __self: this
                 })
@@ -46880,14 +46868,14 @@ function MoviesList(props) {
                     md: 3,
                     __source: {
                         fileName: "src/components/movies-list/movies-list.jsx",
-                        lineNumber: 24
+                        lineNumber: 28
                     },
                     __self: this,
                     children: /*#__PURE__*/ _jsxRuntime.jsx(_movieCardDefault.default, {
                         movie: m,
                         __source: {
                             fileName: "src/components/movies-list/movies-list.jsx",
-                            lineNumber: 25
+                            lineNumber: 29
                         },
                         __self: this
                     })
@@ -46906,7 +46894,7 @@ $RefreshReg$(_c, "MoviesList");
   window.$RefreshReg$ = prevRefreshReg;
   window.$RefreshSig$ = prevRefreshSig;
 }
-},{"react/jsx-runtime":"8xIwr","react":"6TuXu","react-bootstrap/Col":"fbam0","react-redux":"2L0if","@parcel/transformer-js/src/esmodule-helpers.js":"hyqYD","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"kdVec","../movie-card/movie-card":"6EiBJ"}],"6EiBJ":[function(require,module,exports) {
+},{"react/jsx-runtime":"8xIwr","react":"6TuXu","react-bootstrap/Col":"fbam0","react-redux":"2L0if","@parcel/transformer-js/src/esmodule-helpers.js":"hyqYD","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"kdVec","../movie-card/movie-card":"6EiBJ","../visibility-filter-input/visibility-filter-input":"7ZxGS","react-bootstrap/Row":"c0x1x"}],"6EiBJ":[function(require,module,exports) {
 var $parcel$ReactRefreshHelpers$4249 = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
 var prevRefreshReg = window.$RefreshReg$;
 var prevRefreshSig = window.$RefreshSig$;
@@ -46933,7 +46921,7 @@ class MovieCard extends _reactDefault.default.Component {
             className: "movie-card",
             __source: {
                 fileName: "src/components/movie-card/movie-card.jsx",
-                lineNumber: 15
+                lineNumber: 17
             },
             __self: this,
             children: [
@@ -46942,21 +46930,21 @@ class MovieCard extends _reactDefault.default.Component {
                     src: movie.ImagePath,
                     __source: {
                         fileName: "src/components/movie-card/movie-card.jsx",
-                        lineNumber: 16
+                        lineNumber: 18
                     },
                     __self: this
                 }),
                 /*#__PURE__*/ _jsxRuntime.jsxs(_cardDefault.default.Body, {
                     __source: {
                         fileName: "src/components/movie-card/movie-card.jsx",
-                        lineNumber: 17
+                        lineNumber: 19
                     },
                     __self: this,
                     children: [
                         /*#__PURE__*/ _jsxRuntime.jsx(_cardDefault.default.Title, {
                             __source: {
                                 fileName: "src/components/movie-card/movie-card.jsx",
-                                lineNumber: 18
+                                lineNumber: 20
                             },
                             __self: this,
                             children: movie.Title
@@ -46965,14 +46953,14 @@ class MovieCard extends _reactDefault.default.Component {
                             to: `/movies/${movie._id}`,
                             __source: {
                                 fileName: "src/components/movie-card/movie-card.jsx",
-                                lineNumber: 19
+                                lineNumber: 21
                             },
                             __self: this,
                             children: /*#__PURE__*/ _jsxRuntime.jsx(_buttonDefault.default, {
                                 variant: "link",
                                 __source: {
                                     fileName: "src/components/movie-card/movie-card.jsx",
-                                    lineNumber: 20
+                                    lineNumber: 22
                                 },
                                 __self: this,
                                 children: "Open"
@@ -47009,7 +46997,48 @@ exports.default = MovieCard;
   window.$RefreshReg$ = prevRefreshReg;
   window.$RefreshSig$ = prevRefreshSig;
 }
-},{"react/jsx-runtime":"8xIwr","react":"6TuXu","prop-types":"1tgq3","react-bootstrap/Card":"MoOk8","./movie-card.scss":"cF5gT","react-bootstrap/Button":"9CzHT","react-router-dom":"cpyQW","@parcel/transformer-js/src/esmodule-helpers.js":"hyqYD","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"kdVec"}],"cF5gT":[function() {},{}],"4d0QS":[function(require,module,exports) {
+},{"react/jsx-runtime":"8xIwr","react":"6TuXu","prop-types":"1tgq3","react-bootstrap/Card":"MoOk8","./movie-card.scss":"cF5gT","react-bootstrap/Button":"9CzHT","react-router-dom":"cpyQW","@parcel/transformer-js/src/esmodule-helpers.js":"hyqYD","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"kdVec"}],"cF5gT":[function() {},{}],"7ZxGS":[function(require,module,exports) {
+var $parcel$ReactRefreshHelpers$9bc3 = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
+var prevRefreshReg = window.$RefreshReg$;
+var prevRefreshSig = window.$RefreshSig$;
+$parcel$ReactRefreshHelpers$9bc3.prelude(module);
+
+try {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+var _jsxRuntime = require("react/jsx-runtime");
+var _react = require("react");
+var _reactDefault = parcelHelpers.interopDefault(_react);
+var _reactRedux = require("react-redux");
+var _form = require("react-bootstrap/Form");
+var _formDefault = parcelHelpers.interopDefault(_form);
+var _actions = require("../../actions/actions");
+function VisibilityFilterInput(props) {
+    return(/*#__PURE__*/ _jsxRuntime.jsx(_formDefault.default.Control, {
+        onChange: (e)=>props.setFilter(e.target.value)
+        ,
+        value: props.visibilityFilter,
+        placeholder: "filter",
+        __source: {
+            fileName: "src/components/visibility-filter-input/visibility-filter-input.jsx",
+            lineNumber: 9
+        },
+        __self: this
+    }));
+}
+_c = VisibilityFilterInput;
+exports.default = _reactRedux.connect(null, {
+    setFilter: _actions.setFilter
+})(VisibilityFilterInput);
+var _c;
+$RefreshReg$(_c, "VisibilityFilterInput");
+
+  $parcel$ReactRefreshHelpers$9bc3.postlude(module);
+} finally {
+  window.$RefreshReg$ = prevRefreshReg;
+  window.$RefreshSig$ = prevRefreshSig;
+}
+},{"react/jsx-runtime":"8xIwr","react":"6TuXu","react-redux":"2L0if","react-bootstrap/Form":"5ykgY","../../actions/actions":"1Ttfj","@parcel/transformer-js/src/esmodule-helpers.js":"hyqYD","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"kdVec"}],"4d0QS":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "__DO_NOT_USE__ActionTypes", ()=>ActionTypes
@@ -47592,25 +47621,34 @@ var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 var _redux = require("redux");
 var _actions = require("../actions/actions");
-const visibilityFilter = (state = '', action)=>{
+function visibilityFilter(state = '', action) {
     switch(action.type){
         case _actions.SET_FILTER:
             return action.value;
         default:
             return state;
     }
-};
-const movies = (state = [], action)=>{
+}
+function movies(state = [], action) {
     switch(action.type){
         case _actions.SET_MOVIES:
             return action.value;
         default:
             return state;
     }
-};
+}
+function user(state = null, action) {
+    switch(action.type){
+        case _actions.SET_USER:
+            return action.value;
+        default:
+            return state;
+    }
+}
 const moviesApp = _redux.combineReducers({
     visibilityFilter,
-    movies
+    movies,
+    user
 });
 exports.default = moviesApp;
 
