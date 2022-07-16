@@ -32328,6 +32328,25 @@ class MovieView extends _reactDefault.default.Component {
         }));
     }
 }
+MovieView.propTypes = {
+    movie: _propTypesDefault.default.shape({
+        Title: _propTypesDefault.default.string.isRequired,
+        Description: _propTypesDefault.default.string.isRequired,
+        Genre: _propTypesDefault.default.shape({
+            Name: _propTypesDefault.default.string.isRequired,
+            Description: _propTypesDefault.default.string.isRequired
+        }),
+        Director: _propTypesDefault.default.shape({
+            Name: _propTypesDefault.default.string.isRequired,
+            Bio: _propTypesDefault.default.string.isRequired,
+            Birth: _propTypesDefault.default.string.isRequired,
+            Death: _propTypesDefault.default.string
+        }),
+        ImageURL: _propTypesDefault.default.string,
+        Featured: _propTypesDefault.default.bool
+    }).isRequired,
+    onBackClick: _propTypesDefault.default.func.isRequired
+};
 exports.default = MovieView;
 
   $parcel$ReactRefreshHelpers$3741.postlude(module);
@@ -32672,8 +32691,8 @@ function LoginView(props) {
         if (!username) {
             setUsernameErr('Username Required');
             isReq = false;
-        } else if (username.length < 2) {
-            setUsernameErr('Username must be 2 characters long');
+        } else if (username.length < 5) {
+            setUsernameErr('Username must be atleast 5 characters long');
             isReq = false;
         }
         if (!password) {
@@ -33395,9 +33414,37 @@ function RegistrationView() {
     const [password, setPassword] = _react.useState('');
     const [email, setEmail] = _react.useState('');
     const [birthday, setBirthday] = _react.useState('');
+    // Declare hook for each input
+    const [usernameErr, setUsernameErr] = _react.useState('');
+    const [passwordErr, setPasswordErr] = _react.useState('');
+    const [emailErr, setEmailErr] = _react.useState('');
+    const [birthdayErr, setBirthdayErr] = _react.useState('');
+    // validate user inputs
+    const validate = ()=>{
+        let isReq = true;
+        if (!username) {
+            setUsernameErr('Username required');
+            isReq = false;
+        } else if (username.length < 5) {
+            setUsernameErr('Username must be atleast 5 characters long');
+            isReq = false;
+        }
+        if (!password) {
+            setPasswordErr('Password required');
+            isReq = false;
+        } else if (password.length < 6) {
+            setPasswordErr('Password must be 6 characters long');
+            isReq = false;
+        }
+        if (!email) setEmailErr('Email is required');
+        else if (email.indexOf('@') === -1) setEmailErr('You must enter a valid email');
+        if (!birthday) setBirthdayErr('date of birth is required');
+        return isReq;
+    };
     const handleRegistration = (e)=>{
         e.preventDefault();
-        _axiosDefault.default.post('https://cataflix.herokuapp.com/users', {
+        const isReq = validate();
+        if (isReq) _axiosDefault.default.post('https://cataflix.herokuapp.com/users', {
             Username: username,
             Password: password,
             Email: email,
@@ -33412,21 +33459,21 @@ function RegistrationView() {
     return(/*#__PURE__*/ _jsxRuntime.jsxs(_formDefault.default, {
         __source: {
             fileName: "src/components/registration-view/registration-view.jsx",
-            lineNumber: 30
+            lineNumber: 67
         },
         __self: this,
         children: [
             /*#__PURE__*/ _jsxRuntime.jsxs(_formDefault.default.Group, {
                 __source: {
                     fileName: "src/components/registration-view/registration-view.jsx",
-                    lineNumber: 31
+                    lineNumber: 68
                 },
                 __self: this,
                 children: [
                     /*#__PURE__*/ _jsxRuntime.jsx(_formDefault.default.Label, {
                         __source: {
                             fileName: "src/components/registration-view/registration-view.jsx",
-                            lineNumber: 32
+                            lineNumber: 69
                         },
                         __self: this,
                         children: "Username:"
@@ -33438,23 +33485,31 @@ function RegistrationView() {
                         ,
                         __source: {
                             fileName: "src/components/registration-view/registration-view.jsx",
-                            lineNumber: 33
+                            lineNumber: 70
                         },
                         __self: this
+                    }),
+                    usernameErr && /*#__PURE__*/ _jsxRuntime.jsx("p", {
+                        __source: {
+                            fileName: "src/components/registration-view/registration-view.jsx",
+                            lineNumber: 71
+                        },
+                        __self: this,
+                        children: usernameErr
                     })
                 ]
             }),
             /*#__PURE__*/ _jsxRuntime.jsxs(_formDefault.default.Group, {
                 __source: {
                     fileName: "src/components/registration-view/registration-view.jsx",
-                    lineNumber: 35
+                    lineNumber: 73
                 },
                 __self: this,
                 children: [
                     /*#__PURE__*/ _jsxRuntime.jsx(_formDefault.default.Label, {
                         __source: {
                             fileName: "src/components/registration-view/registration-view.jsx",
-                            lineNumber: 36
+                            lineNumber: 74
                         },
                         __self: this,
                         children: "Password:"
@@ -33466,23 +33521,31 @@ function RegistrationView() {
                         ,
                         __source: {
                             fileName: "src/components/registration-view/registration-view.jsx",
-                            lineNumber: 37
+                            lineNumber: 75
                         },
                         __self: this
+                    }),
+                    passwordErr && /*#__PURE__*/ _jsxRuntime.jsx("p", {
+                        __source: {
+                            fileName: "src/components/registration-view/registration-view.jsx",
+                            lineNumber: 76
+                        },
+                        __self: this,
+                        children: passwordErr
                     })
                 ]
             }),
             /*#__PURE__*/ _jsxRuntime.jsxs(_formDefault.default.Group, {
                 __source: {
                     fileName: "src/components/registration-view/registration-view.jsx",
-                    lineNumber: 39
+                    lineNumber: 78
                 },
                 __self: this,
                 children: [
                     /*#__PURE__*/ _jsxRuntime.jsx(_formDefault.default.Label, {
                         __source: {
                             fileName: "src/components/registration-view/registration-view.jsx",
-                            lineNumber: 40
+                            lineNumber: 79
                         },
                         __self: this,
                         children: "Email:"
@@ -33494,23 +33557,31 @@ function RegistrationView() {
                         ,
                         __source: {
                             fileName: "src/components/registration-view/registration-view.jsx",
-                            lineNumber: 41
+                            lineNumber: 80
                         },
                         __self: this
+                    }),
+                    emailErr && /*#__PURE__*/ _jsxRuntime.jsx("p", {
+                        __source: {
+                            fileName: "src/components/registration-view/registration-view.jsx",
+                            lineNumber: 81
+                        },
+                        __self: this,
+                        children: emailErr
                     })
                 ]
             }),
             /*#__PURE__*/ _jsxRuntime.jsxs(_formDefault.default.Group, {
                 __source: {
                     fileName: "src/components/registration-view/registration-view.jsx",
-                    lineNumber: 43
+                    lineNumber: 83
                 },
                 __self: this,
                 children: [
                     /*#__PURE__*/ _jsxRuntime.jsx(_formDefault.default.Label, {
                         __source: {
                             fileName: "src/components/registration-view/registration-view.jsx",
-                            lineNumber: 44
+                            lineNumber: 84
                         },
                         __self: this,
                         children: "Birthday:"
@@ -33522,9 +33593,17 @@ function RegistrationView() {
                         ,
                         __source: {
                             fileName: "src/components/registration-view/registration-view.jsx",
-                            lineNumber: 45
+                            lineNumber: 85
                         },
                         __self: this
+                    }),
+                    birthdayErr && /*#__PURE__*/ _jsxRuntime.jsx("p", {
+                        __source: {
+                            fileName: "src/components/registration-view/registration-view.jsx",
+                            lineNumber: 86
+                        },
+                        __self: this,
+                        children: birthdayErr
                     })
                 ]
             }),
@@ -33533,7 +33612,7 @@ function RegistrationView() {
                 onClick: handleRegistration,
                 __source: {
                     fileName: "src/components/registration-view/registration-view.jsx",
-                    lineNumber: 47
+                    lineNumber: 88
                 },
                 __self: this,
                 children: "Register"
@@ -33541,7 +33620,7 @@ function RegistrationView() {
         ]
     }));
 }
-_s(RegistrationView, "tdA1KK8yaZidqYo0wscqshHt/KE=");
+_s(RegistrationView, "IY+wqe6pl2pCkxnyLVbygRhtC0E=");
 _c = RegistrationView;
 exports.default = RegistrationView;
 var _c;
@@ -36085,43 +36164,73 @@ const EditView = (props)=>{
     const [password, setPassword] = _react.useState('');
     const [email, setEmail] = _react.useState('');
     const [birthday, setBirthday] = _react.useState('');
+    // Declare hook for each input
+    const [usernameErr, setUsernameErr] = _react.useState('');
+    const [passwordErr, setPasswordErr] = _react.useState('');
+    const [emailErr, setEmailErr] = _react.useState('');
+    const [birthdayErr, setBirthdayErr] = _react.useState('');
+    // validate user inputs
+    const validate = ()=>{
+        let isReq = true;
+        if (!username) {
+            setUsernameErr('Username required');
+            isReq = false;
+        } else if (username.length < 5) {
+            setUsernameErr('Username must be atleast 5 characters long');
+            isReq = false;
+        }
+        if (!password) {
+            setPasswordErr('Password required');
+            isReq = false;
+        } else if (password.length < 6) {
+            setPasswordErr('Password must be 6 characters long');
+            isReq = false;
+        }
+        if (!email) setEmailErr('Email is required');
+        else if (email.indexOf('@') === -1) setEmailErr('You must enter a valid email');
+        if (!birthday) setBirthdayErr('date of birth is required');
+        return isReq;
+    };
     const { user  } = props;
     const handleSubmit = (e)=>{
         e.preventDefault();
-        let accessToken = localStorage.getItem('token');
-        _axiosDefault.default.put(`https://cataflix.herokuapp.com/users/${user}`, {
-            Username: username,
-            Password: password,
-            Email: email,
-            Birthday: birthday
-        }, {
-            headers: {
-                Authorization: `Bearer ${accessToken}`
-            }
-        }).then((resp)=>{
-            console.log(resp.data);
-            window.open(`/users/${user}`, '_self');
-        }).catch((err)=>console.log(err)
-        );
+        const isReq = validate();
+        if (isReq) {
+            let accessToken = localStorage.getItem('token');
+            _axiosDefault.default.put(`https://cataflix.herokuapp.com/users/${user}`, {
+                Username: username,
+                Password: password,
+                Email: email,
+                Birthday: birthday
+            }, {
+                headers: {
+                    Authorization: `Bearer ${accessToken}`
+                }
+            }).then((resp)=>{
+                console.log(resp.data);
+                window.open(`/users/${user}`, '_self');
+            }).catch((err)=>console.log(err)
+            );
+        }
     };
     return(/*#__PURE__*/ _jsxRuntime.jsxs(_formDefault.default, {
         __source: {
             fileName: "src/components/edit-user-data/edit-user-data.jsx",
-            lineNumber: 33
+            lineNumber: 69
         },
         __self: undefined,
         children: [
             /*#__PURE__*/ _jsxRuntime.jsxs(_formDefault.default.Group, {
                 __source: {
                     fileName: "src/components/edit-user-data/edit-user-data.jsx",
-                    lineNumber: 34
+                    lineNumber: 70
                 },
                 __self: undefined,
                 children: [
                     /*#__PURE__*/ _jsxRuntime.jsx(_formDefault.default.Label, {
                         __source: {
                             fileName: "src/components/edit-user-data/edit-user-data.jsx",
-                            lineNumber: 35
+                            lineNumber: 71
                         },
                         __self: undefined,
                         children: "New Username:"
@@ -36133,23 +36242,31 @@ const EditView = (props)=>{
                         ,
                         __source: {
                             fileName: "src/components/edit-user-data/edit-user-data.jsx",
-                            lineNumber: 36
+                            lineNumber: 72
                         },
                         __self: undefined
+                    }),
+                    usernameErr && /*#__PURE__*/ _jsxRuntime.jsx("p", {
+                        __source: {
+                            fileName: "src/components/edit-user-data/edit-user-data.jsx",
+                            lineNumber: 73
+                        },
+                        __self: undefined,
+                        children: usernameErr
                     })
                 ]
             }),
             /*#__PURE__*/ _jsxRuntime.jsxs(_formDefault.default.Group, {
                 __source: {
                     fileName: "src/components/edit-user-data/edit-user-data.jsx",
-                    lineNumber: 38
+                    lineNumber: 75
                 },
                 __self: undefined,
                 children: [
                     /*#__PURE__*/ _jsxRuntime.jsx(_formDefault.default.Label, {
                         __source: {
                             fileName: "src/components/edit-user-data/edit-user-data.jsx",
-                            lineNumber: 39
+                            lineNumber: 76
                         },
                         __self: undefined,
                         children: "New Password:"
@@ -36161,23 +36278,31 @@ const EditView = (props)=>{
                         ,
                         __source: {
                             fileName: "src/components/edit-user-data/edit-user-data.jsx",
-                            lineNumber: 40
+                            lineNumber: 77
                         },
                         __self: undefined
+                    }),
+                    passwordErr && /*#__PURE__*/ _jsxRuntime.jsx("p", {
+                        __source: {
+                            fileName: "src/components/edit-user-data/edit-user-data.jsx",
+                            lineNumber: 78
+                        },
+                        __self: undefined,
+                        children: passwordErr
                     })
                 ]
             }),
             /*#__PURE__*/ _jsxRuntime.jsxs(_formDefault.default.Group, {
                 __source: {
                     fileName: "src/components/edit-user-data/edit-user-data.jsx",
-                    lineNumber: 42
+                    lineNumber: 80
                 },
                 __self: undefined,
                 children: [
                     /*#__PURE__*/ _jsxRuntime.jsx(_formDefault.default.Label, {
                         __source: {
                             fileName: "src/components/edit-user-data/edit-user-data.jsx",
-                            lineNumber: 43
+                            lineNumber: 81
                         },
                         __self: undefined,
                         children: "New Email:"
@@ -36189,23 +36314,31 @@ const EditView = (props)=>{
                         ,
                         __source: {
                             fileName: "src/components/edit-user-data/edit-user-data.jsx",
-                            lineNumber: 44
+                            lineNumber: 82
                         },
                         __self: undefined
+                    }),
+                    emailErr && /*#__PURE__*/ _jsxRuntime.jsx("p", {
+                        __source: {
+                            fileName: "src/components/edit-user-data/edit-user-data.jsx",
+                            lineNumber: 83
+                        },
+                        __self: undefined,
+                        children: emailErr
                     })
                 ]
             }),
             /*#__PURE__*/ _jsxRuntime.jsxs(_formDefault.default.Group, {
                 __source: {
                     fileName: "src/components/edit-user-data/edit-user-data.jsx",
-                    lineNumber: 46
+                    lineNumber: 85
                 },
                 __self: undefined,
                 children: [
                     /*#__PURE__*/ _jsxRuntime.jsx(_formDefault.default.Label, {
                         __source: {
                             fileName: "src/components/edit-user-data/edit-user-data.jsx",
-                            lineNumber: 47
+                            lineNumber: 86
                         },
                         __self: undefined,
                         children: "New Birthday:"
@@ -36217,9 +36350,17 @@ const EditView = (props)=>{
                         ,
                         __source: {
                             fileName: "src/components/edit-user-data/edit-user-data.jsx",
-                            lineNumber: 48
+                            lineNumber: 87
                         },
                         __self: undefined
+                    }),
+                    birthdayErr && /*#__PURE__*/ _jsxRuntime.jsx("p", {
+                        __source: {
+                            fileName: "src/components/edit-user-data/edit-user-data.jsx",
+                            lineNumber: 88
+                        },
+                        __self: undefined,
+                        children: birthdayErr
                     })
                 ]
             }),
@@ -36229,7 +36370,7 @@ const EditView = (props)=>{
                 variant: "secondary",
                 __source: {
                     fileName: "src/components/edit-user-data/edit-user-data.jsx",
-                    lineNumber: 50
+                    lineNumber: 90
                 },
                 __self: undefined,
                 children: "Submit"
@@ -36237,7 +36378,7 @@ const EditView = (props)=>{
         ]
     }));
 };
-_s(EditView, "tdA1KK8yaZidqYo0wscqshHt/KE=");
+_s(EditView, "IY+wqe6pl2pCkxnyLVbygRhtC0E=");
 _c = EditView;
 EditView.propTypes = {
     user: _propTypesDefault.default.string.isRequired
@@ -36263,7 +36404,8 @@ parcelHelpers.defineInteropFlag(exports);
 var _jsxRuntime = require("react/jsx-runtime");
 var _react = require("react");
 var _reactDefault = parcelHelpers.interopDefault(_react);
-// import PropTypes from 'prop-types';
+var _propTypes = require("prop-types");
+var _propTypesDefault = parcelHelpers.interopDefault(_propTypes);
 var _reactBootstrap = require("react-bootstrap");
 const NavBar = (props)=>{
     const { user  } = props;
@@ -36387,7 +36529,7 @@ $RefreshReg$(_c, "NavBar");
   window.$RefreshReg$ = prevRefreshReg;
   window.$RefreshSig$ = prevRefreshSig;
 }
-},{"react/jsx-runtime":"8xIwr","react":"6TuXu","react-bootstrap":"h2YVd","@parcel/transformer-js/src/esmodule-helpers.js":"hyqYD","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"kdVec"}],"h2YVd":[function(require,module,exports) {
+},{"react/jsx-runtime":"8xIwr","react":"6TuXu","react-bootstrap":"h2YVd","@parcel/transformer-js/src/esmodule-helpers.js":"hyqYD","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"kdVec","prop-types":"1tgq3"}],"h2YVd":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "Accordion", ()=>_accordionDefault.default
@@ -46906,6 +47048,8 @@ parcelHelpers.defineInteropFlag(exports);
 var _jsxRuntime = require("react/jsx-runtime");
 var _react = require("react");
 var _reactDefault = parcelHelpers.interopDefault(_react);
+var _axios = require("axios");
+var _axiosDefault = parcelHelpers.interopDefault(_axios);
 var _propTypes = require("prop-types");
 var _propTypesDefault = parcelHelpers.interopDefault(_propTypes);
 var _card = require("react-bootstrap/Card");
@@ -46915,13 +47059,26 @@ var _button = require("react-bootstrap/Button");
 var _buttonDefault = parcelHelpers.interopDefault(_button);
 var _reactRouterDom = require("react-router-dom");
 class MovieCard extends _reactDefault.default.Component {
+    addMovie(movieId) {
+        let token = localStorage.getItem('token');
+        const username = localStorage.getItem('user');
+        console.log(token, 'new2');
+        const url = `https://cataflix.herokuapp.com/users/${username}/movies/${movieId}`;
+        _axiosDefault.default.put(url, {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        }).then((response)=>console.log(response.data)
+        ).catch((err)=>console.log(err)
+        );
+    }
     render() {
         const { movie  } = this.props;
         return(/*#__PURE__*/ _jsxRuntime.jsxs(_cardDefault.default, {
             className: "movie-card",
             __source: {
                 fileName: "src/components/movie-card/movie-card.jsx",
-                lineNumber: 17
+                lineNumber: 30
             },
             __self: this,
             children: [
@@ -46930,41 +47087,60 @@ class MovieCard extends _reactDefault.default.Component {
                     src: movie.ImagePath,
                     __source: {
                         fileName: "src/components/movie-card/movie-card.jsx",
-                        lineNumber: 18
+                        lineNumber: 31
                     },
                     __self: this
                 }),
                 /*#__PURE__*/ _jsxRuntime.jsxs(_cardDefault.default.Body, {
                     __source: {
                         fileName: "src/components/movie-card/movie-card.jsx",
-                        lineNumber: 19
+                        lineNumber: 32
                     },
                     __self: this,
                     children: [
                         /*#__PURE__*/ _jsxRuntime.jsx(_cardDefault.default.Title, {
                             __source: {
                                 fileName: "src/components/movie-card/movie-card.jsx",
-                                lineNumber: 20
+                                lineNumber: 33
                             },
                             __self: this,
                             children: movie.Title
                         }),
-                        /*#__PURE__*/ _jsxRuntime.jsx(_reactRouterDom.Link, {
+                        /*#__PURE__*/ _jsxRuntime.jsxs(_reactRouterDom.Link, {
                             to: `/movies/${movie._id}`,
                             __source: {
                                 fileName: "src/components/movie-card/movie-card.jsx",
-                                lineNumber: 21
+                                lineNumber: 34
                             },
                             __self: this,
-                            children: /*#__PURE__*/ _jsxRuntime.jsx(_buttonDefault.default, {
-                                variant: "link",
-                                __source: {
-                                    fileName: "src/components/movie-card/movie-card.jsx",
-                                    lineNumber: 22
-                                },
-                                __self: this,
-                                children: "Open"
-                            })
+                            children: [
+                                /*#__PURE__*/ _jsxRuntime.jsx(_buttonDefault.default, {
+                                    variant: "link",
+                                    __source: {
+                                        fileName: "src/components/movie-card/movie-card.jsx",
+                                        lineNumber: 35
+                                    },
+                                    __self: this,
+                                    children: "Open"
+                                }),
+                                /*#__PURE__*/ _jsxRuntime.jsx("br", {
+                                    __source: {
+                                        fileName: "src/components/movie-card/movie-card.jsx",
+                                        lineNumber: 35
+                                    },
+                                    __self: this
+                                })
+                            ]
+                        }),
+                        /*#__PURE__*/ _jsxRuntime.jsx(_buttonDefault.default, {
+                            onClick: ()=>this.addMovie(movie._id)
+                            ,
+                            __source: {
+                                fileName: "src/components/movie-card/movie-card.jsx",
+                                lineNumber: 37
+                            },
+                            __self: this,
+                            children: "Add to favorites"
                         })
                     ]
                 })
@@ -46997,7 +47173,7 @@ exports.default = MovieCard;
   window.$RefreshReg$ = prevRefreshReg;
   window.$RefreshSig$ = prevRefreshSig;
 }
-},{"react/jsx-runtime":"8xIwr","react":"6TuXu","prop-types":"1tgq3","react-bootstrap/Card":"MoOk8","./movie-card.scss":"cF5gT","react-bootstrap/Button":"9CzHT","react-router-dom":"cpyQW","@parcel/transformer-js/src/esmodule-helpers.js":"hyqYD","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"kdVec"}],"cF5gT":[function() {},{}],"7ZxGS":[function(require,module,exports) {
+},{"react/jsx-runtime":"8xIwr","react":"6TuXu","prop-types":"1tgq3","react-bootstrap/Card":"MoOk8","./movie-card.scss":"cF5gT","react-bootstrap/Button":"9CzHT","react-router-dom":"cpyQW","@parcel/transformer-js/src/esmodule-helpers.js":"hyqYD","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"kdVec","axios":"iYoWk"}],"cF5gT":[function() {},{}],"7ZxGS":[function(require,module,exports) {
 var $parcel$ReactRefreshHelpers$9bc3 = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
 var prevRefreshReg = window.$RefreshReg$;
 var prevRefreshSig = window.$RefreshSig$;
@@ -47010,6 +47186,8 @@ var _jsxRuntime = require("react/jsx-runtime");
 var _react = require("react");
 var _reactDefault = parcelHelpers.interopDefault(_react);
 var _reactRedux = require("react-redux");
+var _propTypes = require("prop-types");
+var _propTypesDefault = parcelHelpers.interopDefault(_propTypes);
 var _form = require("react-bootstrap/Form");
 var _formDefault = parcelHelpers.interopDefault(_form);
 var _actions = require("../../actions/actions");
@@ -47021,7 +47199,7 @@ function VisibilityFilterInput(props) {
         placeholder: "filter",
         __source: {
             fileName: "src/components/visibility-filter-input/visibility-filter-input.jsx",
-            lineNumber: 9
+            lineNumber: 10
         },
         __self: this
     }));
@@ -47038,7 +47216,7 @@ $RefreshReg$(_c, "VisibilityFilterInput");
   window.$RefreshReg$ = prevRefreshReg;
   window.$RefreshSig$ = prevRefreshSig;
 }
-},{"react/jsx-runtime":"8xIwr","react":"6TuXu","react-redux":"2L0if","react-bootstrap/Form":"5ykgY","../../actions/actions":"1Ttfj","@parcel/transformer-js/src/esmodule-helpers.js":"hyqYD","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"kdVec"}],"4d0QS":[function(require,module,exports) {
+},{"react/jsx-runtime":"8xIwr","react":"6TuXu","react-redux":"2L0if","react-bootstrap/Form":"5ykgY","../../actions/actions":"1Ttfj","@parcel/transformer-js/src/esmodule-helpers.js":"hyqYD","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"kdVec","prop-types":"1tgq3"}],"4d0QS":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "__DO_NOT_USE__ActionTypes", ()=>ActionTypes

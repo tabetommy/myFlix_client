@@ -1,5 +1,5 @@
 import React from 'react';
-// import PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 import  {Navbar, Container,Nav, Button} from 'react-bootstrap'
 
 const NavBar=(props)=>{
@@ -39,8 +39,8 @@ const NavBar=(props)=>{
 
 }
 
-// NavBar.propTypes = {
-// 	user:PropTypes.string.isRequired
-// };
+{/*NavBar.propTypes = {
+	user:PropTypes.string.isRequired
+};*/}
 
 export default NavBar

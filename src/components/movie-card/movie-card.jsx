@@ -1,4 +1,5 @@
 import React from 'react';
+import axios from 'axios';
 import PropTypes from 'prop-types';
 import Card from 'react-bootstrap/Card';
 import './movie-card.scss';
@@ -9,7 +10,19 @@ import { Link } from "react-router-dom";
 
 class MovieCard extends React.Component {
 
-
+	addMovie(movieId) {
+		let token= localStorage.getItem('token');
+		const username=localStorage.getItem('user');
+		console.log(token, 'new2');
+		const url=`https://cataflix.herokuapp.com/users/${username}/movies/${movieId}`;
+		
+		axios.put(url,{
+			headers: { Authorization: `Bearer ${token}` }
+		  })
+		  .then(response => console.log(response.data))
+		  .catch(err => console.log(err))
+	  }
+	
 
 	render() {
 		const { movie } = this.props;
@@ -19,8 +32,9 @@ class MovieCard extends React.Component {
 				<Card.Body>
 					<Card.Title>{movie.Title}</Card.Title>
 					<Link to={`/movies/${movie._id}`}>
-						<Button variant="link">Open</Button>
+						<Button variant="link">Open</Button><br></br>
 					</Link>
+					<Button onClick={()=>this.addMovie(movie._id)}>Add to favorites</Button>
 				</Card.Body>
 			</Card>
 		)
