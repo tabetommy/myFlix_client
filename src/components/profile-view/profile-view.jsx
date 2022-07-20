@@ -4,6 +4,8 @@ import axios from 'axios';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal'
 import EditView from '../edit-user-data/edit-user-data';
+import FavMovies from '../favorite-movies/favorite-movies';
+
 
 
 
@@ -54,7 +56,9 @@ class ProfileView extends Component{
     
     render(){
         const {user, onBackClick}= this.props;
-        const {Email,Username,Birthday}= this.state.userInfo;
+        const {Email,Username,Birthday, FavouritesMovies}= this.state.userInfo;
+        const movies=FavouritesMovies;
+       
         return(
             <div>
                 <h1>Your profile</h1> 
@@ -78,6 +82,8 @@ class ProfileView extends Component{
                     </Modal.Footer>
                 </Modal>
                 <Button onClick={onBackClick}>Back to main view</Button>
+                <h3>My Favorite Movies</h3>
+                {FavouritesMovies && FavouritesMovies.map(movieId => <FavMovies favMovie={movieId} key={movieId} />) }
             </div>
 
         )

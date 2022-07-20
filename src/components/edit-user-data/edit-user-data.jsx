@@ -58,8 +58,8 @@ const EditView=(props)=>{
             Email:email,
             Birthday:birthday
         },{  headers: { Authorization: `Bearer ${accessToken}`}})
-        .then(resp=>{
-            console.log(resp.data)
+        .then(response=>{
+            console.log(response.data);
             window.open(`/users/${user}`, '_self')
         })
         .catch(err=>console.log(err))

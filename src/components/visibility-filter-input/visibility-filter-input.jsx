@@ -14,7 +14,9 @@ function VisibilityFilterInput(props) {
   />;
 }
 
-
+VisibilityFilterInput.propTypes={
+  visibilityFilter: PropTypes.string.isRequired
+}
 
 export default connect(
   null,

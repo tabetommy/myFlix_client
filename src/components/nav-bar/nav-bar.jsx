@@ -1,5 +1,5 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import propTypes from 'prop-types';
 import  {Navbar, Container,Nav, Button} from 'react-bootstrap'
 
 const NavBar=(props)=>{
@@ -31,6 +31,7 @@ const NavBar=(props)=>{
                         {!isAuth() && <Nav.Link href='/'>signin</Nav.Link> }
                         {!isAuth() && <Nav.Link href='/register'>signup</Nav.Link> }
                         {isAuth() && <Button variant='primary' onClick={()=>onLoggedOut()} >Logout</Button>}
+
                     </Nav>
                 </Navbar.Collapse>
             </Container>
@@ -39,8 +40,10 @@ const NavBar=(props)=>{
 
 }
 
-{/*NavBar.propTypes = {
-	user:PropTypes.string.isRequired
-};*/}
+NavBar.propTypes = {
+	user:propTypes.string
+};
+
+
 
 export default NavBar
