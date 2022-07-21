@@ -1,6 +1,7 @@
 import React, { Component} from 'react';
 import PropTypes from 'prop-types';
 import axios from 'axios';
+import moment from 'moment';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal'
 import EditView from '../edit-user-data/edit-user-data';
@@ -57,14 +58,15 @@ class ProfileView extends Component{
     render(){
         const {user, onBackClick}= this.props;
         const {Email,Username,Birthday, FavouritesMovies}= this.state.userInfo;
-        const movies=FavouritesMovies;
+
+        
        
         return(
             <div>
                 <h1>Your profile</h1> 
                 <h3>Username:{Username}</h3>
                 <h3>Email:{Email}</h3>
-                <h3>Birthday:{Birthday}</h3>
+                <h3>Birthday:{moment(Birthday).format('LL')}</h3>
                 <Button onClick={this.toggleDiv} >Edit user account</Button><br></br>
                 {this.state.showView?<EditView user={user} />:''}
                 <Button variant="primary" onClick={this.handleShowModal}>Delete user account </Button><br></br>

@@ -14,7 +14,9 @@ class MovieCard extends React.Component {
 		let token = localStorage.getItem('token');
 		let username= localStorage.getItem('user');
 		const url= `https://cataflix.herokuapp.com/users/${username}/movies/${id}`
-		axios.put(url)
+		axios.put(url,{
+			headers: { Authorization: `Bearer ${token}` }
+		  })
 		  .then(response => console.log(response.data))
 		  .catch(err => console.log(err))
 	  }
