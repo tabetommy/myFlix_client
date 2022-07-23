@@ -37556,6 +37556,8 @@ parcelHelpers.defineInteropFlag(exports);
 var _jsxRuntime = require("react/jsx-runtime");
 var _react = require("react");
 var _reactDefault = parcelHelpers.interopDefault(_react);
+var _reactRedux = require("react-redux");
+var _actions = require("../../actions/actions");
 var _propTypes = require("prop-types");
 var _propTypesDefault = parcelHelpers.interopDefault(_propTypes);
 var _axios = require("axios");
@@ -37586,9 +37588,7 @@ class ProfileView extends _react.Component {
             headers: {
                 Authorization: `Bearer ${accessToken}`
             }
-        }).then((resp)=>this.setState({
-                userInfo: resp.data
-            })
+        }).then((response)=>this.props.setUserData(response.data)
         ).catch((err)=>console.log(err)
         );
     }
@@ -37621,8 +37621,7 @@ class ProfileView extends _react.Component {
         });
     };
     render() {
-        const { user , onBackClick  } = this.props;
-        const { Email , Username , Birthday , FavouritesMovies  } = this.state.userInfo;
+        const { user , onBackClick , userData  } = this.props;
         return(/*#__PURE__*/ _jsxRuntime.jsxs("div", {
             __source: {
                 fileName: "src/components/profile-view/profile-view.jsx",
@@ -37636,7 +37635,7 @@ class ProfileView extends _react.Component {
                         lineNumber: 66
                     },
                     __self: this,
-                    children: "Your profile"
+                    children: "Your profile "
                 }),
                 /*#__PURE__*/ _jsxRuntime.jsxs("h3", {
                     __source: {
@@ -37646,7 +37645,7 @@ class ProfileView extends _react.Component {
                     __self: this,
                     children: [
                         "Username:",
-                        Username
+                        userData.Username
                     ]
                 }),
                 /*#__PURE__*/ _jsxRuntime.jsxs("h3", {
@@ -37657,7 +37656,7 @@ class ProfileView extends _react.Component {
                     __self: this,
                     children: [
                         "Email:",
-                        Email
+                        userData.Email
                     ]
                 }),
                 /*#__PURE__*/ _jsxRuntime.jsxs("h3", {
@@ -37668,7 +37667,7 @@ class ProfileView extends _react.Component {
                     __self: this,
                     children: [
                         "Birthday:",
-                        _momentDefault.default(Birthday).format('LL')
+                        _momentDefault.default(userData.Birthday).format('LL')
                     ]
                 }),
                 /*#__PURE__*/ _jsxRuntime.jsx(_buttonDefault.default, {
@@ -37785,7 +37784,7 @@ class ProfileView extends _react.Component {
                     __self: this,
                     children: "My Favorite Movies"
                 }),
-                FavouritesMovies && FavouritesMovies.map((movieId)=>/*#__PURE__*/ _jsxRuntime.jsx(_favoriteMoviesDefault.default, {
+                userData.FavouritesMovies && userData.FavouritesMovies.map((movieId)=>/*#__PURE__*/ _jsxRuntime.jsx(_favoriteMoviesDefault.default, {
                         favMovie: movieId,
                         __source: {
                             fileName: "src/components/profile-view/profile-view.jsx",
@@ -37798,18 +37797,25 @@ class ProfileView extends _react.Component {
         }));
     }
 }
+let mapStateToProps = (state)=>{
+    return {
+        userData: state.userData
+    };
+};
 ProfileView.propTypes = {
     user: _propTypesDefault.default.string.isRequired,
     onBackClick: _propTypesDefault.default.func.isRequired
 };
-exports.default = ProfileView;
+exports.default = _reactRedux.connect(mapStateToProps, {
+    setUserData: _actions.setUserData
+})(ProfileView);
 
   $parcel$ReactRefreshHelpers$58c6.postlude(module);
 } finally {
   window.$RefreshReg$ = prevRefreshReg;
   window.$RefreshSig$ = prevRefreshSig;
 }
-},{"react/jsx-runtime":"8xIwr","react":"6TuXu","prop-types":"1tgq3","axios":"iYoWk","react-bootstrap/Button":"9CzHT","react-bootstrap/Modal":"kvv9u","../edit-user-data/edit-user-data":"1XQmZ","@parcel/transformer-js/src/esmodule-helpers.js":"hyqYD","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"kdVec","../favorite-movies/favorite-movies":"ggeB3","moment":"5Keig"}],"kvv9u":[function(require,module,exports) {
+},{"react/jsx-runtime":"8xIwr","react":"6TuXu","prop-types":"1tgq3","axios":"iYoWk","react-bootstrap/Button":"9CzHT","react-bootstrap/Modal":"kvv9u","../edit-user-data/edit-user-data":"1XQmZ","@parcel/transformer-js/src/esmodule-helpers.js":"hyqYD","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"kdVec","../favorite-movies/favorite-movies":"ggeB3","moment":"5Keig","react-redux":"2L0if","../../actions/actions":"1Ttfj"}],"kvv9u":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 var _classnames = require("classnames");
@@ -41811,6 +41817,54 @@ const useStore = /*#__PURE__*/ createStoreHook();
 },{"react":"6TuXu","../components/Context":"gT1Jg","./useReduxContext":"516XC","@parcel/transformer-js/src/esmodule-helpers.js":"hyqYD"}],"jOi9b":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"hyqYD"}],"1Ttfj":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "SET_MOVIES", ()=>SET_MOVIES
+);
+parcelHelpers.export(exports, "SET_FILTER", ()=>SET_FILTER
+);
+parcelHelpers.export(exports, "SET_USER", ()=>SET_USER
+);
+parcelHelpers.export(exports, "SET_USER_DATA", ()=>SET_USER_DATA
+);
+parcelHelpers.export(exports, "setMovies", ()=>setMovies
+);
+parcelHelpers.export(exports, "setFilter", ()=>setFilter
+);
+parcelHelpers.export(exports, "setUser", ()=>setUser
+);
+parcelHelpers.export(exports, "setUserData", ()=>setUserData
+);
+const SET_MOVIES = 'SET_MOVIES';
+const SET_FILTER = 'SET_FILTER';
+const SET_USER = 'SET_USER';
+const SET_USER_DATA = 'SET_USER_DATA';
+function setMovies(value) {
+    return {
+        type: SET_MOVIES,
+        value
+    };
+}
+function setFilter(value) {
+    return {
+        type: SET_FILTER,
+        value
+    };
+}
+function setUser(value) {
+    return {
+        type: SET_USER,
+        value
+    };
+}
+function setUserData(value) {
+    return {
+        type: SET_USER_DATA,
+        value
+    };
+}
 
 },{"@parcel/transformer-js/src/esmodule-helpers.js":"hyqYD"}],"bpxKL":[function(require,module,exports) {
 var $parcel$ReactRefreshHelpers$4e37 = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
@@ -50785,44 +50839,7 @@ Tooltip.defaultProps = defaultProps;
 Tooltip.displayName = 'Tooltip';
 exports.default = Tooltip;
 
-},{"classnames":"bOXOh","react":"6TuXu","./ThemeProvider":"eeqfi","./helpers":"S1Bw1","react/jsx-runtime":"8xIwr","@parcel/transformer-js/src/esmodule-helpers.js":"hyqYD"}],"1Ttfj":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "SET_MOVIES", ()=>SET_MOVIES
-);
-parcelHelpers.export(exports, "SET_FILTER", ()=>SET_FILTER
-);
-parcelHelpers.export(exports, "SET_USER", ()=>SET_USER
-);
-parcelHelpers.export(exports, "setMovies", ()=>setMovies
-);
-parcelHelpers.export(exports, "setFilter", ()=>setFilter
-);
-parcelHelpers.export(exports, "setUser", ()=>setUser
-);
-const SET_MOVIES = 'SET_MOVIES';
-const SET_FILTER = 'SET_FILTER';
-const SET_USER = 'SET_USER';
-function setMovies(value) {
-    return {
-        type: SET_MOVIES,
-        value
-    };
-}
-function setFilter(value) {
-    return {
-        type: SET_FILTER,
-        value
-    };
-}
-function setUser(value) {
-    return {
-        type: SET_USER,
-        value
-    };
-}
-
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"hyqYD"}],"1kGQ5":[function(require,module,exports) {
+},{"classnames":"bOXOh","react":"6TuXu","./ThemeProvider":"eeqfi","./helpers":"S1Bw1","react/jsx-runtime":"8xIwr","@parcel/transformer-js/src/esmodule-helpers.js":"hyqYD"}],"1kGQ5":[function(require,module,exports) {
 var $parcel$ReactRefreshHelpers$2519 = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
 var prevRefreshReg = window.$RefreshReg$;
 var prevRefreshSig = window.$RefreshSig$;
@@ -51728,10 +51745,20 @@ function user(state = null, action) {
             return state;
     }
 }
+function userData(state = {
+}, action) {
+    switch(action.type){
+        case _actions.SET_USER_DATA:
+            return action.value;
+        default:
+            return state;
+    }
+}
 const moviesApp = _redux.combineReducers({
     visibilityFilter,
     movies,
-    user
+    user,
+    userData
 });
 exports.default = moviesApp;
 

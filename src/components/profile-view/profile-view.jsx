@@ -1,4 +1,6 @@
 import React, { Component} from 'react';
+import { connect } from 'react-redux';
+import { setUserData } from '../../actions/actions';
 import PropTypes from 'prop-types';
 import axios from 'axios';
 import moment from 'moment';
@@ -26,7 +28,7 @@ class ProfileView extends Component{
         axios.get(`https://cataflix.herokuapp.com/users/${this.props.user}`,{
             headers:{Authorization: `Bearer ${accessToken}`}
             })
-        .then(resp=>this.setState({userInfo:resp.data}))
+        .then(response=>this.props.setUserData(response.data))
         .catch(err=>console.log(err))
     }
 
@@ -56,17 +58,15 @@ class ProfileView extends Component{
     }
     
     render(){
-        const {user, onBackClick}= this.props;
-        const {Email,Username,Birthday, FavouritesMovies}= this.state.userInfo;
-
-        
-       
+        const {user, onBackClick, userData}= this.props;
+         
+    {/*const {Email,Username,Birthday, FavouritesMovies}= this.state.userInfo;*/}  
         return(
             <div>
-                <h1>Your profile</h1> 
-                <h3>Username:{Username}</h3>
-                <h3>Email:{Email}</h3>
-                <h3>Birthday:{moment(Birthday).format('LL')}</h3>
+                <h1>Your profile </h1> 
+                <h3>Username:{userData.Username}</h3>
+                <h3>Email:{userData.Email}</h3>
+                <h3>Birthday:{moment(userData.Birthday).format('LL')}</h3>
                 <Button onClick={this.toggleDiv} >Edit user account</Button><br></br>
                 {this.state.showView?<EditView user={user} />:''}
                 <Button variant="primary" onClick={this.handleShowModal}>Delete user account </Button><br></br>
@@ -85,16 +85,22 @@ class ProfileView extends Component{
                 </Modal>
                 <Button onClick={onBackClick}>Back to main view</Button>
                 <h3>My Favorite Movies</h3>
-                {FavouritesMovies && FavouritesMovies.map(movieId => <FavMovies favMovie={movieId} key={movieId} />) }
+                {userData.FavouritesMovies && userData.FavouritesMovies.map(movieId => <FavMovies favMovie={movieId} key={movieId} />) }
             </div>
 
         )
     }      
 }
 
+let mapStateToProps=state=>{
+    return {
+      userData:state.userData
+    }
+  }
+
 ProfileView.propTypes = {
 	user:PropTypes.string.isRequired,
     onBackClick: PropTypes.func.isRequired
 };
 
-export default ProfileView;
+export default connect(mapStateToProps, {setUserData})(ProfileView);
