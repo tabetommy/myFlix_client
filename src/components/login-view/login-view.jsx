@@ -20,8 +20,8 @@ function LoginView(props){
         if(!username){
         setUsernameErr('Username Required');
         isReq = false;
-        }else if(username.length < 2){
-        setUsernameErr('Username must be 2 characters long');
+        }else if(username.length < 5){
+        setUsernameErr('Username must be atleast 5 characters long');
         isReq = false;
         }
         if(!password){
@@ -58,13 +58,13 @@ function LoginView(props){
         <Form>
             <Form.Group>
                 <Form.Label>Username:</Form.Label>
-                <Form.Control type="text" vaue={username} onChange={e=>setUsername(e.target.value)} />
+                <Form.Control type="text" value={username} onChange={e=>setUsername(e.target.value)} />
                 {/* code added here to display validation error */}
                 {usernameErr && <p>{usernameErr}</p>}
             </Form.Group>
             <Form.Group>
                 <Form.Label>Password:</Form.Label>
-                <Form.Control type="password" vaue={password} onChange={e=>setPassword(e.target.value)} />
+                <Form.Control type="password" value={password} onChange={e=>setPassword(e.target.value)} />
                  {/* code added here to display validation error */}
                 {passwordErr && <p>{passwordErr}</p>}
             </Form.Group>

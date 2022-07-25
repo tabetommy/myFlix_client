@@ -3,26 +3,32 @@ import PropTypes from 'prop-types';
 import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
 import { Link } from "react-router-dom";
+import  {Navbar,Nav} from 'react-bootstrap';
 
 class MovieView extends React.Component{
 
 	render(){
 		const {movie, onBackClick}=this.props
 		return(
-			<Card className="movie-view">
-		        <Card.Img className="movie-poster" src={movie.ImagePath} />
-				<Card.Body>
-					<Card.Title>{movie.Title}</Card.Title>
-					<Card.Text>{movie.Description}</Card.Text>
-				</Card.Body>  
-		        <Button variant="dark" onClick={() => onBackClick() }>Back</Button>
-				<Link to={`/director/${movie.Director.Name}`}>
-					<Button variant="primary">Director</Button>
-				</Link>
-				<Link to={`/genre/${movie.Genre.Name}`}>
-					<Button variant="dark">Genre</Button>
-				</Link>
-	      	</Card>
+			<div>
+				<div>
+					<h1>{movie.Title}</h1>
+					<p>Director:
+						<Link to={`/director/${movie.Director.Name}`}>
+							{movie.Director.Name}
+						</Link>
+					</p>
+					<p>Genre:
+						<Link to={`/genre/${movie.Genre.Name}`}>
+							{movie.Genre.Name}
+						</Link>
+					</p>
+					<h4>Description</h4>
+					<p>{movie.Description}</p>
+				</div>
+				<img className="movie-poster" src={movie.ImagePath} />
+				<Button variant="primary" onClick={() => onBackClick() }>Back</Button>
+			</div>
 			)
 	}
 };

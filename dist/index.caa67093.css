@@ -1,14 +1,5 @@
 .my-flix {
-  color: steelblue;
-}
-.movie-card {
-  background-color: red;
-  cursor: pointer;
-}
-
-.movie-poster {
-  width: 300px;
-  height: auto;
+  color: red;
 }
 .btn {
   background-color: color;
@@ -17,5 +8,16 @@
   padding: 5px 8px;
   font-weight: 500;
   cursor: pointer;
+}
+.movie-card {
+  cursor: pointer;
+}
+
+.movie-poster {
+  width: 100%;
+  height: 200px;
+}
+.movies-list-card {
+  margin-top: 20px;
 }
 /*# sourceMappingURL=index.caa67093.css.map */
