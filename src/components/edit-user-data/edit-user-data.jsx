@@ -6,61 +6,58 @@ import Button from 'react-bootstrap/Button';
 
 
 const EditView=(props)=>{
-    const [username, setUsername] = useState('');
+    {/*const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [email, setEmail] = useState('');
-    const [birthday, setBirthday] = useState('');
-
+    const [birthday, setBirthday] = useState('');*/}
     // Declare hook for each input
     const [ usernameErr, setUsernameErr ] = useState('');
     const [ passwordErr, setPasswordErr ] = useState('');
     const [ emailErr, setEmailErr] = useState('');
-    const [birthdayErr, setBirthdayErr] = useState('');
+   
 
     // validate user inputs
     const validate = () => {
         let isReq = true;
-        if(!username){
+        if(!props.username){
         setUsernameErr('Username required');
         isReq = false;
-        }else if(username.length < 5){
+        }else if(props.username.length < 5){
         setUsernameErr('Username must be atleast 5 characters long');
         isReq = false;
         }
-        if(!password){
+        if(!props.password){
         setPasswordErr('Password required');
         isReq = false;
-        }else if(password.length < 6){
+        }else if(props.password.length < 6){
         setPasswordErr('Password must be 6 characters long');
         isReq = false;
         }
-        if(!email){
+        if(!props.email){
             setEmailErr('Email is required')
-        }else if(email.indexOf('@')===-1){
+        }else if(props.email.indexOf('@')===-1){
             setEmailErr('You must enter a valid email')
-        }
-        if(!birthday){
-            setBirthdayErr('date of birth is required')
         }
         return isReq;
     }
 
-    const {user}=props
-
+   
     const handleSubmit=(e)=>{
         e.preventDefault();
         const isReq = validate();
         if(isReq){
             let accessToken= localStorage.getItem('token')
-            axios.put(`https://cataflix.herokuapp.com/users/${user}`,{
-            Username:username,
-            Password:password,
-            Email:email,
-            Birthday:birthday
+            axios.put(`https://cataflix.herokuapp.com/users/${props.user}`,{
+            Username:props.username,
+            Password:props.password,
+            Email:props.email,
         },{  headers: { Authorization: `Bearer ${accessToken}`}})
         .then(response=>{
+            localStorage.setItem('user', response.data.Username);
             console.log(response.data);
-            window.open(`/users/${user}`, '_self')
+            window.open(`/users/${props.user}`, '_self');
+            
+            
         })
         .catch(err=>console.log(err))
         }  
@@ -69,25 +66,20 @@ const EditView=(props)=>{
         <Form>
             <Form.Group>
                 <Form.Label>New Username:</Form.Label>
-                <Form.Control type="text" value={username} onChange={e=>setUsername(e.target.value)} />
+                <Form.Control type="text" value={props.username} onChange={event=>props.setUsername(event.target.value)} />
                 {usernameErr && <p>{usernameErr}</p>}
             </Form.Group>
             <Form.Group>
-                <Form.Label>New Password:</Form.Label>
-                <Form.Control type="password" value={password} onChange={e=>setPassword(e.target.value)} />
+                <Form.Label>New Passwordss:</Form.Label>
+                <Form.Control type="password" value={props.password} onChange={event=>props.setPassword(event.target.value)} />
                 {passwordErr && <p>{passwordErr}</p>}
             </Form.Group>
             <Form.Group>
-                <Form.Label>New Email:</Form.Label>
-                <Form.Control type="email" value={email} onChange={e=>setEmail(e.target.value)} />
+                <Form.Label>New Emails:</Form.Label>
+                <Form.Control type="email" value={props.email} onChange={event=>props.setEmail(event.target.value)} />
                 {emailErr && <p>{emailErr}</p>}
             </Form.Group>
-            <Form.Group>
-                <Form.Label>New Birthday:</Form.Label>
-                <Form.Control type="date" value={birthday} onChange={e=>setBirthday(e.target.value)} />
-                {birthdayErr && <p>{birthdayErr}</p>}
-            </Form.Group>
-            <Button type='submit' onClick={handleSubmit} variant='secondary' >Submit</Button>
+            <Button type='submit' onClick={handleSubmit} variant='secondary' >Update</Button>
         </Form>
     )
 }

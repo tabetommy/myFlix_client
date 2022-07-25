@@ -1,6 +1,4 @@
-import React, { Component} from 'react';
-import { connect } from 'react-redux';
-import { setUserData } from '../../actions/actions';
+import React,{useState, useEffect} from 'react';
 import PropTypes from 'prop-types';
 import axios from 'axios';
 import moment from 'moment';
@@ -8,99 +6,106 @@ import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal'
 import EditView from '../edit-user-data/edit-user-data';
 import FavMovies from '../favorite-movies/favorite-movies';
+import Button from 'react-bootstrap/Button';
 
 
 
 
 
-class ProfileView extends Component{
-    constructor(){
-        super();
-        this.state = {
-          userInfo:{},
-          showView:false,
-          showModal:false
-        }
-      }
+function ProfileView (props){
+   
+    const [username, setUsername] = useState('');
+    const [password, setPassword] = useState('');
+    const [email, setEmail] = useState('');
+    const [favouriteMovies, setFavouriteMovies] = useState([]);
+    const [showModal, setShowModal]= useState(false);
 
-    componentDidMount(){
+    useEffect(()=>{
         let accessToken= localStorage.getItem('token');
-        axios.get(`https://cataflix.herokuapp.com/users/${this.props.user}`,{
-            headers:{Authorization: `Bearer ${accessToken}`}
+            axios.get(`https://cataflix.herokuapp.com/users/${props.user}`,{
+                headers:{Authorization: `Bearer ${accessToken}`}
+                })
+            .then(response=>{
+                setUsername(response.data.Username)
+                setPassword(response.data.Password)
+                setEmail(response.data.Email)
+                setFavouriteMovies(response.data.FavouriteMovies)
+                console.log(response.data)
             })
-        .then(response=>this.props.setUserData(response.data))
-        .catch(err=>console.log(err))
-    }
+            .catch(err=>console.log(err))
+
+    },[])
+
+    
 
      handleDelete=()=>{
         let accessToken= localStorage.getItem('token');
-        axios.delete(`https://cataflix.herokuapp.com/users/${this.props.user}`,{
+        axios.delete(`https://cataflix.herokuapp.com/users/${props.user}`,{
             headers:{Authorization: `Bearer ${accessToken}`}
             })
         .then(()=>{
-            alert(`${this.props.user} has been succesfully deleted`);
+            alert(`${props.user} has been succesfully deleted`);
             localStorage.clear();
             window.open('/register', '_self');
         })
         .catch(err=>console.log(err))
 
     }
-    toggleDiv=()=>{
-        this.setState({showView:!this.state.showView})
-    }
+    
 
     handleShowModal=()=>{
-        this.setState({showModal:true})
+        setShowModal(true)
     }
 
     handleCloseModal=()=>{
-        this.setState({showModal:false})
+        setShowModal(false)
     }
-    
-    render(){
-        const {user, onBackClick, userData}= this.props;
-         
-    {/*const {Email,Username,Birthday, FavouritesMovies}= this.state.userInfo;*/}  
+ 
+    const {user, onBackClick}= props;
         return(
             <div>
-                <h1>Your profile </h1> 
-                <h3>Username:{userData.Username}</h3>
-                <h3>Email:{userData.Email}</h3>
-                <h3>Birthday:{moment(userData.Birthday).format('LL')}</h3>
-                <Button onClick={this.toggleDiv} >Edit user account</Button><br></br>
-                {this.state.showView?<EditView user={user} />:''}
-                <Button variant="primary" onClick={this.handleShowModal}>Delete user account </Button><br></br>
-                <Modal show={this.state.showModal} onHide={this.handleCloseModal}>
+                <EditView user={user} 
+                username={username}
+                password={password}
+                email={email}
+                setUsername={setUsername}
+                setPassword={setPassword}
+                setEmail={setEmail}
+                />
+                <Button variant="primary" onClick={handleShowModal}>Delete user account </Button><br></br>
+                <Modal show={showModal} onHide={handleCloseModal}>
                     <Modal.Header closeButton>
                     <Modal.Title>Are you sure you want to delete your account?</Modal.Title>
                     </Modal.Header>
                     <Modal.Footer>
-                    <Button variant="danger" onClick={this.handleDelete}>
+                    <Button variant="danger" onClick={handleDelete}>
                         Yes
                     </Button>
-                    <Button variant="primary" onClick={this.handleCloseModal}>
+                    <Button variant="primary" onClick={handleCloseModal}>
                         No
                     </Button>
                     </Modal.Footer>
                 </Modal>
                 <Button onClick={onBackClick}>Back to main view</Button>
                 <h3>My Favorite Movies</h3>
-                {userData.FavouritesMovies && userData.FavouritesMovies.map(movieId => <FavMovies favMovie={movieId} key={movieId} />) }
+                
             </div>
 
         )
     }      
-}
 
-let mapStateToProps=state=>{
+
+{/*let mapStateToProps=state=>{
     return {
       userData:state.userData
     }
   }
+  export default connect(mapStateToProps, {setUserData,})(ProfileView);
+*/}
 
 ProfileView.propTypes = {
 	user:PropTypes.string.isRequired,
     onBackClick: PropTypes.func.isRequired
 };
 
-export default connect(mapStateToProps, {setUserData})(ProfileView);
+export default ProfileView;

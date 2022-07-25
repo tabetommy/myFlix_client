@@ -37556,8 +37556,6 @@ parcelHelpers.defineInteropFlag(exports);
 var _jsxRuntime = require("react/jsx-runtime");
 var _react = require("react");
 var _reactDefault = parcelHelpers.interopDefault(_react);
-var _reactRedux = require("react-redux");
-var _actions = require("../../actions/actions");
 var _propTypes = require("prop-types");
 var _propTypesDefault = parcelHelpers.interopDefault(_propTypes);
 var _axios = require("axios");
@@ -37572,250 +37570,179 @@ var _editUserData = require("../edit-user-data/edit-user-data");
 var _editUserDataDefault = parcelHelpers.interopDefault(_editUserData);
 var _favoriteMovies = require("../favorite-movies/favorite-movies");
 var _favoriteMoviesDefault = parcelHelpers.interopDefault(_favoriteMovies);
-class ProfileView extends _react.Component {
-    constructor(){
-        super();
-        this.state = {
-            userInfo: {
-            },
-            showView: false,
-            showModal: false
-        };
-    }
-    componentDidMount() {
+var _s = $RefreshSig$();
+function ProfileView(props) {
+    _s();
+    const [username, setUsername] = _react.useState('');
+    const [password, setPassword] = _react.useState('');
+    const [email, setEmail] = _react.useState('');
+    const [favouriteMovies, setFavouriteMovies] = _react.useState([]);
+    const [showModal, setShowModal] = _react.useState(false);
+    _react.useEffect(()=>{
         let accessToken = localStorage.getItem('token');
-        _axiosDefault.default.get(`https://cataflix.herokuapp.com/users/${this.props.user}`, {
+        _axiosDefault.default.get(`https://cataflix.herokuapp.com/users/${props.user}`, {
             headers: {
                 Authorization: `Bearer ${accessToken}`
             }
-        }).then((response)=>this.props.setUserData(response.data)
-        ).catch((err)=>console.log(err)
+        }).then((response)=>{
+            setUsername(response.data.Username);
+            setPassword(response.data.Password);
+            setEmail(response.data.Email);
+            setFavouriteMovies(response.data.FavouriteMovies);
+            console.log(response.data);
+        }).catch((err)=>console.log(err)
         );
-    }
+    }, []);
     handleDelete = ()=>{
         let accessToken = localStorage.getItem('token');
-        _axiosDefault.default.delete(`https://cataflix.herokuapp.com/users/${this.props.user}`, {
+        _axiosDefault.default.delete(`https://cataflix.herokuapp.com/users/${props.user}`, {
             headers: {
                 Authorization: `Bearer ${accessToken}`
             }
         }).then(()=>{
-            alert(`${this.props.user} has been succesfully deleted`);
+            alert(`${props.user} has been succesfully deleted`);
             localStorage.clear();
             window.open('/register', '_self');
         }).catch((err)=>console.log(err)
         );
     };
-    toggleDiv = ()=>{
-        this.setState({
-            showView: !this.state.showView
-        });
-    };
     handleShowModal = ()=>{
-        this.setState({
-            showModal: true
-        });
+        setShowModal(true);
     };
     handleCloseModal = ()=>{
-        this.setState({
-            showModal: false
-        });
+        setShowModal(false);
     };
-    render() {
-        const { user , onBackClick , userData  } = this.props;
-        return(/*#__PURE__*/ _jsxRuntime.jsxs("div", {
-            __source: {
-                fileName: "src/components/profile-view/profile-view.jsx",
-                lineNumber: 65
-            },
-            __self: this,
-            children: [
-                /*#__PURE__*/ _jsxRuntime.jsx("h1", {
-                    __source: {
-                        fileName: "src/components/profile-view/profile-view.jsx",
-                        lineNumber: 66
-                    },
-                    __self: this,
-                    children: "Your profile "
-                }),
-                /*#__PURE__*/ _jsxRuntime.jsxs("h3", {
-                    __source: {
-                        fileName: "src/components/profile-view/profile-view.jsx",
-                        lineNumber: 67
-                    },
-                    __self: this,
-                    children: [
-                        "Username:",
-                        userData.Username
-                    ]
-                }),
-                /*#__PURE__*/ _jsxRuntime.jsxs("h3", {
-                    __source: {
-                        fileName: "src/components/profile-view/profile-view.jsx",
-                        lineNumber: 68
-                    },
-                    __self: this,
-                    children: [
-                        "Email:",
-                        userData.Email
-                    ]
-                }),
-                /*#__PURE__*/ _jsxRuntime.jsxs("h3", {
-                    __source: {
-                        fileName: "src/components/profile-view/profile-view.jsx",
-                        lineNumber: 69
-                    },
-                    __self: this,
-                    children: [
-                        "Birthday:",
-                        _momentDefault.default(userData.Birthday).format('LL')
-                    ]
-                }),
-                /*#__PURE__*/ _jsxRuntime.jsx(_buttonDefault.default, {
-                    onClick: this.toggleDiv,
-                    __source: {
-                        fileName: "src/components/profile-view/profile-view.jsx",
-                        lineNumber: 70
-                    },
-                    __self: this,
-                    children: "Edit user account"
-                }),
-                /*#__PURE__*/ _jsxRuntime.jsx("br", {
-                    __source: {
-                        fileName: "src/components/profile-view/profile-view.jsx",
-                        lineNumber: 70
-                    },
-                    __self: this
-                }),
-                this.state.showView ? /*#__PURE__*/ _jsxRuntime.jsx(_editUserDataDefault.default, {
-                    user: user,
-                    __source: {
-                        fileName: "src/components/profile-view/profile-view.jsx",
-                        lineNumber: 71
-                    },
-                    __self: this
-                }) : '',
-                /*#__PURE__*/ _jsxRuntime.jsx(_buttonDefault.default, {
-                    variant: "primary",
-                    onClick: this.handleShowModal,
-                    __source: {
-                        fileName: "src/components/profile-view/profile-view.jsx",
-                        lineNumber: 72
-                    },
-                    __self: this,
-                    children: "Delete user account "
-                }),
-                /*#__PURE__*/ _jsxRuntime.jsx("br", {
-                    __source: {
-                        fileName: "src/components/profile-view/profile-view.jsx",
-                        lineNumber: 72
-                    },
-                    __self: this
-                }),
-                /*#__PURE__*/ _jsxRuntime.jsxs(_modalDefault.default, {
-                    show: this.state.showModal,
-                    onHide: this.handleCloseModal,
-                    __source: {
-                        fileName: "src/components/profile-view/profile-view.jsx",
-                        lineNumber: 73
-                    },
-                    __self: this,
-                    children: [
-                        /*#__PURE__*/ _jsxRuntime.jsx(_modalDefault.default.Header, {
-                            closeButton: true,
-                            __source: {
-                                fileName: "src/components/profile-view/profile-view.jsx",
-                                lineNumber: 74
-                            },
-                            __self: this,
-                            children: /*#__PURE__*/ _jsxRuntime.jsx(_modalDefault.default.Title, {
-                                __source: {
-                                    fileName: "src/components/profile-view/profile-view.jsx",
-                                    lineNumber: 75
-                                },
-                                __self: this,
-                                children: "Are you sure you want to delete your account?"
-                            })
-                        }),
-                        /*#__PURE__*/ _jsxRuntime.jsxs(_modalDefault.default.Footer, {
-                            __source: {
-                                fileName: "src/components/profile-view/profile-view.jsx",
-                                lineNumber: 77
-                            },
-                            __self: this,
-                            children: [
-                                /*#__PURE__*/ _jsxRuntime.jsx(_buttonDefault.default, {
-                                    variant: "danger",
-                                    onClick: this.handleDelete,
-                                    __source: {
-                                        fileName: "src/components/profile-view/profile-view.jsx",
-                                        lineNumber: 78
-                                    },
-                                    __self: this,
-                                    children: "Yes"
-                                }),
-                                /*#__PURE__*/ _jsxRuntime.jsx(_buttonDefault.default, {
-                                    variant: "primary",
-                                    onClick: this.handleCloseModal,
-                                    __source: {
-                                        fileName: "src/components/profile-view/profile-view.jsx",
-                                        lineNumber: 81
-                                    },
-                                    __self: this,
-                                    children: "No"
-                                })
-                            ]
-                        })
-                    ]
-                }),
-                /*#__PURE__*/ _jsxRuntime.jsx(_buttonDefault.default, {
-                    onClick: onBackClick,
-                    __source: {
-                        fileName: "src/components/profile-view/profile-view.jsx",
-                        lineNumber: 86
-                    },
-                    __self: this,
-                    children: "Back to main view"
-                }),
-                /*#__PURE__*/ _jsxRuntime.jsx("h3", {
-                    __source: {
-                        fileName: "src/components/profile-view/profile-view.jsx",
-                        lineNumber: 87
-                    },
-                    __self: this,
-                    children: "My Favorite Movies"
-                }),
-                userData.FavouritesMovies && userData.FavouritesMovies.map((movieId)=>/*#__PURE__*/ _jsxRuntime.jsx(_favoriteMoviesDefault.default, {
-                        favMovie: movieId,
+    const { user , onBackClick  } = props;
+    return(/*#__PURE__*/ _jsxRuntime.jsxs("div", {
+        __source: {
+            fileName: "src/components/profile-view/profile-view.jsx",
+            lineNumber: 66
+        },
+        __self: this,
+        children: [
+            /*#__PURE__*/ _jsxRuntime.jsx(_editUserDataDefault.default, {
+                user: user,
+                username: username,
+                password: password,
+                email: email,
+                setUsername: setUsername,
+                setPassword: setPassword,
+                setEmail: setEmail,
+                __source: {
+                    fileName: "src/components/profile-view/profile-view.jsx",
+                    lineNumber: 67
+                },
+                __self: this
+            }),
+            /*#__PURE__*/ _jsxRuntime.jsx(_buttonDefault.default, {
+                variant: "primary",
+                onClick: handleShowModal,
+                __source: {
+                    fileName: "src/components/profile-view/profile-view.jsx",
+                    lineNumber: 75
+                },
+                __self: this,
+                children: "Delete user account "
+            }),
+            /*#__PURE__*/ _jsxRuntime.jsx("br", {
+                __source: {
+                    fileName: "src/components/profile-view/profile-view.jsx",
+                    lineNumber: 75
+                },
+                __self: this
+            }),
+            /*#__PURE__*/ _jsxRuntime.jsxs(_modalDefault.default, {
+                show: showModal,
+                onHide: handleCloseModal,
+                __source: {
+                    fileName: "src/components/profile-view/profile-view.jsx",
+                    lineNumber: 76
+                },
+                __self: this,
+                children: [
+                    /*#__PURE__*/ _jsxRuntime.jsx(_modalDefault.default.Header, {
+                        closeButton: true,
                         __source: {
                             fileName: "src/components/profile-view/profile-view.jsx",
-                            lineNumber: 88
+                            lineNumber: 77
                         },
-                        __self: this
-                    }, movieId)
-                )
-            ]
-        }));
-    }
+                        __self: this,
+                        children: /*#__PURE__*/ _jsxRuntime.jsx(_modalDefault.default.Title, {
+                            __source: {
+                                fileName: "src/components/profile-view/profile-view.jsx",
+                                lineNumber: 78
+                            },
+                            __self: this,
+                            children: "Are you sure you want to delete your account?"
+                        })
+                    }),
+                    /*#__PURE__*/ _jsxRuntime.jsxs(_modalDefault.default.Footer, {
+                        __source: {
+                            fileName: "src/components/profile-view/profile-view.jsx",
+                            lineNumber: 80
+                        },
+                        __self: this,
+                        children: [
+                            /*#__PURE__*/ _jsxRuntime.jsx(_buttonDefault.default, {
+                                variant: "danger",
+                                onClick: handleDelete,
+                                __source: {
+                                    fileName: "src/components/profile-view/profile-view.jsx",
+                                    lineNumber: 81
+                                },
+                                __self: this,
+                                children: "Yes"
+                            }),
+                            /*#__PURE__*/ _jsxRuntime.jsx(_buttonDefault.default, {
+                                variant: "primary",
+                                onClick: handleCloseModal,
+                                __source: {
+                                    fileName: "src/components/profile-view/profile-view.jsx",
+                                    lineNumber: 84
+                                },
+                                __self: this,
+                                children: "No"
+                            })
+                        ]
+                    })
+                ]
+            }),
+            /*#__PURE__*/ _jsxRuntime.jsx(_buttonDefault.default, {
+                onClick: onBackClick,
+                __source: {
+                    fileName: "src/components/profile-view/profile-view.jsx",
+                    lineNumber: 89
+                },
+                __self: this,
+                children: "Back to main view"
+            }),
+            /*#__PURE__*/ _jsxRuntime.jsx("h3", {
+                __source: {
+                    fileName: "src/components/profile-view/profile-view.jsx",
+                    lineNumber: 90
+                },
+                __self: this,
+                children: "My Favorite Movies"
+            })
+        ]
+    }));
 }
-let mapStateToProps = (state)=>{
-    return {
-        userData: state.userData
-    };
-};
+_s(ProfileView, "HLMW9YoMYohdt7Kh88mEJCVDReA=");
+_c = ProfileView;
 ProfileView.propTypes = {
     user: _propTypesDefault.default.string.isRequired,
     onBackClick: _propTypesDefault.default.func.isRequired
 };
-exports.default = _reactRedux.connect(mapStateToProps, {
-    setUserData: _actions.setUserData
-})(ProfileView);
+exports.default = ProfileView;
+var _c;
+$RefreshReg$(_c, "ProfileView");
 
   $parcel$ReactRefreshHelpers$58c6.postlude(module);
 } finally {
   window.$RefreshReg$ = prevRefreshReg;
   window.$RefreshSig$ = prevRefreshSig;
 }
-},{"react/jsx-runtime":"8xIwr","react":"6TuXu","prop-types":"1tgq3","axios":"iYoWk","react-bootstrap/Button":"9CzHT","react-bootstrap/Modal":"kvv9u","../edit-user-data/edit-user-data":"1XQmZ","@parcel/transformer-js/src/esmodule-helpers.js":"hyqYD","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"kdVec","../favorite-movies/favorite-movies":"ggeB3","moment":"5Keig","react-redux":"2L0if","../../actions/actions":"1Ttfj"}],"kvv9u":[function(require,module,exports) {
+},{"react/jsx-runtime":"8xIwr","react":"6TuXu","prop-types":"1tgq3","axios":"iYoWk","react-bootstrap/Button":"9CzHT","react-bootstrap/Modal":"kvv9u","../edit-user-data/edit-user-data":"1XQmZ","@parcel/transformer-js/src/esmodule-helpers.js":"hyqYD","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"kdVec","../favorite-movies/favorite-movies":"ggeB3","moment":"5Keig"}],"kvv9u":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 var _classnames = require("classnames");
@@ -39937,55 +39864,48 @@ var _buttonDefault = parcelHelpers.interopDefault(_button);
 var _s = $RefreshSig$();
 const EditView = (props)=>{
     _s();
-    const [username, setUsername] = _react.useState('');
-    const [password, setPassword] = _react.useState('');
-    const [email, setEmail] = _react.useState('');
-    const [birthday, setBirthday] = _react.useState('');
     // Declare hook for each input
     const [usernameErr, setUsernameErr] = _react.useState('');
     const [passwordErr, setPasswordErr] = _react.useState('');
     const [emailErr, setEmailErr] = _react.useState('');
-    const [birthdayErr, setBirthdayErr] = _react.useState('');
     // validate user inputs
     const validate = ()=>{
         let isReq = true;
-        if (!username) {
+        if (!props.username) {
             setUsernameErr('Username required');
             isReq = false;
-        } else if (username.length < 5) {
+        } else if (props.username.length < 5) {
             setUsernameErr('Username must be atleast 5 characters long');
             isReq = false;
         }
-        if (!password) {
+        if (!props.password) {
             setPasswordErr('Password required');
             isReq = false;
-        } else if (password.length < 6) {
+        } else if (props.password.length < 6) {
             setPasswordErr('Password must be 6 characters long');
             isReq = false;
         }
-        if (!email) setEmailErr('Email is required');
-        else if (email.indexOf('@') === -1) setEmailErr('You must enter a valid email');
-        if (!birthday) setBirthdayErr('date of birth is required');
+        if (!props.email) setEmailErr('Email is required');
+        else if (props.email.indexOf('@') === -1) setEmailErr('You must enter a valid email');
         return isReq;
     };
-    const { user  } = props;
     const handleSubmit = (e)=>{
         e.preventDefault();
         const isReq = validate();
         if (isReq) {
             let accessToken = localStorage.getItem('token');
-            _axiosDefault.default.put(`https://cataflix.herokuapp.com/users/${user}`, {
-                Username: username,
-                Password: password,
-                Email: email,
-                Birthday: birthday
+            _axiosDefault.default.put(`https://cataflix.herokuapp.com/users/${props.user}`, {
+                Username: props.username,
+                Password: props.password,
+                Email: props.email
             }, {
                 headers: {
                     Authorization: `Bearer ${accessToken}`
                 }
             }).then((response)=>{
+                localStorage.setItem('user', response.data.Username);
                 console.log(response.data);
-                window.open(`/users/${user}`, '_self');
+                window.open(`/users/${props.user}`, '_self');
             }).catch((err)=>console.log(err)
             );
         }
@@ -39993,40 +39913,40 @@ const EditView = (props)=>{
     return(/*#__PURE__*/ _jsxRuntime.jsxs(_formDefault.default, {
         __source: {
             fileName: "src/components/edit-user-data/edit-user-data.jsx",
-            lineNumber: 69
+            lineNumber: 66
         },
         __self: undefined,
         children: [
             /*#__PURE__*/ _jsxRuntime.jsxs(_formDefault.default.Group, {
                 __source: {
                     fileName: "src/components/edit-user-data/edit-user-data.jsx",
-                    lineNumber: 70
+                    lineNumber: 67
                 },
                 __self: undefined,
                 children: [
                     /*#__PURE__*/ _jsxRuntime.jsx(_formDefault.default.Label, {
                         __source: {
                             fileName: "src/components/edit-user-data/edit-user-data.jsx",
-                            lineNumber: 71
+                            lineNumber: 68
                         },
                         __self: undefined,
                         children: "New Username:"
                     }),
                     /*#__PURE__*/ _jsxRuntime.jsx(_formDefault.default.Control, {
                         type: "text",
-                        value: username,
-                        onChange: (e)=>setUsername(e.target.value)
+                        value: props.username,
+                        onChange: (event)=>props.setUsername(event.target.value)
                         ,
                         __source: {
                             fileName: "src/components/edit-user-data/edit-user-data.jsx",
-                            lineNumber: 72
+                            lineNumber: 69
                         },
                         __self: undefined
                     }),
                     usernameErr && /*#__PURE__*/ _jsxRuntime.jsx("p", {
                         __source: {
                             fileName: "src/components/edit-user-data/edit-user-data.jsx",
-                            lineNumber: 73
+                            lineNumber: 70
                         },
                         __self: undefined,
                         children: usernameErr
@@ -40036,33 +39956,33 @@ const EditView = (props)=>{
             /*#__PURE__*/ _jsxRuntime.jsxs(_formDefault.default.Group, {
                 __source: {
                     fileName: "src/components/edit-user-data/edit-user-data.jsx",
-                    lineNumber: 75
+                    lineNumber: 72
                 },
                 __self: undefined,
                 children: [
                     /*#__PURE__*/ _jsxRuntime.jsx(_formDefault.default.Label, {
                         __source: {
                             fileName: "src/components/edit-user-data/edit-user-data.jsx",
-                            lineNumber: 76
+                            lineNumber: 73
                         },
                         __self: undefined,
-                        children: "New Password:"
+                        children: "New Passwordss:"
                     }),
                     /*#__PURE__*/ _jsxRuntime.jsx(_formDefault.default.Control, {
                         type: "password",
-                        value: password,
-                        onChange: (e)=>setPassword(e.target.value)
+                        value: props.password,
+                        onChange: (event)=>props.setPassword(event.target.value)
                         ,
                         __source: {
                             fileName: "src/components/edit-user-data/edit-user-data.jsx",
-                            lineNumber: 77
+                            lineNumber: 74
                         },
                         __self: undefined
                     }),
                     passwordErr && /*#__PURE__*/ _jsxRuntime.jsx("p", {
                         __source: {
                             fileName: "src/components/edit-user-data/edit-user-data.jsx",
-                            lineNumber: 78
+                            lineNumber: 75
                         },
                         __self: undefined,
                         children: passwordErr
@@ -40072,72 +39992,36 @@ const EditView = (props)=>{
             /*#__PURE__*/ _jsxRuntime.jsxs(_formDefault.default.Group, {
                 __source: {
                     fileName: "src/components/edit-user-data/edit-user-data.jsx",
-                    lineNumber: 80
+                    lineNumber: 77
                 },
                 __self: undefined,
                 children: [
                     /*#__PURE__*/ _jsxRuntime.jsx(_formDefault.default.Label, {
                         __source: {
                             fileName: "src/components/edit-user-data/edit-user-data.jsx",
-                            lineNumber: 81
+                            lineNumber: 78
                         },
                         __self: undefined,
-                        children: "New Email:"
+                        children: "New Emails:"
                     }),
                     /*#__PURE__*/ _jsxRuntime.jsx(_formDefault.default.Control, {
                         type: "email",
-                        value: email,
-                        onChange: (e)=>setEmail(e.target.value)
+                        value: props.email,
+                        onChange: (event)=>props.setEmail(event.target.value)
                         ,
                         __source: {
                             fileName: "src/components/edit-user-data/edit-user-data.jsx",
-                            lineNumber: 82
+                            lineNumber: 79
                         },
                         __self: undefined
                     }),
                     emailErr && /*#__PURE__*/ _jsxRuntime.jsx("p", {
                         __source: {
                             fileName: "src/components/edit-user-data/edit-user-data.jsx",
-                            lineNumber: 83
+                            lineNumber: 80
                         },
                         __self: undefined,
                         children: emailErr
-                    })
-                ]
-            }),
-            /*#__PURE__*/ _jsxRuntime.jsxs(_formDefault.default.Group, {
-                __source: {
-                    fileName: "src/components/edit-user-data/edit-user-data.jsx",
-                    lineNumber: 85
-                },
-                __self: undefined,
-                children: [
-                    /*#__PURE__*/ _jsxRuntime.jsx(_formDefault.default.Label, {
-                        __source: {
-                            fileName: "src/components/edit-user-data/edit-user-data.jsx",
-                            lineNumber: 86
-                        },
-                        __self: undefined,
-                        children: "New Birthday:"
-                    }),
-                    /*#__PURE__*/ _jsxRuntime.jsx(_formDefault.default.Control, {
-                        type: "date",
-                        value: birthday,
-                        onChange: (e)=>setBirthday(e.target.value)
-                        ,
-                        __source: {
-                            fileName: "src/components/edit-user-data/edit-user-data.jsx",
-                            lineNumber: 87
-                        },
-                        __self: undefined
-                    }),
-                    birthdayErr && /*#__PURE__*/ _jsxRuntime.jsx("p", {
-                        __source: {
-                            fileName: "src/components/edit-user-data/edit-user-data.jsx",
-                            lineNumber: 88
-                        },
-                        __self: undefined,
-                        children: birthdayErr
                     })
                 ]
             }),
@@ -40147,15 +40031,15 @@ const EditView = (props)=>{
                 variant: "secondary",
                 __source: {
                     fileName: "src/components/edit-user-data/edit-user-data.jsx",
-                    lineNumber: 90
+                    lineNumber: 82
                 },
                 __self: undefined,
-                children: "Submit"
+                children: "Update"
             })
         ]
     }));
 };
-_s(EditView, "IY+wqe6pl2pCkxnyLVbygRhtC0E=");
+_s(EditView, "UGSMFx9IPKjfwbuGv4cjUYycn6E=");
 _c = EditView;
 EditView.propTypes = {
     user: _propTypesDefault.default.string.isRequired
@@ -41817,54 +41701,6 @@ const useStore = /*#__PURE__*/ createStoreHook();
 },{"react":"6TuXu","../components/Context":"gT1Jg","./useReduxContext":"516XC","@parcel/transformer-js/src/esmodule-helpers.js":"hyqYD"}],"jOi9b":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
-
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"hyqYD"}],"1Ttfj":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "SET_MOVIES", ()=>SET_MOVIES
-);
-parcelHelpers.export(exports, "SET_FILTER", ()=>SET_FILTER
-);
-parcelHelpers.export(exports, "SET_USER", ()=>SET_USER
-);
-parcelHelpers.export(exports, "SET_USER_DATA", ()=>SET_USER_DATA
-);
-parcelHelpers.export(exports, "setMovies", ()=>setMovies
-);
-parcelHelpers.export(exports, "setFilter", ()=>setFilter
-);
-parcelHelpers.export(exports, "setUser", ()=>setUser
-);
-parcelHelpers.export(exports, "setUserData", ()=>setUserData
-);
-const SET_MOVIES = 'SET_MOVIES';
-const SET_FILTER = 'SET_FILTER';
-const SET_USER = 'SET_USER';
-const SET_USER_DATA = 'SET_USER_DATA';
-function setMovies(value) {
-    return {
-        type: SET_MOVIES,
-        value
-    };
-}
-function setFilter(value) {
-    return {
-        type: SET_FILTER,
-        value
-    };
-}
-function setUser(value) {
-    return {
-        type: SET_USER,
-        value
-    };
-}
-function setUserData(value) {
-    return {
-        type: SET_USER_DATA,
-        value
-    };
-}
 
 },{"@parcel/transformer-js/src/esmodule-helpers.js":"hyqYD"}],"bpxKL":[function(require,module,exports) {
 var $parcel$ReactRefreshHelpers$4e37 = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
@@ -50839,7 +50675,99 @@ Tooltip.defaultProps = defaultProps;
 Tooltip.displayName = 'Tooltip';
 exports.default = Tooltip;
 
-},{"classnames":"bOXOh","react":"6TuXu","./ThemeProvider":"eeqfi","./helpers":"S1Bw1","react/jsx-runtime":"8xIwr","@parcel/transformer-js/src/esmodule-helpers.js":"hyqYD"}],"1kGQ5":[function(require,module,exports) {
+},{"classnames":"bOXOh","react":"6TuXu","./ThemeProvider":"eeqfi","./helpers":"S1Bw1","react/jsx-runtime":"8xIwr","@parcel/transformer-js/src/esmodule-helpers.js":"hyqYD"}],"1Ttfj":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "SET_MOVIES", ()=>SET_MOVIES
+);
+parcelHelpers.export(exports, "SET_FILTER", ()=>SET_FILTER
+);
+parcelHelpers.export(exports, "SET_USER", ()=>SET_USER
+);
+parcelHelpers.export(exports, "SET_USER_DATA", ()=>SET_USER_DATA
+);
+parcelHelpers.export(exports, "SET_NEW_USERNAME", ()=>SET_NEW_USERNAME
+);
+parcelHelpers.export(exports, "SET_NEW_PASSWORD", ()=>SET_NEW_PASSWORD
+);
+parcelHelpers.export(exports, "SET_NEW_EMAIL", ()=>SET_NEW_EMAIL
+);
+parcelHelpers.export(exports, "SET_NEW_BIRTHDAY", ()=>SET_NEW_BIRTHDAY
+);
+parcelHelpers.export(exports, "setMovies", ()=>setMovies
+);
+parcelHelpers.export(exports, "setFilter", ()=>setFilter
+);
+parcelHelpers.export(exports, "setUser", ()=>setUser
+);
+parcelHelpers.export(exports, "setUserData", ()=>setUserData
+);
+parcelHelpers.export(exports, "setUsername", ()=>setUsername
+);
+parcelHelpers.export(exports, "setPassword", ()=>setPassword
+);
+parcelHelpers.export(exports, "setEmail", ()=>setEmail
+);
+parcelHelpers.export(exports, "setBirthday", ()=>setBirthday
+);
+const SET_MOVIES = 'SET_MOVIES';
+const SET_FILTER = 'SET_FILTER';
+const SET_USER = 'SET_USER';
+const SET_USER_DATA = 'SET_USER_DATA';
+const SET_NEW_USERNAME = 'SET_NEW_USERNAME';
+const SET_NEW_PASSWORD = 'SET_NEW_PASSWORD';
+const SET_NEW_EMAIL = 'SET_NEW_EMAIL';
+const SET_NEW_BIRTHDAY = 'SET_NEW_BIRTHDAY';
+function setMovies(value) {
+    return {
+        type: SET_MOVIES,
+        value
+    };
+}
+function setFilter(value) {
+    return {
+        type: SET_FILTER,
+        value
+    };
+}
+function setUser(value) {
+    return {
+        type: SET_USER,
+        value
+    };
+}
+function setUserData(value) {
+    return {
+        type: SET_USER_DATA,
+        value
+    };
+}
+function setUsername(value) {
+    return {
+        type: SET_NEW_USERNAME,
+        value
+    };
+}
+function setPassword(value) {
+    return {
+        type: SET_NEW_PASSWORD,
+        value
+    };
+}
+function setEmail(value) {
+    return {
+        type: SET_NEW_EMAIL,
+        value
+    };
+}
+function setBirthday(value) {
+    return {
+        type: SET_NEW_BIRTHDAY,
+        value
+    };
+}
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"hyqYD"}],"1kGQ5":[function(require,module,exports) {
 var $parcel$ReactRefreshHelpers$2519 = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
 var prevRefreshReg = window.$RefreshReg$;
 var prevRefreshSig = window.$RefreshSig$;
@@ -51750,6 +51678,26 @@ function userData(state = {
     switch(action.type){
         case _actions.SET_USER_DATA:
             return action.value;
+        case _actions.SET_NEW_USERNAME:
+            return {
+                ...state,
+                Username: action.value
+            };
+        case _actions.SET_NEW_PASSWORD:
+            return {
+                ...state,
+                Password: action.value
+            };
+        case _actions.SET_NEW_EMAIL:
+            return {
+                ...state,
+                Email: action.value
+            };
+        case _actions.SET_NEW_BIRTHDAY:
+            return {
+                ...state,
+                Birthday: action.value
+            };
         default:
             return state;
     }
