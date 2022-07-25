@@ -58,8 +58,10 @@ const EditView=(props)=>{
         },{  headers: { Authorization: `Bearer ${accessToken}`}})
         .then(response=>{
             localStorage.setItem('user', response.data.Username);
+            const user=accessToken= localStorage.getItem('user');
+            window.open(`/users/${user}`, '_self');  
             console.log(response.data);
-            // window.open(`/users/${props.user}`, '_self');      
+                 
         })
         .catch(err=>console.log(err))
         }  

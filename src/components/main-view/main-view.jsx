@@ -53,7 +53,11 @@ componentDidMount() {
     return (
       <div>
         <Router>
-          <NavBar user={user} />
+          <Row>
+            <Col>
+              <NavBar user={user} />
+            </Col>
+          </Row>
           <Row className="main-view justify-content-md-center">
             <Route exact path="/" render={() => {
               if (!user) return <Col md={8}>
@@ -71,7 +75,7 @@ componentDidMount() {
                 <LoginView onLoggedIn={user => this.onLoggedIn(user)} />
               </Col>
               if (movies.length === 0) return <div className="main-view" />;
-              return <Col md={8}>
+              return <Col md={6}>
                 <MovieView
                   movie={movies.find(m => m._id === match.params.movieId)}
                   onBackClick={() => history.goBack()}
@@ -140,7 +144,7 @@ MainView.propTypes={
       Featured: PropTypes.bool
     }).isRequired
   ).isRequired,
-  
+  user:PropTypes.string 
 }
 
 export default connect(mapStateToProps, {setMovies, setUser})(MainView);

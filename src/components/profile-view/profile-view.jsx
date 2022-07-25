@@ -99,15 +99,6 @@ function ProfileView (props){
         )
     }      
 
-
-{/*let mapStateToProps=state=>{
-    return {
-      userData:state.userData
-    }
-  }
-  export default connect(mapStateToProps, {setUserData,})(ProfileView);
-*/}
-
 ProfileView.propTypes = {
 	user:PropTypes.string.isRequired,
     onBackClick: PropTypes.func.isRequired

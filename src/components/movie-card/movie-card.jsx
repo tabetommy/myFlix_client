@@ -26,7 +26,7 @@ class MovieCard extends React.Component {
 		const { movie } = this.props;
 		return (
 			<Card className="movie-card">
-				<Card.Img className="movie-poster img-fluid" src={movie.ImagePath} />
+				<Card.Img className="movie-poster" src={movie.ImagePath} />
 				<Card.Body>
 					<Card.Title>{movie.Title}</Card.Title>
 					<Link to={`/movies/${movie._id}`}>
