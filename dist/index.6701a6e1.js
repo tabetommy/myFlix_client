@@ -37576,6 +37576,7 @@ function ProfileView(props) {
     const [username, setUsername] = _react.useState('');
     const [password, setPassword] = _react.useState('');
     const [email, setEmail] = _react.useState('');
+    const [birthday, setBirthday] = _react.useState('');
     const [favouriteMovies, setFavouriteMovies] = _react.useState([]);
     const [showModal, setShowModal] = _react.useState(false);
     _react.useEffect(()=>{
@@ -37588,7 +37589,8 @@ function ProfileView(props) {
             setUsername(response.data.Username);
             setPassword(response.data.Password);
             setEmail(response.data.Email);
-            setFavouriteMovies(response.data.FavouriteMovies);
+            setBirthday(response.data.Birthday);
+            setFavouriteMovies(response.data.FavouritesMovies);
             console.log(response.data);
         }).catch((err)=>console.log(err)
         );
@@ -37616,7 +37618,7 @@ function ProfileView(props) {
     return(/*#__PURE__*/ _jsxRuntime.jsxs("div", {
         __source: {
             fileName: "src/components/profile-view/profile-view.jsx",
-            lineNumber: 66
+            lineNumber: 68
         },
         __self: this,
         children: [
@@ -37625,12 +37627,14 @@ function ProfileView(props) {
                 username: username,
                 password: password,
                 email: email,
+                birthday: birthday,
                 setUsername: setUsername,
                 setPassword: setPassword,
                 setEmail: setEmail,
+                setBirthday: setBirthday,
                 __source: {
                     fileName: "src/components/profile-view/profile-view.jsx",
-                    lineNumber: 67
+                    lineNumber: 69
                 },
                 __self: this
             }),
@@ -37639,7 +37643,7 @@ function ProfileView(props) {
                 onClick: handleShowModal,
                 __source: {
                     fileName: "src/components/profile-view/profile-view.jsx",
-                    lineNumber: 75
+                    lineNumber: 79
                 },
                 __self: this,
                 children: "Delete user account "
@@ -37647,7 +37651,7 @@ function ProfileView(props) {
             /*#__PURE__*/ _jsxRuntime.jsx("br", {
                 __source: {
                     fileName: "src/components/profile-view/profile-view.jsx",
-                    lineNumber: 75
+                    lineNumber: 79
                 },
                 __self: this
             }),
@@ -37656,7 +37660,7 @@ function ProfileView(props) {
                 onHide: handleCloseModal,
                 __source: {
                     fileName: "src/components/profile-view/profile-view.jsx",
-                    lineNumber: 76
+                    lineNumber: 80
                 },
                 __self: this,
                 children: [
@@ -37664,13 +37668,13 @@ function ProfileView(props) {
                         closeButton: true,
                         __source: {
                             fileName: "src/components/profile-view/profile-view.jsx",
-                            lineNumber: 77
+                            lineNumber: 81
                         },
                         __self: this,
                         children: /*#__PURE__*/ _jsxRuntime.jsx(_modalDefault.default.Title, {
                             __source: {
                                 fileName: "src/components/profile-view/profile-view.jsx",
-                                lineNumber: 78
+                                lineNumber: 82
                             },
                             __self: this,
                             children: "Are you sure you want to delete your account?"
@@ -37679,7 +37683,7 @@ function ProfileView(props) {
                     /*#__PURE__*/ _jsxRuntime.jsxs(_modalDefault.default.Footer, {
                         __source: {
                             fileName: "src/components/profile-view/profile-view.jsx",
-                            lineNumber: 80
+                            lineNumber: 84
                         },
                         __self: this,
                         children: [
@@ -37688,7 +37692,7 @@ function ProfileView(props) {
                                 onClick: handleDelete,
                                 __source: {
                                     fileName: "src/components/profile-view/profile-view.jsx",
-                                    lineNumber: 81
+                                    lineNumber: 85
                                 },
                                 __self: this,
                                 children: "Yes"
@@ -37698,7 +37702,7 @@ function ProfileView(props) {
                                 onClick: handleCloseModal,
                                 __source: {
                                     fileName: "src/components/profile-view/profile-view.jsx",
-                                    lineNumber: 84
+                                    lineNumber: 88
                                 },
                                 __self: this,
                                 children: "No"
@@ -37711,7 +37715,7 @@ function ProfileView(props) {
                 onClick: onBackClick,
                 __source: {
                     fileName: "src/components/profile-view/profile-view.jsx",
-                    lineNumber: 89
+                    lineNumber: 93
                 },
                 __self: this,
                 children: "Back to main view"
@@ -37719,15 +37723,24 @@ function ProfileView(props) {
             /*#__PURE__*/ _jsxRuntime.jsx("h3", {
                 __source: {
                     fileName: "src/components/profile-view/profile-view.jsx",
-                    lineNumber: 90
+                    lineNumber: 94
                 },
                 __self: this,
                 children: "My Favorite Movies"
-            })
+            }),
+            favouriteMovies && favouriteMovies.map((movieId)=>/*#__PURE__*/ _jsxRuntime.jsx(_favoriteMoviesDefault.default, {
+                    favMovie: movieId,
+                    __source: {
+                        fileName: "src/components/profile-view/profile-view.jsx",
+                        lineNumber: 95
+                    },
+                    __self: this
+                }, movieId)
+            )
         ]
     }));
 }
-_s(ProfileView, "HLMW9YoMYohdt7Kh88mEJCVDReA=");
+_s(ProfileView, "qltJTa7RObZU/qC/oTgyM16T85w=");
 _c = ProfileView;
 ProfileView.propTypes = {
     user: _propTypesDefault.default.string.isRequired,
@@ -39857,6 +39870,8 @@ var _propTypes = require("prop-types");
 var _propTypesDefault = parcelHelpers.interopDefault(_propTypes);
 var _axios = require("axios");
 var _axiosDefault = parcelHelpers.interopDefault(_axios);
+var _moment = require("moment");
+var _momentDefault = parcelHelpers.interopDefault(_moment);
 var _form = require("react-bootstrap/Form");
 var _formDefault = parcelHelpers.interopDefault(_form);
 var _button = require("react-bootstrap/Button");
@@ -39868,6 +39883,7 @@ const EditView = (props)=>{
     const [usernameErr, setUsernameErr] = _react.useState('');
     const [passwordErr, setPasswordErr] = _react.useState('');
     const [emailErr, setEmailErr] = _react.useState('');
+    const [birthdayErr, setBirthdayErr] = _react.useState('');
     // validate user inputs
     const validate = ()=>{
         let isReq = true;
@@ -39887,8 +39903,10 @@ const EditView = (props)=>{
         }
         if (!props.email) setEmailErr('Email is required');
         else if (props.email.indexOf('@') === -1) setEmailErr('You must enter a valid email');
+        if (!props.birthday) setBirthdayErr('date of birth is required');
         return isReq;
     };
+    //submit updated user data
     const handleSubmit = (e)=>{
         e.preventDefault();
         const isReq = validate();
@@ -39897,7 +39915,8 @@ const EditView = (props)=>{
             _axiosDefault.default.put(`https://cataflix.herokuapp.com/users/${props.user}`, {
                 Username: props.username,
                 Password: props.password,
-                Email: props.email
+                Email: props.email,
+                Birthday: props.birthday
             }, {
                 headers: {
                     Authorization: `Bearer ${accessToken}`
@@ -39905,7 +39924,7 @@ const EditView = (props)=>{
             }).then((response)=>{
                 localStorage.setItem('user', response.data.Username);
                 console.log(response.data);
-                window.open(`/users/${props.user}`, '_self');
+            // window.open(`/users/${props.user}`, '_self');      
             }).catch((err)=>console.log(err)
             );
         }
@@ -39913,24 +39932,24 @@ const EditView = (props)=>{
     return(/*#__PURE__*/ _jsxRuntime.jsxs(_formDefault.default, {
         __source: {
             fileName: "src/components/edit-user-data/edit-user-data.jsx",
-            lineNumber: 66
+            lineNumber: 68
         },
         __self: undefined,
         children: [
             /*#__PURE__*/ _jsxRuntime.jsxs(_formDefault.default.Group, {
                 __source: {
                     fileName: "src/components/edit-user-data/edit-user-data.jsx",
-                    lineNumber: 67
+                    lineNumber: 69
                 },
                 __self: undefined,
                 children: [
                     /*#__PURE__*/ _jsxRuntime.jsx(_formDefault.default.Label, {
                         __source: {
                             fileName: "src/components/edit-user-data/edit-user-data.jsx",
-                            lineNumber: 68
+                            lineNumber: 70
                         },
                         __self: undefined,
-                        children: "New Username:"
+                        children: "Username:"
                     }),
                     /*#__PURE__*/ _jsxRuntime.jsx(_formDefault.default.Control, {
                         type: "text",
@@ -39939,14 +39958,14 @@ const EditView = (props)=>{
                         ,
                         __source: {
                             fileName: "src/components/edit-user-data/edit-user-data.jsx",
-                            lineNumber: 69
+                            lineNumber: 71
                         },
                         __self: undefined
                     }),
                     usernameErr && /*#__PURE__*/ _jsxRuntime.jsx("p", {
                         __source: {
                             fileName: "src/components/edit-user-data/edit-user-data.jsx",
-                            lineNumber: 70
+                            lineNumber: 72
                         },
                         __self: undefined,
                         children: usernameErr
@@ -39956,17 +39975,17 @@ const EditView = (props)=>{
             /*#__PURE__*/ _jsxRuntime.jsxs(_formDefault.default.Group, {
                 __source: {
                     fileName: "src/components/edit-user-data/edit-user-data.jsx",
-                    lineNumber: 72
+                    lineNumber: 74
                 },
                 __self: undefined,
                 children: [
                     /*#__PURE__*/ _jsxRuntime.jsx(_formDefault.default.Label, {
                         __source: {
                             fileName: "src/components/edit-user-data/edit-user-data.jsx",
-                            lineNumber: 73
+                            lineNumber: 75
                         },
                         __self: undefined,
-                        children: "New Passwordss:"
+                        children: "Password:"
                     }),
                     /*#__PURE__*/ _jsxRuntime.jsx(_formDefault.default.Control, {
                         type: "password",
@@ -39975,14 +39994,14 @@ const EditView = (props)=>{
                         ,
                         __source: {
                             fileName: "src/components/edit-user-data/edit-user-data.jsx",
-                            lineNumber: 74
+                            lineNumber: 76
                         },
                         __self: undefined
                     }),
                     passwordErr && /*#__PURE__*/ _jsxRuntime.jsx("p", {
                         __source: {
                             fileName: "src/components/edit-user-data/edit-user-data.jsx",
-                            lineNumber: 75
+                            lineNumber: 77
                         },
                         __self: undefined,
                         children: passwordErr
@@ -39992,17 +40011,17 @@ const EditView = (props)=>{
             /*#__PURE__*/ _jsxRuntime.jsxs(_formDefault.default.Group, {
                 __source: {
                     fileName: "src/components/edit-user-data/edit-user-data.jsx",
-                    lineNumber: 77
+                    lineNumber: 79
                 },
                 __self: undefined,
                 children: [
                     /*#__PURE__*/ _jsxRuntime.jsx(_formDefault.default.Label, {
                         __source: {
                             fileName: "src/components/edit-user-data/edit-user-data.jsx",
-                            lineNumber: 78
+                            lineNumber: 80
                         },
                         __self: undefined,
-                        children: "New Emails:"
+                        children: "Email:"
                     }),
                     /*#__PURE__*/ _jsxRuntime.jsx(_formDefault.default.Control, {
                         type: "email",
@@ -40011,17 +40030,53 @@ const EditView = (props)=>{
                         ,
                         __source: {
                             fileName: "src/components/edit-user-data/edit-user-data.jsx",
-                            lineNumber: 79
+                            lineNumber: 81
                         },
                         __self: undefined
                     }),
                     emailErr && /*#__PURE__*/ _jsxRuntime.jsx("p", {
                         __source: {
                             fileName: "src/components/edit-user-data/edit-user-data.jsx",
-                            lineNumber: 80
+                            lineNumber: 82
                         },
                         __self: undefined,
                         children: emailErr
+                    })
+                ]
+            }),
+            /*#__PURE__*/ _jsxRuntime.jsxs(_formDefault.default.Group, {
+                __source: {
+                    fileName: "src/components/edit-user-data/edit-user-data.jsx",
+                    lineNumber: 84
+                },
+                __self: undefined,
+                children: [
+                    /*#__PURE__*/ _jsxRuntime.jsx(_formDefault.default.Label, {
+                        __source: {
+                            fileName: "src/components/edit-user-data/edit-user-data.jsx",
+                            lineNumber: 85
+                        },
+                        __self: undefined,
+                        children: "Date of birth:"
+                    }),
+                    /*#__PURE__*/ _jsxRuntime.jsx(_formDefault.default.Control, {
+                        type: "date",
+                        value: _momentDefault.default(props.birthday).format("YYYY-MM-DD"),
+                        onChange: (event)=>props.setBirthday(event.target.value)
+                        ,
+                        __source: {
+                            fileName: "src/components/edit-user-data/edit-user-data.jsx",
+                            lineNumber: 86
+                        },
+                        __self: undefined
+                    }),
+                    birthdayErr && /*#__PURE__*/ _jsxRuntime.jsx("p", {
+                        __source: {
+                            fileName: "src/components/edit-user-data/edit-user-data.jsx",
+                            lineNumber: 87
+                        },
+                        __self: undefined,
+                        children: birthdayErr
                     })
                 ]
             }),
@@ -40031,7 +40086,7 @@ const EditView = (props)=>{
                 variant: "secondary",
                 __source: {
                     fileName: "src/components/edit-user-data/edit-user-data.jsx",
-                    lineNumber: 82
+                    lineNumber: 89
                 },
                 __self: undefined,
                 children: "Update"
@@ -40039,7 +40094,7 @@ const EditView = (props)=>{
         ]
     }));
 };
-_s(EditView, "UGSMFx9IPKjfwbuGv4cjUYycn6E=");
+_s(EditView, "I6IhTkcvc0ttZku9Udyd5Uvpong=");
 _c = EditView;
 EditView.propTypes = {
     user: _propTypesDefault.default.string.isRequired
@@ -40053,7 +40108,7 @@ $RefreshReg$(_c, "EditView");
   window.$RefreshReg$ = prevRefreshReg;
   window.$RefreshSig$ = prevRefreshSig;
 }
-},{"react/jsx-runtime":"8xIwr","react":"6TuXu","prop-types":"1tgq3","axios":"iYoWk","react-bootstrap/Form":"5ykgY","react-bootstrap/Button":"9CzHT","@parcel/transformer-js/src/esmodule-helpers.js":"hyqYD","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"kdVec"}],"ggeB3":[function(require,module,exports) {
+},{"react/jsx-runtime":"8xIwr","react":"6TuXu","prop-types":"1tgq3","axios":"iYoWk","react-bootstrap/Form":"5ykgY","react-bootstrap/Button":"9CzHT","@parcel/transformer-js/src/esmodule-helpers.js":"hyqYD","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"kdVec","moment":"5Keig"}],"ggeB3":[function(require,module,exports) {
 var $parcel$ReactRefreshHelpers$1976 = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
 var prevRefreshReg = window.$RefreshReg$;
 var prevRefreshSig = window.$RefreshSig$;

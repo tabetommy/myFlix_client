@@ -17,6 +17,7 @@ function ProfileView (props){
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [email, setEmail] = useState('');
+    const [birthday, setBirthday]=useState('');
     const [favouriteMovies, setFavouriteMovies] = useState([]);
     const [showModal, setShowModal]= useState(false);
 
@@ -29,7 +30,8 @@ function ProfileView (props){
                 setUsername(response.data.Username)
                 setPassword(response.data.Password)
                 setEmail(response.data.Email)
-                setFavouriteMovies(response.data.FavouriteMovies)
+                setBirthday(response.data.Birthday)
+                setFavouriteMovies(response.data.FavouritesMovies)
                 console.log(response.data)
             })
             .catch(err=>console.log(err))
@@ -68,9 +70,11 @@ function ProfileView (props){
                 username={username}
                 password={password}
                 email={email}
+                birthday={birthday}
                 setUsername={setUsername}
                 setPassword={setPassword}
                 setEmail={setEmail}
+                setBirthday={setBirthday}
                 />
                 <Button variant="primary" onClick={handleShowModal}>Delete user account </Button><br></br>
                 <Modal show={showModal} onHide={handleCloseModal}>
@@ -88,6 +92,7 @@ function ProfileView (props){
                 </Modal>
                 <Button onClick={onBackClick}>Back to main view</Button>
                 <h3>My Favorite Movies</h3>
+                {favouriteMovies && favouriteMovies.map(movieId => <FavMovies favMovie={movieId} key={movieId} />)}
                 
             </div>
 
