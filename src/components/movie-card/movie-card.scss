@@ -1,0 +1,13 @@
+$primary-color:#888888;
+$img-width:100%;
+$img-height:200px;
+
+.movie-card{
+    cursor: pointer;
+    box-shadow: 2px 2px 8px $primary-color;
+}
+
+.movie-poster{
+    width: $img-width;
+    height: $img-height;
+}
