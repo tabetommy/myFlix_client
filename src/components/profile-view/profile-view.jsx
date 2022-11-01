@@ -7,6 +7,7 @@ import Modal from 'react-bootstrap/Modal'
 import EditView from '../edit-user-data/edit-user-data';
 import FavMovies from '../favorite-movies/favorite-movies';
 import Button from 'react-bootstrap/Button';
+import './profile-view.scss';
 
 
 
@@ -28,7 +29,6 @@ function ProfileView (props){
                 })
             .then(response=>{
                 setUsername(response.data.Username)
-                setPassword(response.data.Password)
                 setEmail(response.data.Email)
                 setBirthday(response.data.Birthday)
                 setFavouriteMovies(response.data.FavouritesMovies)
@@ -76,7 +76,7 @@ function ProfileView (props){
                 setEmail={setEmail}
                 setBirthday={setBirthday}
                 />
-                <Button variant="primary" onClick={handleShowModal}>Delete user account </Button><br></br>
+                {username && <><Button variant="danger" className='mb-2' onClick={handleShowModal}>Delete user account </Button><br></br></>}
                 <Modal show={showModal} onHide={handleCloseModal}>
                     <Modal.Header closeButton>
                     <Modal.Title>Are you sure you want to delete your account?</Modal.Title>
@@ -90,10 +90,10 @@ function ProfileView (props){
                     </Button>
                     </Modal.Footer>
                 </Modal>
-                <Button onClick={onBackClick}>Back to main view</Button>
-                <h3>My Favorite Movies</h3>
-                {favouriteMovies && favouriteMovies.map(movieId => <FavMovies favMovie={movieId} key={movieId} />)}
-                
+                {username && <><h3 className='mb-2'>My Favorite Movies</h3></>}
+                <div className='fav-movies-con'>
+                    {favouriteMovies && favouriteMovies.map(movieId => <FavMovies favMovie={movieId} key={movieId} />)}
+                </div>   
             </div>
 
         )

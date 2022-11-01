@@ -5,6 +5,7 @@ import Card from 'react-bootstrap/Card';
 import './movie-card.scss';
 import Button from 'react-bootstrap/Button';
 import { Link } from "react-router-dom";
+import { Heart } from 'react-bootstrap-icons';
 
 
 
@@ -14,7 +15,7 @@ class MovieCard extends React.Component {
 		let token = localStorage.getItem('token');
 		let username= localStorage.getItem('user');
 		const url= `https://cataflix.herokuapp.com/users/${username}/movies/${id}`
-		axios.put(url,{
+		axios.put(url,{},{
 			headers: { Authorization: `Bearer ${token}` }
 		  })
 		  .then(response => console.log(response.data))
@@ -26,13 +27,15 @@ class MovieCard extends React.Component {
 		const { movie } = this.props;
 		return (
 			<Card className="movie-card">
-				<Card.Img className="movie-poster" src={movie.ImagePath} />
+				<Card.Img className="movie-poster" src={movie.ImagePath} alt='movie-portrait' />
 				<Card.Body>
 					<Card.Title>{movie.Title}</Card.Title>
 					<Link to={`/movies/${movie._id}`}>
-						<Button variant="link">Open</Button><br></br>
+						<Button variant="secondary">Attributes</Button><br></br>
 					</Link>
-					<Button onClick={()=>this.addMovie(movie._id)}>Add to favorite movies</Button>
+					<Button onClick={()=>this.addMovie(movie._id)} variant="light">
+						<Heart size={30} color="black"/>
+					</Button>
 				</Card.Body>
 			</Card>
 		)

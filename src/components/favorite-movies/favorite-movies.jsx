@@ -5,6 +5,7 @@ import {useSelector} from 'react-redux';
 import axios from 'axios';
 import PropTypes from 'prop-types';
 import Col from 'react-bootstrap/Col';
+import './favourite-movies.scss';
 
 
 function FavMovies({favMovie}){
@@ -28,19 +29,17 @@ function FavMovies({favMovie}){
 
 
     return(
-        <div>
-            {movies.map(movie=>{
-                if(favMovie.includes(movie._id)) return <Col md={6}>
-                    <Card className="movie-card" key={movie._id}>
-                        <Card.Img className="movie-poster img-fluid" src={movie.ImagePath} />
-                        <Card.Body>
-                            <Card.Title>{movie.Title}</Card.Title>
-                            <Button onClick={()=>removeMovie(movie._id)} >Remove</Button>
-                        </Card.Body>
-                    </Card>   
-                </Col>
-            })}
-        </div>
+        <>
+                {movies.map(movie=>{
+                    if(favMovie.includes(movie._id)) return <Card className="movie-card w-25" key={movie._id}>
+                            <Card.Img className="movie-poster" src={movie.ImagePath} alt='movie-portrait' />
+                            <Card.Body>
+                                <Card.Title>{movie.Title}</Card.Title>
+                                <Button variant="secondary" onClick={()=>removeMovie(movie._id)} >Delete</Button>
+                            </Card.Body>
+                        </Card>
+                })}
+        </>
     )
 }
 

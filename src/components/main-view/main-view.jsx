@@ -13,7 +13,10 @@ import RegistrationView from '../registration-view/registration-view';
 import DirectorView from '../director-view/director-view';
 import GenreView from '../genre-view/genre-view';
 import ProfileView from '../profile-view/profile-view';
-import NavBar from '../nav-bar/nav-bar'
+import NavBar from '../nav-bar/nav-bar';
+import Container from 'react-bootstrap/Container';
+import './main-view.scss';
+/*justify-content-md-center*/
 
 
 class MainView extends React.Component {
@@ -51,14 +54,10 @@ componentDidMount() {
     
     const {movies, user}=this.props;
     return (
-      <div>
+      <Container fluid>
         <Router>
-          <Row>
-            <Col>
-              <NavBar user={user} />
-            </Col>
-          </Row>
-          <Row className="main-view justify-content-md-center">
+          <Row className="main-view justify-content-md-center pb-3">
+            <Col md={12}><NavBar user={user} /></Col> 
             <Route exact path="/" render={() => {
               if (!user) return <Col md={8}>
                 <LoginView onLoggedIn={user => this.onLoggedIn(user)} />
@@ -75,7 +74,7 @@ componentDidMount() {
                 <LoginView onLoggedIn={user => this.onLoggedIn(user)} />
               </Col>
               if (movies.length === 0) return <div className="main-view" />;
-              return <Col md={6}>
+              return <Col md={8}>
                 <MovieView
                   movie={movies.find(m => m._id === match.params.movieId)}
                   onBackClick={() => history.goBack()}
@@ -113,7 +112,7 @@ componentDidMount() {
             }} />
           </Row>
         </Router>
-      </div>
+      </Container>
     )
   }
 }

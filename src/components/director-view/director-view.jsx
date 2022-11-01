@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Button from 'react-bootstrap/Button';
+import Card from 'react-bootstrap/Card';
 import moment from 'moment';
 
 class DirectorView extends React.Component{
@@ -12,8 +13,9 @@ class DirectorView extends React.Component{
                 <p>Born in {moment(director.Birth).format('LL')}</p>
                 <h3>Biography</h3>
                 <p>{director.Bio}</p>
-                <Button variant="primary" onClick={() => onBackClick() }>Back to movie view</Button>
-            </div>)
+                <Button variant="dark" onClick={() => onBackClick() }>Back to movie view</Button>
+            </div>
+            )
     }
 }
 

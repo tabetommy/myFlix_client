@@ -1,7 +1,7 @@
 import React, { useState} from 'react';
 import PropTypes from 'prop-types';
 import axios from 'axios';
-import moment from 'moment'
+import moment from 'moment';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 
@@ -58,7 +58,7 @@ const EditView=(props)=>{
         },{  headers: { Authorization: `Bearer ${accessToken}`}})
         .then(response=>{
             localStorage.setItem('user', response.data.Username);
-            const user=accessToken= localStorage.getItem('user');
+            const user= localStorage.getItem('user');
             window.open(`/users/${user}`, '_self');  
             console.log(response.data);
                  
@@ -67,28 +67,27 @@ const EditView=(props)=>{
         }  
     }
     return(
-        <Form>
-            <Form.Group>
+        <Form className='mb-3'>
+           { props.username && <><Form.Group>
                 <Form.Label>Username:</Form.Label>
-                <Form.Control type="text" value={props.username} onChange={event=>props.setUsername(event.target.value)} />
+                <Form.Control type="text" value={props.username} onChange={event => props.setUsername(event.target.value)} />
                 {usernameErr && <p>{usernameErr}</p>}
-            </Form.Group>
-            <Form.Group>
-                <Form.Label>Password:</Form.Label>
-                <Form.Control type="password" value={props.password} onChange={event=>props.setPassword(event.target.value)} />
-                {passwordErr && <p>{passwordErr}</p>}
-            </Form.Group>
-            <Form.Group>
-                <Form.Label>Email:</Form.Label>
-                <Form.Control type="email" value={props.email} onChange={event=>props.setEmail(event.target.value)} />
-                {emailErr && <p>{emailErr}</p>}
-            </Form.Group>
-            <Form.Group>
-                <Form.Label>Date of birth:</Form.Label>
-                <Form.Control type="date" value={moment(props.birthday).format("YYYY-MM-DD")} onChange={event=>props.setBirthday(event.target.value)} />
-                {birthdayErr && <p>{birthdayErr}</p>}
-            </Form.Group>
-            <Button type='submit' onClick={handleSubmit} variant='secondary' >Update</Button>
+            </Form.Group><Form.Group>
+                    <Form.Label>Password:</Form.Label>
+                    <Form.Control type="password" value={props.password} onChange={event => props.setPassword(event.target.value)} />
+                    {passwordErr && <p>{passwordErr}</p>}
+                </Form.Group><Form.Group>
+                    <Form.Label>Email:</Form.Label>
+                    <Form.Control type="email" value={props.email} onChange={event => props.setEmail(event.target.value)} />
+                    {emailErr && <p>{emailErr}</p>}
+                </Form.Group>
+                <Form.Group>
+                    <Form.Label>Date of birth:</Form.Label>
+                    <Form.Control type="date" value={moment(props.birthday).format("YYYY-MM-DD")} onChange={event => props.setBirthday(event.target.value)} />
+                    {birthdayErr && <p>{birthdayErr}</p>}
+                </Form.Group>
+                <Button type='submit' onClick={handleSubmit} variant='secondary'>Update</Button>
+                </>}
         </Form>
     )
 }

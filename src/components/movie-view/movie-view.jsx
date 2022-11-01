@@ -3,14 +3,15 @@ import PropTypes from 'prop-types';
 import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
 import { Link } from "react-router-dom";
-import  {Navbar,Nav} from 'react-bootstrap';
+import './movie-view.scss'
+
 
 class MovieView extends React.Component{
 
 	render(){
 		const {movie, onBackClick}=this.props
 		return(
-			<div>
+			<div className='movie-view'>
 				<div>
 					<h1>{movie.Title}</h1>
 					<p>Director:
@@ -26,9 +27,32 @@ class MovieView extends React.Component{
 					<h4>Description</h4>
 					<p>{movie.Description}</p>
 				</div>
-				<img className="movie-poster" src={movie.ImagePath} />
-				<Button variant="primary" onClick={() => onBackClick() }>Back</Button>
+				<img className="rounded mx-auto d-block" src={movie.ImagePath} />
+				<Button variant="secondary mx-auto d-block" onClick={() => onBackClick() }>Back</Button>
 			</div>
+			// <Card style={{ width: '18rem' }}>
+			// 	<Card.Img variant="top" src={movie.ImagePath}/>
+			// 	<Card.Body>
+			// 	<Card.Title>{movie.Title}</Card.Title>
+			// 	<Card.Text>
+			// 		Description:<br></br>
+			// 		{movie.Description}
+			// 	</Card.Text>
+			// 	<Card.Text>
+			// 		Director:
+			// 		<Link to={`/director/${movie.Director.Name}`}>
+			// 				{movie.Director.Name}
+			// 		</Link>
+			// 	</Card.Text>
+			// 	<Card.Text>
+			// 		Genre:
+		 	// 		<Link to={`/genre/${movie.Genre.Name}`}>
+			// 			{movie.Genre.Name}
+			//  		</Link>	
+			// 	</Card.Text>
+			// 	<Button variant="primary" onClick={() => onBackClick() }>Back</Button>
+			// 	</Card.Body>
+		  	// </Card>
 			)
 	}
 };
