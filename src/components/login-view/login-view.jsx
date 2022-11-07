@@ -68,10 +68,10 @@ function LoginView(props){
                  {/* code added here to display validation error */}
                 {passwordErr && <p>{passwordErr}</p>}
             </Form.Group>
-            <Button variant="primary" type='submit' onClick={handleSubmit}>Submit</Button><br></br>
+            <Button variant="success" type='submit' onClick={handleSubmit}>Sign in</Button><br></br>
             <Link to={`/register`} >
-                <Button  type='button' variant="danger" className='btn'>Register</Button>
-            </Link> 
+            <Button  type='button' variant="link" className='btn py-0 my-0'>Sign me up</Button>
+            </Link>
         </Form>
     );
 

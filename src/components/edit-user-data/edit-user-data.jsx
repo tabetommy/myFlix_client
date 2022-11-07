@@ -86,7 +86,7 @@ const EditView=(props)=>{
                     <Form.Control type="date" value={moment(props.birthday).format("YYYY-MM-DD")} onChange={event => props.setBirthday(event.target.value)} />
                     {birthdayErr && <p>{birthdayErr}</p>}
                 </Form.Group>
-                <Button type='submit' onClick={handleSubmit} variant='secondary'>Update</Button>
+                <Button type='submit' onClick={handleSubmit} variant='success'>Update</Button>
                 </>}
         </Form>
     )

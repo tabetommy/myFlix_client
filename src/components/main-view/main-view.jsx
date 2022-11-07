@@ -6,7 +6,7 @@ import { setMovies, setUser} from '../../actions/actions';
 import MoviesList from '../movies-list/movies-list';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-import { HashRouter as Router, Route, Redirect } from "react-router-dom";
+import { HashRouter , Route, Redirect } from "react-router-dom";
 import MovieView from '../movie-view/movie-view';
 import LoginView from '../login-view/login-view';
 import RegistrationView from '../registration-view/registration-view';
@@ -16,7 +16,6 @@ import ProfileView from '../profile-view/profile-view';
 import NavBar from '../nav-bar/nav-bar';
 import Container from 'react-bootstrap/Container';
 import './main-view.scss';
-/*justify-content-md-center*/
 
 
 class MainView extends React.Component {
@@ -54,8 +53,8 @@ componentDidMount() {
     
     const {movies, user}=this.props;
     return (
-      <Container fluid>
-        <Router>
+      <Container fluid className="main-con px-0">
+        <HashRouter>
           <Row className="main-view justify-content-md-center pb-3">
             <Col md={12}><NavBar user={user} /></Col> 
             <Route exact path="/" render={() => {
@@ -111,7 +110,7 @@ componentDidMount() {
               </Col>
             }} />
           </Row>
-        </Router>
+        </HashRouter>
       </Container>
     )
   }

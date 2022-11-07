@@ -85,7 +85,7 @@ function RegistrationView(){
                 <Form.Control type="date" vaue={birthday} onChange={e=>setBirthday(e.target.value)} />
                 {birthdayErr && <p>{birthdayErr}</p>}
             </Form.Group>
-            <Button type='submit' onClick={handleRegistration} >Register</Button>
+            <Button type='submit' onClick={handleRegistration} variant="success" >Sign up</Button>
         </Form>
     );
 

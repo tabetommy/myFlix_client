@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import VisibilityFilterInput from '../visibility-filter-input/visibility-filter-input';
 import MovieCard  from '../movie-card/movie-card';
 import './movies-list.scss';
+// style={{margin:'2em 0'}}
 
 
 
@@ -21,7 +22,7 @@ function MoviesList(props) {
 
   return (
          <>
-           <Col md={12} style={{margin:'2em 0'}}>
+           <Col md={12} >
             <VisibilityFilterInput visibilityFilter={visibilityFilter} />
            </Col>    
            {filteredMovies.map(m => (            
