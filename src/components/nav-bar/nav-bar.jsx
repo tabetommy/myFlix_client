@@ -32,7 +32,7 @@ const NavBar=(props)=>{
                         <span>Home</span>
                         <HouseFill size={30}/>
                         </Link></NavItem>}
-                    {isAuth() && <NavItem><Link className="nav-link" to={`/users/${user}`}>
+                    {isAuth() && <NavItem><Link className="nav-link" to={`/myFlix_client/users/${user}`}>
                         <span>{user}</span>
                         <PersonFill size={30}/>
                         </Link></NavItem>}
