@@ -9,7 +9,7 @@ const NavBar=(props)=>{
    const {user}= props
    const onLoggedOut=()=>{
         localStorage.clear();
-        window.open('/','_self')
+        window.open('/myFlix_client','_self')
         }
    const isAuth=()=>{
     if (typeof window == 'undefined'){
@@ -28,17 +28,17 @@ const NavBar=(props)=>{
             <Navbar.Collapse id="responsive-navbar-nav">
                 <Nav className="me-auto nav">
                     {isAuth() && <NavItem>
-                        <Link to='/myFlix_client' className='home'>
+                        <Link to='/myFlix_client' className="nav-link home">
                         <span>Home</span>
                         <HouseFill size={30}/>
                         </Link></NavItem>}
-                    {isAuth() && <NavItem><Link to={`/myFlix_client/users/${user}`}>
+                    {isAuth() && <NavItem><Link className="nav-link" to={`/users/${user}`}>
                         <span>{user}</span>
                         <PersonFill size={30}/>
                         </Link></NavItem>}
-                    {!isAuth() && <NavItem><Link to='/myFlix_client'>signin</Link></NavItem> }
-                    {!isAuth() && <NavItem><Link to='/myFlix_client/register'>signup</Link></NavItem> }
-                    {isAuth() && <NavItem><Link onClick={()=>onLoggedOut()} >
+                    {!isAuth() && <NavItem><Link className="nav-link" to='/myFlix_client'>signin</Link></NavItem> }
+                    {!isAuth() && <NavItem><Link className="nav-link" to='/myFlix_client/register'>signup</Link></NavItem> }
+                    {isAuth() && <NavItem><Link className="nav-link" onClick={()=>onLoggedOut()} >
                         <span>Logout</span>
                         <BoxArrowRight size={30}/>
                         </Link></NavItem>}
