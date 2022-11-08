@@ -40,7 +40,7 @@ function ProfileView (props){
 
     
 
-     handleDelete=()=>{
+    function handleDelete(){
         let accessToken= localStorage.getItem('token');
         axios.delete(`https://cataflix.herokuapp.com/users/${props.user}`,{
             headers:{Authorization: `Bearer ${accessToken}`}
