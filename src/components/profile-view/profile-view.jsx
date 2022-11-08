@@ -48,7 +48,7 @@ function ProfileView (props){
         .then(()=>{
             alert(`${props.user} has been succesfully deleted`);
             localStorage.clear();
-            window.open('/register', '_self');
+            window.open('/myFlix_client/register', '_self');
         })
         .catch(err=>console.log(err))
 
