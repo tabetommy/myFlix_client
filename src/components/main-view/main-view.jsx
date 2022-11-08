@@ -16,7 +16,6 @@ import ProfileView from '../profile-view/profile-view';
 import NavBar from '../nav-bar/nav-bar';
 import Container from 'react-bootstrap/Container';
 import './main-view.scss';
-/*justify-content-md-center*/
 
 
 class MainView extends React.Component {
@@ -55,21 +54,21 @@ componentDidMount() {
     const {movies, user}=this.props;
     return (
       <Container fluid className="main-con px-0">
-        <Router basename={process.env.PUBLIC_URL}>
+        <Router>
           <Row className="main-view justify-content-md-center pb-3">
             <Col md={12}><NavBar user={user} /></Col> 
-            <Route exact path="/" render={() => {
+            <Route exact path="/myFlix_client" render={() => {
               if (!user) return <Col md={8}>
                 <LoginView onLoggedIn={user => this.onLoggedIn(user)} />
               </Col>
               if (movies.length === 0) return <div className="main-view" />;
               return <MoviesList movies={movies}/>
             }} />
-            <Route path="/register" render={() => {
+            <Route path="/myFlix_client/register" render={() => {
               if (user) return <Redirect to="/" />
               return <Col md={8}><RegistrationView /></Col>
             }} />
-            <Route path="/movies/:movieId" render={({ match, history }) => {
+            <Route path="/myFlix_client/movies/:movieId" render={({ match, history }) => {
               if (!user) return <Col md={8}>
                 <LoginView onLoggedIn={user => this.onLoggedIn(user)} />
               </Col>
@@ -81,7 +80,7 @@ componentDidMount() {
                 />
               </Col>
             }} />
-            <Route path="/director/:name" render={({ match, history }) => {
+            <Route path="/myFlix_client/director/:name" render={({ match, history }) => {
               if (!user) return <Col md={8}>
                 <LoginView onLoggedIn={user => this.onLoggedIn(user)} />
               </Col>
@@ -93,7 +92,7 @@ componentDidMount() {
                 />
               </Col>
             }} />
-            <Route path="/genre/:name" render={({ match, history }) => {
+            <Route path="/myFlix_client/genre/:name" render={({ match, history }) => {
               if (!user) return <Col md={8}>
                 <LoginView onLoggedIn={user => this.onLoggedIn(user)} />
               </Col>
@@ -104,7 +103,7 @@ componentDidMount() {
                 />
               </Col>
             }} />
-            <Route path={`/users/${user}`} render={({ history }) => {
+            <Route path={`/myFlix_client/users/${user}`} render={({ history }) => {
               if (!user) return <Redirect to="/" />
               return <Col md={8}>
                 <ProfileView user={user} onBackClick={() => history.goBack()} />

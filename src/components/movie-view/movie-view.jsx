@@ -15,12 +15,12 @@ class MovieView extends React.Component{
 				<div>
 					<h1>{movie.Title}</h1>
 					<p>Director:
-						<Link to={`/director/${movie.Director.Name}`}>
+						<Link to={`/myFlix_client/director/${movie.Director.Name}`}>
 							{movie.Director.Name}
 						</Link>
 					</p>
 					<p>Genre:
-						<Link to={`/genre/${movie.Genre.Name}`}>
+						<Link to={`/myFlix_client/genre/${movie.Genre.Name}`}>
 							{movie.Genre.Name}
 						</Link>
 					</p>
@@ -30,29 +30,6 @@ class MovieView extends React.Component{
 				<img className="rounded mx-auto d-block" src={movie.ImagePath} />
 				<Button variant="secondary mx-auto d-block" onClick={() => onBackClick() }>Back</Button>
 			</div>
-			// <Card style={{ width: '18rem' }}>
-			// 	<Card.Img variant="top" src={movie.ImagePath}/>
-			// 	<Card.Body>
-			// 	<Card.Title>{movie.Title}</Card.Title>
-			// 	<Card.Text>
-			// 		Description:<br></br>
-			// 		{movie.Description}
-			// 	</Card.Text>
-			// 	<Card.Text>
-			// 		Director:
-			// 		<Link to={`/director/${movie.Director.Name}`}>
-			// 				{movie.Director.Name}
-			// 		</Link>
-			// 	</Card.Text>
-			// 	<Card.Text>
-			// 		Genre:
-		 	// 		<Link to={`/genre/${movie.Genre.Name}`}>
-			// 			{movie.Genre.Name}
-			//  		</Link>	
-			// 	</Card.Text>
-			// 	<Button variant="primary" onClick={() => onBackClick() }>Back</Button>
-			// 	</Card.Body>
-		  	// </Card>
 			)
 	}
 };

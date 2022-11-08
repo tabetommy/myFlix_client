@@ -26,16 +26,16 @@ const NavBar=(props)=>{
             <Navbar.Toggle aria-controls="responsive-navbar-nav" />
             <Navbar.Collapse id="responsive-navbar-nav">
                 <Nav className="me-auto nav">
-                    {isAuth() && <Nav.Link href='/' className='home'>
+                    {isAuth() && <Nav.Link href='/myFlix_client' className='home'>
                         <span>Home</span>
                         <HouseFill size={30}/>
                         </Nav.Link> }
-                    {isAuth() && <Nav.Link href={`users/${user}`}>
+                    {isAuth() && <Nav.Link href={`/myFlix_client/users/${user}`}>
                         <span>{user}</span>
                         <PersonFill size={30}/>
                         </Nav.Link>}
-                    {!isAuth() && <Nav.Link href='/'>signin</Nav.Link> }
-                    {!isAuth() && <Nav.Link href='/register'>signup</Nav.Link> }
+                    {!isAuth() && <Nav.Link href='/myFlix_client'>signin</Nav.Link> }
+                    {!isAuth() && <Nav.Link href='/myFlix_client/register'>signup</Nav.Link> }
                     {isAuth() && <Nav.Link onClick={()=>onLoggedOut()} >
                         <span>Logout</span>
                         <BoxArrowRight size={30}/>

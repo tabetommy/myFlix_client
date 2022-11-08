@@ -69,7 +69,7 @@ function LoginView(props){
                 {passwordErr && <p>{passwordErr}</p>}
             </Form.Group>
             <Button variant="success" type='submit' onClick={handleSubmit}>Sign in</Button><br></br>
-            <Link to={`/register`} >
+            <Link to={`/myFlix_client/register`} >
             <Button  type='button' variant="link" className='btn py-0 my-0'>Sign me up</Button>
             </Link>
         </Form>

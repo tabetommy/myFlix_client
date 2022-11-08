@@ -30,7 +30,7 @@ class MovieCard extends React.Component {
 				<Card.Img className="movie-poster" src={movie.ImagePath} alt='movie-portrait' />
 				<Card.Body>
 					<Card.Title>{movie.Title}</Card.Title>
-					<Link to={`/movies/${movie._id}`}>
+					<Link to={`/myFlix_client/movies/${movie._id}`}>
 						<Button variant="secondary">Attributes</Button><br></br>
 					</Link>
 					<Button onClick={()=>this.addMovie(movie._id)} variant="light">
