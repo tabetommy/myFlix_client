@@ -55,11 +55,11 @@ function ProfileView (props){
     }
     
 
-    handleShowModal=()=>{
+    function handleShowModal(){
         setShowModal(true)
     }
 
-    handleCloseModal=()=>{
+    function handleCloseModal(){
         setShowModal(false)
     }
  
