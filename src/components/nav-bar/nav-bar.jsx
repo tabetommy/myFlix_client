@@ -1,7 +1,8 @@
 import React from 'react';
 import propTypes from 'prop-types';
-import  {Navbar,Nav} from 'react-bootstrap';
+import  {Navbar,Nav,NavItem} from 'react-bootstrap';
 import { HouseFill, PersonFill, BoxArrowRight } from 'react-bootstrap-icons';
+import {Link} from 'react-router-dom';
 import './nav-bar.scss';
 
 const NavBar=(props)=>{
@@ -26,20 +27,21 @@ const NavBar=(props)=>{
             <Navbar.Toggle aria-controls="responsive-navbar-nav" />
             <Navbar.Collapse id="responsive-navbar-nav">
                 <Nav className="me-auto nav">
-                    {isAuth() && <Nav.Link href='/myFlix_client' className='home'>
+                    {isAuth() && <NavItem>
+                        <Link to='/myFlix_client' className='home'>
                         <span>Home</span>
                         <HouseFill size={30}/>
-                        </Nav.Link> }
-                    {isAuth() && <Nav.Link href={`/myFlix_client/users/${user}`}>
+                        </Link></NavItem>}
+                    {isAuth() && <NavItem><Link to={`/myFlix_client/users/${user}`}>
                         <span>{user}</span>
                         <PersonFill size={30}/>
-                        </Nav.Link>}
-                    {!isAuth() && <Nav.Link href='/myFlix_client'>signin</Nav.Link> }
-                    {!isAuth() && <Nav.Link href='/myFlix_client/register'>signup</Nav.Link> }
-                    {isAuth() && <Nav.Link onClick={()=>onLoggedOut()} >
+                        </Link></NavItem>}
+                    {!isAuth() && <NavItem><Link to='/myFlix_client'>signin</Link></NavItem> }
+                    {!isAuth() && <NavItem><Link to='/myFlix_client/register'>signup</Link></NavItem> }
+                    {isAuth() && <NavItem><Link onClick={()=>onLoggedOut()} >
                         <span>Logout</span>
                         <BoxArrowRight size={30}/>
-                        </Nav.Link>}
+                        </Link></NavItem>}
                 </Nav>
             </Navbar.Collapse>
         </Navbar>
