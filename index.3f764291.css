@@ -19,25 +19,33 @@
   font-weight: 500;
   cursor: pointer;
 }
-.movie-card {
+.fav-movie-card {
   cursor: pointer;
   box-shadow: 2px 2px 8px #888888;
+  width: 25%;
 }
 
 .movie-poster {
   width: 50%;
   height: 200px;
 }
+
+@media all and (max-width: 560px) {
+  .fav-movie-card {
+    width: 80%;
+  }
+}
 .fav-movies-con {
   display: flex;
-  flex-direction: column;
+  flex-wrap: wrap;
+  gap: 0 20px;
 }
 
-@media all and (min-width: 560px) {
+@media all and (max-width: 560px) {
   .fav-movies-con {
-    flex-direction: row;
-    flex-wrap: wrap;
-    gap: 10px 20px;
+    flex-direction: column;
+    gap: 16px 0;
+    align-items: center;
   }
 }
 .nav {
