@@ -31,11 +31,11 @@ function FavMovies({favMovie}){
     return(
         <>
                 {movies.map(movie=>{
-                    if(favMovie.includes(movie._id)) return <Card className="movie-card w-25" key={movie._id}>
+                    if(favMovie.includes(movie._id)) return <Card className="fav-movie-card" key={movie._id}>
                             <Card.Img className="movie-poster" src={movie.ImagePath} alt='movie-portrait' />
                             <Card.Body>
                                 <Card.Title>{movie.Title}</Card.Title>
-                                <Button variant="secondary" onClick={()=>removeMovie(movie._id)} >Delete</Button>
+                                <Button variant="success" onClick={()=>removeMovie(movie._id)} >Delete</Button>
                             </Card.Body>
                         </Card>
                 })}

@@ -1,12 +1,14 @@
 .fav-movies-con{
     display:flex;
-    flex-direction: column;
+    flex-wrap: wrap;
+    gap: 0 20px;
 }
 
-@media all and (min-width: 560px) {
+@media all and (max-width: 560px) {
     .fav-movies-con{
-        flex-direction: row;
-        flex-wrap: wrap;
-        gap: 10px 20px;
+        flex-direction: column;
+        gap: 16px 0;
+        align-items: center;
+       
     }
 }

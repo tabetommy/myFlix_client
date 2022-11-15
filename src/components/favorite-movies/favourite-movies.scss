@@ -2,13 +2,20 @@ $primary-color:#888888;
 $img-width:50%;
 $img-height:200px;
 
-.movie-card{
+.fav-movie-card{
     cursor: pointer;
     box-shadow: 2px 2px 8px $primary-color;
+    width:25%
     
 }
 
 .movie-poster{
     width: $img-width;
     height: $img-height;
+}
+
+@media all and (max-width: 560px) {
+    .fav-movie-card{
+        width:80% 
+    }
 }

@@ -67,7 +67,7 @@ const EditView=(props)=>{
         }  
     }
     return(
-        <Form className='mb-3'>
+        <Form className='my-3 mx-2'>
            { props.username && <><Form.Group>
                 <Form.Label>Username:</Form.Label>
                 <Form.Control type="text" value={props.username} onChange={event => props.setUsername(event.target.value)} />
@@ -83,7 +83,10 @@ const EditView=(props)=>{
                 </Form.Group>
                 <Form.Group>
                     <Form.Label>Date of birth:</Form.Label>
-                    <Form.Control type="date" value={moment(props.birthday).format("YYYY-MM-DD")} onChange={event => props.setBirthday(event.target.value)} />
+                    <Form.Control type="date" 
+                    value={moment(props.birthday).format("YYYY-MM-DD")} 
+                    onChange={event => props.setBirthday(event.target.value)}
+                    className="mb-3" />
                     {birthdayErr && <p>{birthdayErr}</p>}
                 </Form.Group>
                 <Button type='submit' onClick={handleSubmit} variant='success'>Update</Button>

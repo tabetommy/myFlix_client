@@ -9,7 +9,7 @@ class GenreView extends React.Component{
             <div>
                 <h1>{genre.Name}</h1>
                 <p>{genre.Description}</p>
-                <Button variant="dark" onClick={() => onBackClick() }>Back to movie view</Button>
+                <Button variant="success" onClick={() => onBackClick() }>Back to movie view</Button>
             </div>
         )
 

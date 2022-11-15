@@ -10,8 +10,8 @@ function VisibilityFilterInput(props) {
   return <Form.Control
     onChange={e =>props.setFilter(e.target.value)}
     value={props.visibilityFilter}
-    placeholder="filter"
-    className="py-0"
+    placeholder="filter..."
+    className="py-0 mt-4"
   />;
 }
 

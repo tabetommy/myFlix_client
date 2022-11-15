@@ -76,7 +76,7 @@ function ProfileView (props){
                 setEmail={setEmail}
                 setBirthday={setBirthday}
                 />
-                {username && <><Button variant="danger" className='mb-2' onClick={handleShowModal}>Delete user account </Button><br></br></>}
+                {username && <><Button variant="danger" className='mb-2 mx-2' onClick={handleShowModal}>Delete account </Button><br></br></>}
                 <Modal show={showModal} onHide={handleCloseModal}>
                     <Modal.Header closeButton>
                     <Modal.Title>Are you sure you want to delete your account?</Modal.Title>
@@ -90,7 +90,7 @@ function ProfileView (props){
                     </Button>
                     </Modal.Footer>
                 </Modal>
-                {username && <><h3 className='mb-2'>My Favorite Movies</h3></>}
+                {username && <><h3 className='mb-2 mx-2'>My Favorite Movies</h3></>}
                 <div className='fav-movies-con'>
                     {favouriteMovies && favouriteMovies.map(movieId => <FavMovies favMovie={movieId} key={movieId} />)}
                 </div>   

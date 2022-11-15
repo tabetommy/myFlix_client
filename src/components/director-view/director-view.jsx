@@ -13,7 +13,7 @@ class DirectorView extends React.Component{
                 <p>Born in {moment(director.Birth).format('LL')}</p>
                 <h3>Biography</h3>
                 <p>{director.Bio}</p>
-                <Button variant="dark" onClick={() => onBackClick() }>Back to movie view</Button>
+                <Button variant="success" onClick={() => onBackClick() }>Back to movie view</Button>
             </div>
             )
     }

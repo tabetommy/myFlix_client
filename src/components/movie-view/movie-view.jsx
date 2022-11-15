@@ -28,7 +28,7 @@ class MovieView extends React.Component{
 					<p>{movie.Description}</p>
 				</div>
 				<img className="rounded mx-auto d-block" src={movie.ImagePath} />
-				<Button variant="secondary mx-auto d-block" onClick={() => onBackClick() }>Back</Button>
+				<Button variant="success mx-auto d-block" onClick={() => onBackClick() }>Back</Button>
 			</div>
 			)
 	}

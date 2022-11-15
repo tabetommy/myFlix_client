@@ -23,7 +23,7 @@ const NavBar=(props)=>{
    }
 
     return(
-        <Navbar bg="dark" variant="dark" className="mb-5">
+        <Navbar bg="dark" variant="dark">
             <Navbar.Toggle aria-controls="responsive-navbar-nav" />
             <Navbar.Collapse id="responsive-navbar-nav">
                 <Nav className="me-auto nav">
