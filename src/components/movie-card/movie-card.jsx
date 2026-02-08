@@ -10,21 +10,21 @@ import { Heart, HeartFill } from 'react-bootstrap-icons';
 
 
 function MovieCard(props)  {
- const { movie } = props;
+ const { movie, userFavMovies, setUserFavMovies } = props;
  
 	function addMovie(id) {
 		let token = localStorage.getItem('token');
 		let username= localStorage.getItem('user');
-		const url= `http://localhost:8080/users/${username}/movies/${id}`
+		const url= `https://movieapi-production-2da7.up.railway.app/users/${username}/movies/${id}`
 		axios.put(url,{},{
 			headers: { Authorization: `Bearer ${token}` }
 		  })
-		  .then(response => console.log("hhshshshhshhshs",response.data))
+		  .then(response => {
+			// Update the userFavMovies state with the new list of favorite movies
+			setUserFavMovies(response.data.FavouritesMovies);
+		  })
 		  .catch(err => console.log(err))
 	  }
-
-	
-
 
 	
 		return (
@@ -36,10 +36,7 @@ function MovieCard(props)  {
 						<Button variant="secondary">Attributes</Button><br></br>
 					</Link>
 					<Button onClick={()=>addMovie(movie._id)} variant="light">
-						{/* <Heart size={30} color="blue"/> */}
-						
-							<HeartFill size={30} color="blue" />
-						
+						{userFavMovies?.includes(movie?._id) ? <HeartFill size={30} color="#585a5b" /> : <Heart size={30} color="#373738"/> }
 					</Button>
 				</Card.Body>
 			</Card>

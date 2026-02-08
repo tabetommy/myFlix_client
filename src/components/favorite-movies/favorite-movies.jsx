@@ -14,7 +14,7 @@ function FavMovies({favMovie, setCounter}){
 
     function removeMovie(movieId){
         let token = localStorage.getItem('token');
-		const url= `http://localhost:8080/users/${user}/movies/${movieId}`;
+		const url= `https://movieapi-production-2da7.up.railway.app/users/${user}/movies/${movieId}`;
         axios.delete(url,{
             headers: { Authorization: `Bearer ${token}` }
           })

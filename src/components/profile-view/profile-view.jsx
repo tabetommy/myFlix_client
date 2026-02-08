@@ -24,7 +24,7 @@ function ProfileView (props){
 
     useEffect(()=>{
         let accessToken= localStorage.getItem('token');
-            axios.get(`http://localhost:8080/users/${props.user}`,{
+            axios.get(`https://movieapi-production-2da7.up.railway.app/users/${props.user}`,{
                 headers:{Authorization: `Bearer ${accessToken}`}
                 })
             .then(response=>{
@@ -32,7 +32,7 @@ function ProfileView (props){
                 setEmail(response.data.Email)
                 setBirthday(response.data.Birthday)
                 setFavouriteMovies(response.data.FavouritesMovies)
-                console.log(response.data)
+                
             })
             .catch(err=>console.log(err))
 
@@ -42,7 +42,7 @@ function ProfileView (props){
 
     function handleDelete(){
         let accessToken= localStorage.getItem('token');
-        axios.delete(`http://localhost:8080/users/${props.user}`,{
+        axios.delete(`https://movieapi-production-2da7.up.railway.app/users/${props.user}`,{
             headers:{Authorization: `Bearer ${accessToken}`}
             })
         .then(()=>{

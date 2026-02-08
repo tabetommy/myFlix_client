@@ -31,7 +31,7 @@ componentDidMount() {
 
 
   getMovies(token) {
-    axios.get('http://localhost:8080/movies', {
+    axios.get('https://movieapi-production-2da7.up.railway.app/movies', {
       headers: { Authorization: `Bearer ${token}` }
     })
       .then(response => {

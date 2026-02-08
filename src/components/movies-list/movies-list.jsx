@@ -6,6 +6,7 @@ import { connect } from 'react-redux';
 import VisibilityFilterInput from '../visibility-filter-input/visibility-filter-input';
 import MovieCard  from '../movie-card/movie-card';
 import './movies-list.scss';
+import axios from 'axios';
 
 
 
@@ -18,17 +19,23 @@ function MoviesList(props) {
     filteredMovies = movies.filter(m => m.Title.toLowerCase().includes(visibilityFilter.toLowerCase()));
   }
 
-    //  React.useEffect(()=>{
-		// 	  let accessToken= localStorage.getItem('token');
-		// 		  axios.get(`http://localhost:8080/users/${user}`,{
-		// 			  headers:{Authorization: `Bearer ${accessToken}`}
-		// 			  })
-		// 		  .then(response=>{
-		// 			  setUserFavMovies(response.data.userFavMovies)
-		// 		  })
-		// 		  .catch(err=>console.log(err))
+
+const [userFavMovies, setUserFavMovies] = React.useState([]);
+
+     React.useEffect(()=>{
+          let accessToken= localStorage.getItem('token');
+          const user= localStorage.getItem('user');
+				  axios.get(`https://movieapi-production-2da7.up.railway.app/users/${user}`,{
+					  headers:{Authorization: `Bearer ${accessToken}`}
+					  })
+				  .then(response=>{
+            setUserFavMovies(response.data.FavouritesMovies)
+				  })
+				  .catch(err=>console.log(err))
 	  
-		//   },[])
+		  },[])
+
+     
 
   if (!movies) return <div className="main-view"/>;
 
@@ -41,7 +48,7 @@ function MoviesList(props) {
            <Col md={4} className="invisible"></Col>   
            {filteredMovies.map(m => (            
               <Col sm={4} md={3} key={m._id} className='movies-list-card'>
-                  <MovieCard movie={m} />
+                  <MovieCard movie={m} userFavMovies={userFavMovies} setUserFavMovies={setUserFavMovies}/>
               </Col> 
                   ))}
          </>

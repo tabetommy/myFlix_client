@@ -51,7 +51,7 @@ function RegistrationView(props){
         e.preventDefault();
         const isReq = validate();
         if(isReq){
-            axios.post('http://localhost:8080/users',{
+            axios.post('https://movieapi-production-2da7.up.railway.app/users',{
             Username: username,
             Password: password,
             Email: email,
@@ -69,7 +69,7 @@ function RegistrationView(props){
     const handleDemoRegistration=(e)=>{
                if(true) {
               /* Send request to the server for authentication */
-              axios.post('http://localhost:8080/login', {
+              axios.post('https://movieapi-production-2da7.up.railway.app/login', {
                   Username: 'User1',
                   Password: 'DemoUser19190!'
               })

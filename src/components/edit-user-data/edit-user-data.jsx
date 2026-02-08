@@ -50,7 +50,7 @@ const EditView=(props)=>{
         const isReq = validate();
         if(isReq){
             let accessToken= localStorage.getItem('token')
-            axios.put(`http://localhost:8080/users/${props.user}`,{
+            axios.put(`https://movieapi-production-2da7.up.railway.app/users/${props.user}`,{
             Username:props.username,
             Password:props.password,
             Email:props.email,

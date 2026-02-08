@@ -40,7 +40,7 @@ function LoginView(props){
         const isReq = validate();
         if(isReq) {
           /* Send request to the server for authentication */
-          axios.post('http://localhost:8080/login', {
+          axios.post('https://movieapi-production-2da7.up.railway.app/login', {
               Username: username,
               Password: password
           })
@@ -58,7 +58,7 @@ function LoginView(props){
     const handleDemoRegistration=(e)=>{
            if(true) {
           /* Send request to the server for authentication */
-          axios.post('http://localhost:8080/login', {
+          axios.post('https://movieapi-production-2da7.up.railway.app/login', {
               Username: 'User1',
               Password: 'DemoUser19190!'
           })
