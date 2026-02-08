@@ -5,26 +5,28 @@ import Card from 'react-bootstrap/Card';
 import './movie-card.scss';
 import Button from 'react-bootstrap/Button';
 import { Link } from "react-router-dom";
-import { Heart } from 'react-bootstrap-icons';
+import { Heart, HeartFill } from 'react-bootstrap-icons';
 
 
 
-class MovieCard extends React.Component {
-
-	addMovie(id) {
+function MovieCard(props)  {
+ const { movie } = props;
+ 
+	function addMovie(id) {
 		let token = localStorage.getItem('token');
 		let username= localStorage.getItem('user');
-		const url= `https://cataflix.herokuapp.com/users/${username}/movies/${id}`
+		const url= `http://localhost:8080/users/${username}/movies/${id}`
 		axios.put(url,{},{
 			headers: { Authorization: `Bearer ${token}` }
 		  })
-		  .then(response => console.log(response.data))
+		  .then(response => console.log("hhshshshhshhshs",response.data))
 		  .catch(err => console.log(err))
 	  }
+
 	
 
-	render() {
-		const { movie } = this.props;
+
+	
 		return (
 			<Card className="movie-card">
 				<Card.Img className="movie-poster" src={movie.ImagePath} alt='movie-portrait' />
@@ -33,14 +35,17 @@ class MovieCard extends React.Component {
 					<Link to={`/myFlix_client/movies/${movie._id}`}>
 						<Button variant="secondary">Attributes</Button><br></br>
 					</Link>
-					<Button onClick={()=>this.addMovie(movie._id)} variant="light">
-						<Heart size={30} color="black"/>
+					<Button onClick={()=>addMovie(movie._id)} variant="light">
+						{/* <Heart size={30} color="blue"/> */}
+						
+							<HeartFill size={30} color="blue" />
+						
 					</Button>
 				</Card.Body>
 			</Card>
 		)
 	}
-}
+
 MovieCard.propTypes = {
 	movie: PropTypes.shape({
 		Title: PropTypes.string.isRequired,

@@ -40,9 +40,27 @@ function LoginView(props){
         const isReq = validate();
         if(isReq) {
           /* Send request to the server for authentication */
-          axios.post('https://cataflix.herokuapp.com/login', {
+          axios.post('http://localhost:8080/login', {
               Username: username,
               Password: password
+          })
+          .then(response =>{
+              const data = response.data;
+              console.log(data)
+              props.onLoggedIn(data);
+          })
+          .catch(e => {
+            console.log('no such user')
+          });
+        }
+    }
+
+    const handleDemoRegistration=(e)=>{
+           if(true) {
+          /* Send request to the server for authentication */
+          axios.post('http://localhost:8080/login', {
+              Username: 'User1',
+              Password: 'DemoUser19190!'
           })
           .then(response =>{
               const data = response.data;
@@ -52,7 +70,7 @@ function LoginView(props){
             console.log('no such user')
           });
         }
-    }
+        }
 
     return(
         <Form>
@@ -63,18 +81,20 @@ function LoginView(props){
                 {usernameErr && <p>{usernameErr}</p>}
             </Form.Group>
             <Form.Group>
-                <Form.Label>Password:</Form.Label>
+                <Form.Label>Passwort:</Form.Label>
                 <Form.Control type="password" value={password} onChange={e=>setPassword(e.target.value)} />
                  {/* code added here to display validation error */}
                 {passwordErr && <p>{passwordErr}</p>}
             </Form.Group>
-            <Button variant="success" type='submit' onClick={handleSubmit}>Sign in</Button><br></br>
+            <Button variant="success" type='submit' onClick={handleSubmit}>Anmelden</Button>
+            <span style={{ margin: '0 3px' }}></span>
+            <Button variant="success"  onClick={handleDemoRegistration} className="ms-2" >Als Demo Anmelden</Button><br></br>
             <span className='px-0'>
-                Haven't got an account yet? Click here to
+                Noch kein konto?
                 <Link to={`/myFlix_client/register`} >
-                    <Button  type='submit' variant="link" className='btn px-1 pt-0 mt-0'>Sign up</Button>
+                    <Button  type='submit' variant="link" className='btn px-1 pt-0 mt-0'>Registieren</Button>
                 </Link>
-             </span>
+            </span>
         </Form>
     );
 

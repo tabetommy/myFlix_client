@@ -31,7 +31,7 @@ componentDidMount() {
 
 
   getMovies(token) {
-    axios.get('https://cataflix.herokuapp.com/movies', {
+    axios.get('http://localhost:8080/movies', {
       headers: { Authorization: `Bearer ${token}` }
     })
       .then(response => {
@@ -62,11 +62,11 @@ componentDidMount() {
                 <LoginView onLoggedIn={user => this.onLoggedIn(user)} />
               </Col>
               if (movies.length === 0) return <div className="main-view" />;
-              return <MoviesList movies={movies}/>
+              return <MoviesList movies={movies} />
             }} />
             <Route path="/myFlix_client/register" render={() => {
               if (user) return <Redirect to="/" />
-              return <Col md={8}><RegistrationView /></Col>
+              return <Col md={8}><RegistrationView onLoggedIn={user => this.onLoggedIn(user)}/></Col>
             }} />
             <Route path="/myFlix_client/movies/:movieId" render={({ match, history }) => {
               if (!user) return <Col md={8}>

@@ -1,7 +1,6 @@
-import React,{useState, useEffect} from 'react';
+import {useState, useEffect} from 'react';
 import PropTypes from 'prop-types';
 import axios from 'axios';
-import moment from 'moment';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal'
 import EditView from '../edit-user-data/edit-user-data';
@@ -21,10 +20,11 @@ function ProfileView (props){
     const [birthday, setBirthday]=useState('');
     const [favouriteMovies, setFavouriteMovies] = useState([]);
     const [showModal, setShowModal]= useState(false);
+    const [counter, setCounter]=useState(0)
 
     useEffect(()=>{
         let accessToken= localStorage.getItem('token');
-            axios.get(`https://cataflix.herokuapp.com/users/${props.user}`,{
+            axios.get(`http://localhost:8080/users/${props.user}`,{
                 headers:{Authorization: `Bearer ${accessToken}`}
                 })
             .then(response=>{
@@ -36,13 +36,13 @@ function ProfileView (props){
             })
             .catch(err=>console.log(err))
 
-    },[])
+    },[counter])
 
     
 
     function handleDelete(){
         let accessToken= localStorage.getItem('token');
-        axios.delete(`https://cataflix.herokuapp.com/users/${props.user}`,{
+        axios.delete(`http://localhost:8080/users/${props.user}`,{
             headers:{Authorization: `Bearer ${accessToken}`}
             })
         .then(()=>{
@@ -76,23 +76,23 @@ function ProfileView (props){
                 setEmail={setEmail}
                 setBirthday={setBirthday}
                 />
-                {username && <><Button variant="danger" className='mb-2 mx-2' onClick={handleShowModal}>Delete account </Button><br></br></>}
+                {username && <><Button variant="danger" className='mb-2 mx-2' onClick={handleShowModal}>Konto löschen </Button><br></br></>}
                 <Modal show={showModal} onHide={handleCloseModal}>
                     <Modal.Header closeButton>
-                    <Modal.Title>Are you sure you want to delete your account?</Modal.Title>
+                    <Modal.Title>Sind Sie sicher, dass Sie Ihr Konto löschen möchten?</Modal.Title>
                     </Modal.Header>
                     <Modal.Footer>
                     <Button variant="danger" onClick={handleDelete}>
-                        Yes
+                        Ja
                     </Button>
                     <Button variant="primary" onClick={handleCloseModal}>
-                        No
+                        Nein
                     </Button>
                     </Modal.Footer>
                 </Modal>
-                {username && <><h3 className='mb-2 mx-2'>My Favorite Movies</h3></>}
+                {username && <><h3 className='mb-2 mx-2 mt-3'>Lieblingsfilme</h3></>}
                 <div className='fav-movies-con'>
-                    {favouriteMovies && favouriteMovies.map(movieId => <FavMovies favMovie={movieId} key={movieId} />)}
+                    {favouriteMovies && favouriteMovies.map(movieId => <FavMovies favMovie={movieId} key={movieId} setCounter={setCounter} />)}
                 </div>   
             </div>
 

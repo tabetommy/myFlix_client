@@ -18,6 +18,18 @@ function MoviesList(props) {
     filteredMovies = movies.filter(m => m.Title.toLowerCase().includes(visibilityFilter.toLowerCase()));
   }
 
+    //  React.useEffect(()=>{
+		// 	  let accessToken= localStorage.getItem('token');
+		// 		  axios.get(`http://localhost:8080/users/${user}`,{
+		// 			  headers:{Authorization: `Bearer ${accessToken}`}
+		// 			  })
+		// 		  .then(response=>{
+		// 			  setUserFavMovies(response.data.userFavMovies)
+		// 		  })
+		// 		  .catch(err=>console.log(err))
+	  
+		//   },[])
+
   if (!movies) return <div className="main-view"/>;
 
   return (

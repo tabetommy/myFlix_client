@@ -50,7 +50,7 @@ const EditView=(props)=>{
         const isReq = validate();
         if(isReq){
             let accessToken= localStorage.getItem('token')
-            axios.put(`https://cataflix.herokuapp.com/users/${props.user}`,{
+            axios.put(`http://localhost:8080/users/${props.user}`,{
             Username:props.username,
             Password:props.password,
             Email:props.email,
@@ -72,11 +72,8 @@ const EditView=(props)=>{
                 <Form.Label>Username:</Form.Label>
                 <Form.Control type="text" value={props.username} onChange={event => props.setUsername(event.target.value)} />
                 {usernameErr && <p>{usernameErr}</p>}
-            </Form.Group><Form.Group>
-                    <Form.Label>Password:</Form.Label>
-                    <Form.Control type="password" value={props.password} onChange={event => props.setPassword(event.target.value)} />
-                    {passwordErr && <p>{passwordErr}</p>}
-                </Form.Group><Form.Group>
+            </Form.Group>
+            <Form.Group>
                     <Form.Label>Email:</Form.Label>
                     <Form.Control type="email" value={props.email} onChange={event => props.setEmail(event.target.value)} />
                     {emailErr && <p>{emailErr}</p>}
@@ -89,7 +86,7 @@ const EditView=(props)=>{
                     className="mb-3" />
                     {birthdayErr && <p>{birthdayErr}</p>}
                 </Form.Group>
-                <Button type='submit' onClick={handleSubmit} variant='success'>Update</Button>
+                <Button type='submit' onClick={handleSubmit} variant='success'>Aktualisieren</Button>
                 </>}
         </Form>
     )

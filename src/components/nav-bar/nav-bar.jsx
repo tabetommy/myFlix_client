@@ -38,10 +38,19 @@ const NavBar=(props)=>{
                         </Link></NavItem>}
                     {!isAuth() && <NavItem><Link className="nav-link" to='/myFlix_client'>signin</Link></NavItem> }
                     {!isAuth() && <NavItem><Link className="nav-link" to='/myFlix_client/register'>signup</Link></NavItem> }
-                    {isAuth() && <NavItem><Link className="nav-link" onClick={()=>onLoggedOut()} >
-                        <span>Logout</span>
-                        <BoxArrowRight size={30}/>
-                        </Link></NavItem>}
+                    {/* {isAuth() && <NavItem><Link className="nav-link" onClick={()=>onLoggedOut()} > */}
+                    {isAuth() && (
+                        <NavItem>
+                            <Nav.Link 
+                            className="nav-link d-flex align-items-center" 
+                            onClick={() => onLoggedOut()}
+                            style={{ cursor: 'pointer' }}
+                            >
+                            <span className="me-2">Logout</span>
+                            <BoxArrowRight size={30} />
+                            </Nav.Link>
+                        </NavItem>
+                        )}
                 </Nav>
             </Navbar.Collapse>
         </Navbar>

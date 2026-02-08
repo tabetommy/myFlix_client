@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import axios from 'axios';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
+import { useHistory } from 'react-router-dom';
 
-function RegistrationView(){
+function RegistrationView(props){
     const [username, setUsername] = useState('');
     const [password, setPassword] =useState('');
     const [email, setEmail] = useState('');
@@ -14,6 +15,8 @@ function RegistrationView(){
     const [ passwordErr, setPasswordErr ] = useState('');
     const [ emailErr, setEmailErr] = useState('');
     const [birthdayErr, setBirthdayErr] = useState('');
+
+    const history = useHistory();
 
     // validate user inputs
     const validate = () => {
@@ -48,7 +51,7 @@ function RegistrationView(){
         e.preventDefault();
         const isReq = validate();
         if(isReq){
-            axios.post('https://cataflix.herokuapp.com/users',{
+            axios.post('http://localhost:8080/users',{
             Username: username,
             Password: password,
             Email: email,
@@ -56,12 +59,29 @@ function RegistrationView(){
           })
           .then(resp=>{
             const data=resp.data
-            console.log(data);
-            window.open('/', '_self'); 
+            history.push('/myFlix_client');
+            // window.open('/myFlix_client', '_self'); 
           })
           .catch(e=>console.log("Encountered error during registration"))
         }
     }
+
+    const handleDemoRegistration=(e)=>{
+               if(true) {
+              /* Send request to the server for authentication */
+              axios.post('http://localhost:8080/login', {
+                  Username: 'User1',
+                  Password: 'DemoUser19190!'
+              })
+              .then(response =>{
+                  const data = response.data;
+                  props.onLoggedIn(data);
+              })
+              .catch(e => {
+                console.log('no such user')
+              });
+            }
+            }
 
     return(
         <Form>
@@ -71,7 +91,7 @@ function RegistrationView(){
                 {usernameErr && <p>{usernameErr}</p>}
             </Form.Group>
             <Form.Group>
-                <Form.Label>Password:</Form.Label>
+                <Form.Label>Passwort:</Form.Label>
                 <Form.Control type="password" vaue={password} onChange={e=>setPassword(e.target.value)} />
                 {passwordErr && <p>{passwordErr}</p>}
             </Form.Group>
@@ -81,11 +101,13 @@ function RegistrationView(){
                 {emailErr && <p>{emailErr}</p>}
             </Form.Group>
             <Form.Group>
-                <Form.Label>Birthday:</Form.Label>
+                <Form.Label>Geburtsdatum:</Form.Label>
                 <Form.Control type="date" vaue={birthday} onChange={e=>setBirthday(e.target.value)} />
                 {birthdayErr && <p>{birthdayErr}</p>}
             </Form.Group>
-            <Button type='submit' onClick={handleRegistration} variant="success" >Sign up</Button>
+            <Button type='submit' onClick={handleRegistration} variant="success" >Registieren</Button>
+            {/* <span style={{ margin: '0 3px' }}></span>
+            <Button variant="success"  onClick={handleDemoRegistration} className="ms-2" >Als Demo Anmelden</Button> */}
         </Form>
     );
 

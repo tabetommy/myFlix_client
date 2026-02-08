@@ -4,13 +4,11 @@
   "version": "1.0.0",
   "description": "",
   "default": "src/index.html",
-  
   "scripts": {
     "predeploy": "npm run build",
     "deploy": "gh-pages -d dist",
     "start": "parcel src/index.html",
     "build": "parcel build src/index.html --public-url ./"
-    
   },
   "repository": {
     "type": "git",
@@ -35,7 +33,12 @@
     "redux-devtools-extension": "^2.13.9"
   },
   "devDependencies": {
-    "@parcel/transformer-sass": "^2.0.0-rc.0",
-    "gh-pages": "^4.0.0"
+    "@parcel/transformer-sass": "^2.16.4",
+    "buffer": "^6.0.3",
+    "gh-pages": "^4.0.0",
+    "parcel": "^2.16.4"
+  },
+  "overrides": {
+    "lmdb-store": "npm:lmdb@latest"
   }
 }

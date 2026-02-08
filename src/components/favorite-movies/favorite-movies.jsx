@@ -8,19 +8,20 @@ import Col from 'react-bootstrap/Col';
 import './favourite-movies.scss';
 
 
-function FavMovies({favMovie}){
+function FavMovies({favMovie, setCounter}){
     const movies = useSelector(state => state.movies);
     const user= useSelector(state => state.user)
 
     function removeMovie(movieId){
         let token = localStorage.getItem('token');
-		const url= `https://cataflix.herokuapp.com/users/${user}/movies/${movieId}`;
+		const url= `http://localhost:8080/users/${user}/movies/${movieId}`;
         axios.delete(url,{
             headers: { Authorization: `Bearer ${token}` }
           })
           .then(response=>{
             console.log(response.data);
-            window.open(`/users/${user}`, '_self')
+            // window.open(`/users/${user}`, '_self')
+          setCounter(prevCount => prevCount + 1);
           }
             )
           .catch(err => console.log(err))
