@@ -11,3 +11,46 @@ $img-height:200px;
     width: $img-width;
     height: $img-height;
 }
+
+
+/* Smooth hover effect on the whole card */
+.movie-card-custom {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border-radius: 12px;
+}
+
+.movie-card-custom:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 12px 24px rgba(0,0,0,0.15) !important;
+}
+
+/* Ensure all images have the same aspect ratio */
+.movie-poster-img {
+  height: 350px;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.movie-card-custom:hover .movie-poster-img {
+  transform: scale(1.05);
+}
+
+/* Floating heart button */
+.fav-btn-overlay {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  background: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(4px); /* Modern frosted glass effect */
+  border: none;
+  border-radius: 50%;
+  padding: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s;
+}
+
+.fav-btn-overlay:hover {
+  background: rgba(0, 0, 0, 0.7);
+}
