@@ -13,17 +13,13 @@ $img-height:200px;
 }
 
 
-/* Smooth hover effect on the whole card */
 .movie-card-custom {
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  border-radius: 12px;
+  border: 1px solid #edf2f7; 
+  background: #ffffff;
 }
-
 .movie-card-custom:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 12px 24px rgba(0,0,0,0.15) !important;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1); /* Deepen on hover */
 }
-
 /* Ensure all images have the same aspect ratio */
 .movie-poster-img {
   height: 350px;
