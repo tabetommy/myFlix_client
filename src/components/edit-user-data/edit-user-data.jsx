@@ -4,6 +4,10 @@ import axios from 'axios';
 import moment from 'moment';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
+import Col from 'react-bootstrap/Col';
+import Row from 'react-bootstrap/Row';
+import Container from 'react-bootstrap/Container';
+import Card from 'react-bootstrap/Card';
 
 
 
@@ -67,28 +71,82 @@ const EditView=(props)=>{
         }  
     }
     return(
-        <Form className='my-3 mx-2'>
-           { props.username && <><Form.Group>
-                <Form.Label>Username:</Form.Label>
-                <Form.Control type="text" value={props.username} onChange={event => props.setUsername(event.target.value)} />
-                {usernameErr && <p>{usernameErr}</p>}
-            </Form.Group>
-            <Form.Group>
-                    <Form.Label>Email:</Form.Label>
-                    <Form.Control type="email" value={props.email} onChange={event => props.setEmail(event.target.value)} />
-                    {emailErr && <p>{emailErr}</p>}
-                </Form.Group>
-                <Form.Group>
-                    <Form.Label>Date of birth:</Form.Label>
-                    <Form.Control type="date" 
-                    value={moment(props.birthday).format("YYYY-MM-DD")} 
-                    onChange={event => props.setBirthday(event.target.value)}
-                    className="mb-3" />
-                    {birthdayErr && <p>{birthdayErr}</p>}
-                </Form.Group>
-                <Button type='submit' onClick={handleSubmit} variant='success'>Aktualisieren</Button>
-                </>}
-        </Form>
+        <Container className="py-4">
+            <Row className="justify-content-center">
+                <Col md={8} lg={6}>
+                    <Card className="border-0 shadow-sm rounded-4">
+                        <Card.Body className="p-4 p-md-5">
+                            <div className="mb-4">
+                                <h2 className="h4 fw-bold">Profile Settings</h2>
+                                <p className="text-muted small">Update your personal information and contact details.</p>
+                            </div>
+
+                            <Form onSubmit={handleSubmit}>
+                                {props.username && (
+                                    <>
+                                        {/* Username Field */}
+                                        <Form.Group className="mb-4">
+                                            <Form.Label className="fw-semibold small">Username</Form.Label>
+                                            <Form.Control
+                                                type="text"
+                                                value={props.username}
+                                                onChange={(e) => props.setUsername(e.target.value)}
+                                                isInvalid={!!usernameErr}
+                                                className="rounded-3 py-2"
+                                            />
+                                            <Form.Control.Feedback type="invalid">
+                                                {usernameErr}
+                                            </Form.Control.Feedback>
+                                        </Form.Group>
+
+                                        {/* Email Field */}
+                                        <Form.Group className="mb-4">
+                                            <Form.Label className="fw-semibold small">Email Address</Form.Label>
+                                            <Form.Control
+                                                type="email"
+                                                value={props.email}
+                                                onChange={(e) => props.setEmail(e.target.value)}
+                                                isInvalid={!!emailErr}
+                                                className="rounded-3 py-2"
+                                            />
+                                            <Form.Control.Feedback type="invalid">
+                                                {emailErr}
+                                            </Form.Control.Feedback>
+                                        </Form.Group>
+
+                                        {/* Birthday Field */}
+                                        <Form.Group className="mb-4">
+                                            <Form.Label className="fw-semibold small">Date of Birth</Form.Label>
+                                            <Form.Control
+                                                type="date"
+                                                value={moment(props.birthday).format("YYYY-MM-DD")}
+                                                onChange={(e) => props.setBirthday(e.target.value)}
+                                                isInvalid={!!birthdayErr}
+                                                className="rounded-3 py-2"
+                                            />
+                                            <Form.Control.Feedback type="invalid">
+                                                {birthdayErr}
+                                            </Form.Control.Feedback>
+                                        </Form.Group>
+
+                                        <div className="d-grid mt-5">
+                                            <Button
+                                                type="submit"
+                                                variant="primary"
+                                                size="lg"
+                                                className="rounded-pill fw-bold shadow-sm"
+                                            >
+                                                Aktualisieren
+                                            </Button>
+                                        </div>
+                                    </>
+                                )}
+                            </Form>
+                        </Card.Body>
+                    </Card>
+                </Col>
+            </Row>
+        </Container>
     )
 }
 

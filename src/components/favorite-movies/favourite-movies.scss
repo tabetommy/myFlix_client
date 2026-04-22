@@ -5,13 +5,47 @@ $img-height:200px;
 .fav-movie-card{
     cursor: pointer;
     box-shadow: 2px 2px 8px $primary-color;
-    width:25%
     
 }
 
 .movie-poster{
     width: $img-width;
     height: $img-height;
+}
+
+.fav-movie-card-modern {
+  border-radius: 12px;
+  transition: transform 0.2s ease;
+}
+
+.fav-movie-card-modern:hover {
+  transform: scale(1.03);
+}
+
+.fav-movie-img {
+  aspect-ratio: 2/3;
+  object-fit: cover;
+  border-radius: 12px 12px 0 0;
+}
+
+/* Hidden overlay that appears on hover */
+.fav-card-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  backdrop-filter: blur(2px);
+}
+
+.fav-movie-card-modern:hover .fav-card-overlay {
+  opacity: 1;
 }
 
 @media all and (max-width: 560px) {
